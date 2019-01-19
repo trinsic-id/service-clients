@@ -47,24 +47,28 @@ namespace Streetcred.Cloud.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='xStreetcredWalletId'>
+            /// </param>
             /// <param name='deviceRegistration'>
             /// </param>
-            public static void RegisterPush(this ICloudServiceClient operations, DeviceRegistration deviceRegistration = default(DeviceRegistration))
+            public static void RegisterPush(this ICloudServiceClient operations, string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration))
             {
-                operations.RegisterPushAsync(deviceRegistration).GetAwaiter().GetResult();
+                operations.RegisterPushAsync(xStreetcredWalletId, deviceRegistration).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredWalletId'>
             /// </param>
             /// <param name='deviceRegistration'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RegisterPushAsync(this ICloudServiceClient operations, DeviceRegistration deviceRegistration = default(DeviceRegistration), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RegisterPushAsync(this ICloudServiceClient operations, string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RegisterPushWithHttpMessagesAsync(deviceRegistration, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.RegisterPushWithHttpMessagesAsync(xStreetcredWalletId, deviceRegistration, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>

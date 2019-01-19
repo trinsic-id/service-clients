@@ -440,6 +440,8 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <param name='xStreetcredWalletId'>
+        /// </param>
         /// <param name='deviceRegistration'>
         /// </param>
         /// <param name='customHeaders'>
@@ -451,11 +453,21 @@ namespace Streetcred.Cloud.Client
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RegisterPushWithHttpMessagesAsync(DeviceRegistration deviceRegistration = default(DeviceRegistration), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> RegisterPushWithHttpMessagesAsync(string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (xStreetcredWalletId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredWalletId");
+            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -464,6 +476,7 @@ namespace Streetcred.Cloud.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("deviceRegistration", deviceRegistration);
+                tracingParameters.Add("xStreetcredWalletId", xStreetcredWalletId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "RegisterPush", tracingParameters);
             }
@@ -476,6 +489,14 @@ namespace Streetcred.Cloud.Client
             _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
+            if (xStreetcredWalletId != null)
+            {
+                if (_httpRequest.Headers.Contains("X-Streetcred-Wallet-Id"))
+                {
+                    _httpRequest.Headers.Remove("X-Streetcred-Wallet-Id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Wallet-Id", xStreetcredWalletId);
+            }
 
 
             if (customHeaders != null)
