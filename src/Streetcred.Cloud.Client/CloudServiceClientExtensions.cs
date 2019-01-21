@@ -47,28 +47,24 @@ namespace Streetcred.Cloud.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredWalletId'>
-            /// </param>
             /// <param name='deviceRegistration'>
             /// </param>
-            public static void RegisterPush(this ICloudServiceClient operations, string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration))
+            public static void RegisterPush(this ICloudServiceClient operations, DeviceRegistration deviceRegistration = default(DeviceRegistration))
             {
-                operations.RegisterPushAsync(xStreetcredWalletId, deviceRegistration).GetAwaiter().GetResult();
+                operations.RegisterPushAsync(deviceRegistration).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
-            /// </param>
-            /// <param name='xStreetcredWalletId'>
             /// </param>
             /// <param name='deviceRegistration'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RegisterPushAsync(this ICloudServiceClient operations, string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RegisterPushAsync(this ICloudServiceClient operations, DeviceRegistration deviceRegistration = default(DeviceRegistration), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RegisterPushWithHttpMessagesAsync(xStreetcredWalletId, deviceRegistration, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.RegisterPushWithHttpMessagesAsync(deviceRegistration, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
@@ -171,32 +167,24 @@ namespace Streetcred.Cloud.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='type'>
+            /// <param name='walletInfo'>
             /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            public static string CreateWallet(this ICloudServiceClient operations, string type = default(string), string id = default(string), string name = default(string))
+            public static ObjectId CreateWallet(this ICloudServiceClient operations, WalletInfo walletInfo = default(WalletInfo))
             {
-                return operations.CreateWalletAsync(type, id, name).GetAwaiter().GetResult();
+                return operations.CreateWalletAsync(walletInfo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='type'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
+            /// <param name='walletInfo'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<string> CreateWalletAsync(this ICloudServiceClient operations, string type = default(string), string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ObjectId> CreateWalletAsync(this ICloudServiceClient operations, WalletInfo walletInfo = default(WalletInfo), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateWalletWithHttpMessagesAsync(type, id, name, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.CreateWalletWithHttpMessagesAsync(walletInfo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
