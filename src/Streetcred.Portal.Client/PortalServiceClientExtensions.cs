@@ -532,7 +532,7 @@ namespace Streetcred.Portal.Client
             /// </param>
             /// <param name='createTenant'>
             /// </param>
-            public static TenantInfo CreateTenant(this IPortalServiceClient operations, TenantInfo createTenant = default(TenantInfo))
+            public static TenantInfo CreateTenant(this IPortalServiceClient operations, CreateTenantInfo createTenant = default(CreateTenantInfo))
             {
                 return operations.CreateTenantAsync(createTenant).GetAwaiter().GetResult();
             }
@@ -545,7 +545,7 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<TenantInfo> CreateTenantAsync(this IPortalServiceClient operations, TenantInfo createTenant = default(TenantInfo), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<TenantInfo> CreateTenantAsync(this IPortalServiceClient operations, CreateTenantInfo createTenant = default(CreateTenantInfo), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.CreateTenantWithHttpMessagesAsync(createTenant, null, cancellationToken).ConfigureAwait(false))
                 {

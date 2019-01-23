@@ -260,7 +260,7 @@ namespace Streetcred.Portal.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<TenantInfo>> CreateTenantWithHttpMessagesAsync(TenantInfo createTenant = default(TenantInfo), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<TenantInfo>> CreateTenantWithHttpMessagesAsync(CreateTenantInfo createTenant = default(CreateTenantInfo), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='uploadedFiles'>
         /// </param>
