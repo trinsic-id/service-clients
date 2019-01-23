@@ -556,6 +556,29 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// </param>
+            public static void DeleteTenant(this IPortalServiceClient operations, string xStreetcredTenantId)
+            {
+                operations.DeleteTenantAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task DeleteTenantAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.DeleteTenantWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
             /// <param name='uploadedFiles'>
             /// </param>
             public static string UploadImage(this IPortalServiceClient operations, IList<object> uploadedFiles = default(IList<object>))
