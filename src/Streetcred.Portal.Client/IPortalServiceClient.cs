@@ -72,8 +72,6 @@ namespace Streetcred.Portal.Client
         /// </param>
         Task<HttpOperationResponse<ConnectionRecord>> GetConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <param name='email'>
-        /// </param>
         /// <param name='xStreetcredTenantId'>
         /// </param>
         /// <param name='createInvitation'>
@@ -84,7 +82,7 @@ namespace Streetcred.Portal.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse> SendEmailInvitationWithHttpMessagesAsync(string email, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> SendEmailInvitationWithHttpMessagesAsync(string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='xStreetcredTenantId'>
         /// </param>

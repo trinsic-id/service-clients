@@ -748,8 +748,6 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
-        /// <param name='email'>
-        /// </param>
         /// <param name='xStreetcredTenantId'>
         /// </param>
         /// <param name='createInvitation'>
@@ -772,12 +770,8 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> SendEmailInvitationWithHttpMessagesAsync(string email, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> SendEmailInvitationWithHttpMessagesAsync(string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (email == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "email");
-            }
             if (xStreetcredTenantId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
@@ -790,15 +784,13 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("createInvitation", createInvitation);
-                tracingParameters.Add("email", email);
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "SendEmailInvitation", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/connections/invite/email/{email}").ToString();
-            _url = _url.Replace("{email}", System.Uri.EscapeDataString(email));
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/connections/invite/email").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;

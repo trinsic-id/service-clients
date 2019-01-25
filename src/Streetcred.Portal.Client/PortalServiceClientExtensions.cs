@@ -102,21 +102,17 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='email'>
-            /// </param>
             /// <param name='xStreetcredTenantId'>
             /// </param>
             /// <param name='createInvitation'>
             /// </param>
-            public static void SendEmailInvitation(this IPortalServiceClient operations, string email, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation))
+            public static void SendEmailInvitation(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation))
             {
-                operations.SendEmailInvitationAsync(email, xStreetcredTenantId, createInvitation).GetAwaiter().GetResult();
+                operations.SendEmailInvitationAsync(xStreetcredTenantId, createInvitation).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
-            /// </param>
-            /// <param name='email'>
             /// </param>
             /// <param name='xStreetcredTenantId'>
             /// </param>
@@ -125,9 +121,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task SendEmailInvitationAsync(this IPortalServiceClient operations, string email, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task SendEmailInvitationAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.SendEmailInvitationWithHttpMessagesAsync(email, xStreetcredTenantId, createInvitation, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.SendEmailInvitationWithHttpMessagesAsync(xStreetcredTenantId, createInvitation, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
