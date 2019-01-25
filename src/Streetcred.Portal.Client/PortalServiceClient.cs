@@ -752,6 +752,8 @@ namespace Streetcred.Portal.Client
         /// </param>
         /// <param name='xStreetcredTenantId'>
         /// </param>
+        /// <param name='createInvitation'>
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -760,9 +762,6 @@ namespace Streetcred.Portal.Client
         /// </param>
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
         /// </exception>
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
@@ -773,7 +772,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ConnectionInvitationMessage>> SendEmailInvitationWithHttpMessagesAsync(string email, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> SendEmailInvitationWithHttpMessagesAsync(string email, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (email == null)
             {
@@ -790,6 +789,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("createInvitation", createInvitation);
                 tracingParameters.Add("email", email);
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
@@ -829,6 +829,12 @@ namespace Streetcred.Portal.Client
 
             // Serialize Request
             string _requestContent = null;
+            if(createInvitation != null)
+            {
+                _requestContent = SafeJsonConvert.SerializeObject(createInvitation, SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+            }
             // Set Credentials
             if (Credentials != null)
             {
@@ -872,27 +878,9 @@ namespace Streetcred.Portal.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<ConnectionInvitationMessage>();
+            var _result = new HttpOperationResponse();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ConnectionInvitationMessage>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
             if (_shouldTrace)
             {
                 ServiceClientTracing.Exit(_invocationId, _result);
