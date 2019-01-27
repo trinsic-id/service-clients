@@ -22,7 +22,7 @@ namespace Streetcred.Portal.Client
             /// </param>
             /// <param name='xStreetcredTenantId'>
             /// </param>
-            public static IList<ConnectionRecord> GetConnections(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<ConnectionInfo> GetConnections(this IPortalServiceClient operations, string xStreetcredTenantId)
             {
                 return operations.GetConnectionsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
             }
@@ -35,7 +35,7 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ConnectionRecord>> GetConnectionsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ConnectionInfo>> GetConnectionsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetConnectionsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -48,7 +48,7 @@ namespace Streetcred.Portal.Client
             /// </param>
             /// <param name='xStreetcredTenantId'>
             /// </param>
-            public static IList<ConnectionRecord> GetInvitations(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<ConnectionInfo> GetInvitations(this IPortalServiceClient operations, string xStreetcredTenantId)
             {
                 return operations.GetInvitationsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
             }
@@ -61,7 +61,7 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ConnectionRecord>> GetInvitationsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ConnectionInfo>> GetInvitationsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetInvitationsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -106,7 +106,7 @@ namespace Streetcred.Portal.Client
             /// </param>
             /// <param name='xStreetcredTenantId'>
             /// </param>
-            public static ConnectionRecord GetConnection(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId)
+            public static ConnectionInfo GetConnection(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId)
             {
                 return operations.GetConnectionAsync(connectionId, xStreetcredTenantId).GetAwaiter().GetResult();
             }
@@ -121,7 +121,7 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ConnectionRecord> GetConnectionAsync(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ConnectionInfo> GetConnectionAsync(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetConnectionWithHttpMessagesAsync(connectionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
