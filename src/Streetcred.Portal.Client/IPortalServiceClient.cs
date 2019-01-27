@@ -60,6 +60,18 @@ namespace Streetcred.Portal.Client
         /// </param>
         Task<HttpOperationResponse<IList<ConnectionRecord>>> GetInvitationsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='xStreetcredTenantId'>
+        /// </param>
+        /// <param name='createInvitation'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<ObjectId>> CreateInvitationMethodWithHttpMessagesAsync(string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <param name='connectionId'>
         /// </param>
         /// <param name='xStreetcredTenantId'>
@@ -71,18 +83,6 @@ namespace Streetcred.Portal.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse<ConnectionRecord>> GetConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <param name='xStreetcredTenantId'>
-        /// </param>
-        /// <param name='createInvitation'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse> SendEmailInvitationWithHttpMessagesAsync(string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='xStreetcredTenantId'>
         /// </param>

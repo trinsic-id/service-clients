@@ -72,6 +72,36 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// </param>
+            /// <param name='createInvitation'>
+            /// </param>
+            public static ObjectId CreateInvitationMethod(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation))
+            {
+                return operations.CreateInvitationMethodAsync(xStreetcredTenantId, createInvitation).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// </param>
+            /// <param name='createInvitation'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ObjectId> CreateInvitationMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreateInvitationMethodWithHttpMessagesAsync(xStreetcredTenantId, createInvitation, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
             /// <param name='connectionId'>
             /// </param>
             /// <param name='xStreetcredTenantId'>
@@ -97,33 +127,6 @@ namespace Streetcred.Portal.Client
                 {
                     return _result.Body;
                 }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='xStreetcredTenantId'>
-            /// </param>
-            /// <param name='createInvitation'>
-            /// </param>
-            public static void SendEmailInvitation(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation))
-            {
-                operations.SendEmailInvitationAsync(xStreetcredTenantId, createInvitation).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='xStreetcredTenantId'>
-            /// </param>
-            /// <param name='createInvitation'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task SendEmailInvitationAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.SendEmailInvitationWithHttpMessagesAsync(xStreetcredTenantId, createInvitation, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
