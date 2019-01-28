@@ -20,6 +20,76 @@ namespace Streetcred.Cloud.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='invitation'>
+            /// </param>
+            public static ObjectId AcceptInvitation(this ICloudServiceClient operations, ConnectionInvitationMessage invitation = default(ConnectionInvitationMessage))
+            {
+                return operations.AcceptInvitationAsync(invitation).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='invitation'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ObjectId> AcceptInvitationAsync(this ICloudServiceClient operations, ConnectionInvitationMessage invitation = default(ConnectionInvitationMessage), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.AcceptInvitationWithHttpMessagesAsync(invitation, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            public static IList<ConnectionInfo> GetConnections(this ICloudServiceClient operations)
+            {
+                return operations.GetConnectionsAsync().GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<ConnectionInfo>> GetConnectionsAsync(this ICloudServiceClient operations, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetConnectionsWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            public static IList<ConnectionInfo> GetInvitations(this ICloudServiceClient operations)
+            {
+                return operations.GetInvitationsAsync().GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<ConnectionInfo>> GetInvitationsAsync(this ICloudServiceClient operations, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetInvitationsWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
             /// <param name='xStreetcredWalletId'>
             /// </param>
             /// <param name='destinationRegistration'>
@@ -47,24 +117,28 @@ namespace Streetcred.Cloud.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='xStreetcredWalletId'>
+            /// </param>
             /// <param name='deviceRegistration'>
             /// </param>
-            public static void RegisterPush(this ICloudServiceClient operations, DeviceRegistration deviceRegistration = default(DeviceRegistration))
+            public static void RegisterPush(this ICloudServiceClient operations, string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration))
             {
-                operations.RegisterPushAsync(deviceRegistration).GetAwaiter().GetResult();
+                operations.RegisterPushAsync(xStreetcredWalletId, deviceRegistration).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredWalletId'>
             /// </param>
             /// <param name='deviceRegistration'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RegisterPushAsync(this ICloudServiceClient operations, DeviceRegistration deviceRegistration = default(DeviceRegistration), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RegisterPushAsync(this ICloudServiceClient operations, string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RegisterPushWithHttpMessagesAsync(deviceRegistration, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.RegisterPushWithHttpMessagesAsync(xStreetcredWalletId, deviceRegistration, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
