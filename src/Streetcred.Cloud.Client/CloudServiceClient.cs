@@ -308,6 +308,8 @@ namespace Streetcred.Cloud.Client
             };
             CustomInitialize();
         }
+        /// <param name='xStreetcredWalletId'>
+        /// </param>
         /// <param name='invitation'>
         /// </param>
         /// <param name='customHeaders'>
@@ -322,11 +324,21 @@ namespace Streetcred.Cloud.Client
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ObjectId>> AcceptInvitationWithHttpMessagesAsync(ConnectionInvitationMessage invitation = default(ConnectionInvitationMessage), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ObjectId>> AcceptInvitationWithHttpMessagesAsync(string xStreetcredWalletId, ConnectionInvitationMessage invitation = default(ConnectionInvitationMessage), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (xStreetcredWalletId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredWalletId");
+            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -335,6 +347,7 @@ namespace Streetcred.Cloud.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("invitation", invitation);
+                tracingParameters.Add("xStreetcredWalletId", xStreetcredWalletId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "AcceptInvitation", tracingParameters);
             }
@@ -347,6 +360,14 @@ namespace Streetcred.Cloud.Client
             _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
+            if (xStreetcredWalletId != null)
+            {
+                if (_httpRequest.Headers.Contains("X-Streetcred-Wallet-Id"))
+                {
+                    _httpRequest.Headers.Remove("X-Streetcred-Wallet-Id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Wallet-Id", xStreetcredWalletId);
+            }
 
 
             if (customHeaders != null)
@@ -440,6 +461,8 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <param name='xStreetcredWalletId'>
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -452,11 +475,21 @@ namespace Streetcred.Cloud.Client
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetConnectionsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetConnectionsWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (xStreetcredWalletId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredWalletId");
+            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -464,6 +497,7 @@ namespace Streetcred.Cloud.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("xStreetcredWalletId", xStreetcredWalletId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetConnections", tracingParameters);
             }
@@ -476,6 +510,14 @@ namespace Streetcred.Cloud.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
+            if (xStreetcredWalletId != null)
+            {
+                if (_httpRequest.Headers.Contains("X-Streetcred-Wallet-Id"))
+                {
+                    _httpRequest.Headers.Remove("X-Streetcred-Wallet-Id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Wallet-Id", xStreetcredWalletId);
+            }
 
 
             if (customHeaders != null)
@@ -563,6 +605,8 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <param name='xStreetcredWalletId'>
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -575,11 +619,21 @@ namespace Streetcred.Cloud.Client
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetInvitationsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetInvitationsWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (xStreetcredWalletId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredWalletId");
+            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -587,6 +641,7 @@ namespace Streetcred.Cloud.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("xStreetcredWalletId", xStreetcredWalletId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetInvitations", tracingParameters);
             }
@@ -599,6 +654,14 @@ namespace Streetcred.Cloud.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
+            if (xStreetcredWalletId != null)
+            {
+                if (_httpRequest.Headers.Contains("X-Streetcred-Wallet-Id"))
+                {
+                    _httpRequest.Headers.Remove("X-Streetcred-Wallet-Id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Wallet-Id", xStreetcredWalletId);
+            }
 
 
             if (customHeaders != null)
