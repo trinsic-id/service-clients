@@ -181,6 +181,13 @@ namespace Streetcred.Portal.Client
                 }
             }
 
+            /// <summary>
+            /// Send credential offer
+            /// </summary>
+            /// <remarks>
+            /// Sends credential offer of the specified DefinitionId to the specified
+            /// ConnectionId
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -193,6 +200,13 @@ namespace Streetcred.Portal.Client
                 operations.SendOfferMethodAsync(xStreetcredTenantId, sendOffer).GetAwaiter().GetResult();
             }
 
+            /// <summary>
+            /// Send credential offer
+            /// </summary>
+            /// <remarks>
+            /// Sends credential offer of the specified DefinitionId to the specified
+            /// ConnectionId
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>

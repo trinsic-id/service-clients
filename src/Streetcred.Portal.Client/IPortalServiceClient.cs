@@ -104,6 +104,13 @@ namespace Streetcred.Portal.Client
         /// </param>
         Task<HttpOperationResponse<IList<CredentialRecord>>> GetOffersWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Send credential offer
+        /// </summary>
+        /// <remarks>
+        /// Sends credential offer of the specified DefinitionId to the
+        /// specified ConnectionId
+        /// </remarks>
         /// <param name='xStreetcredTenantId'>
         /// </param>
         /// <param name='sendOffer'>

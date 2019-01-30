@@ -1189,6 +1189,13 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Send credential offer
+        /// </summary>
+        /// <remarks>
+        /// Sends credential offer of the specified DefinitionId to the specified
+        /// ConnectionId
+        /// </remarks>
         /// <param name='xStreetcredTenantId'>
         /// </param>
         /// <param name='sendOffer'>

@@ -22,10 +22,11 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the CreateInvitation class.
         /// </summary>
-        public CreateInvitation(string email = default(string), string name = default(string))
+        public CreateInvitation(string email = default(string), string name = default(string), bool? multiParty = default(bool?))
         {
             Email = email;
             Name = name;
+            MultiParty = multiParty;
             CustomInit();
         }
 
@@ -43,6 +44,11 @@ namespace Streetcred.Portal.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "multiParty")]
+        public bool? MultiParty { get; set; }
 
     }
 }
