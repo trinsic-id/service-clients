@@ -24,9 +24,11 @@ namespace Streetcred.Cloud.Client.Models
         /// </summary>
         /// <param name="state">Possible values include: 'Invited',
         /// 'Negotiating', 'Connected'</param>
-        public ConnectionInfo(string id = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), System.DateTime? createdAtUtc = default(System.DateTime?))
+        public ConnectionInfo(string id = default(string), string name = default(string), string imageUrl = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), System.DateTime? createdAtUtc = default(System.DateTime?))
         {
             Id = id;
+            Name = name;
+            ImageUrl = imageUrl;
             MyDid = myDid;
             TheirDid = theirDid;
             MyKey = myKey;
@@ -47,6 +49,16 @@ namespace Streetcred.Cloud.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "imageUrl")]
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// </summary>
