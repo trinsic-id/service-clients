@@ -24,13 +24,14 @@ namespace Streetcred.Cloud.Client.Models
         /// Initializes a new instance of the ConnectionInvitationMessage
         /// class.
         /// </summary>
-        public ConnectionInvitationMessage(AgentEndpoint endpoint = default(AgentEndpoint), string name = default(string), string imageUrl = default(string), string connectionKey = default(string), string type = default(string))
+        public ConnectionInvitationMessage(string id = default(string), string type = default(string), AgentEndpoint endpoint = default(AgentEndpoint), string name = default(string), string imageUrl = default(string), string connectionKey = default(string))
         {
+            Id = id;
+            Type = type;
             Endpoint = endpoint;
             Name = name;
             ImageUrl = imageUrl;
             ConnectionKey = connectionKey;
-            Type = type;
             CustomInit();
         }
 
@@ -38,6 +39,16 @@ namespace Streetcred.Cloud.Client.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "@id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "@type")]
+        public string Type { get; set; }
 
         /// <summary>
         /// </summary>
@@ -58,11 +69,6 @@ namespace Streetcred.Cloud.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "connectionKey")]
         public string ConnectionKey { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "@type")]
-        public string Type { get; set; }
 
     }
 }

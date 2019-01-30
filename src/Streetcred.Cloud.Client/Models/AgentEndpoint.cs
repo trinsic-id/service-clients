@@ -22,11 +22,11 @@ namespace Streetcred.Cloud.Client.Models
         /// <summary>
         /// Initializes a new instance of the AgentEndpoint class.
         /// </summary>
-        public AgentEndpoint(string _did = default(string), string _verkey = default(string), string _uri = default(string))
+        public AgentEndpoint(string did = default(string), string verkey = default(string), string uri = default(string))
         {
-            this._did = _did;
-            this._verkey = _verkey;
-            this._uri = _uri;
+            Did = did;
+            Verkey = verkey;
+            Uri = uri;
             CustomInit();
         }
 
@@ -37,18 +37,18 @@ namespace Streetcred.Cloud.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "_did")]
-        public string _did { get; set; }
+        [JsonProperty(PropertyName = "did")]
+        public string Did { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "_verkey")]
-        public string _verkey { get; set; }
+        [JsonProperty(PropertyName = "verkey")]
+        public string Verkey { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "_uri")]
-        public string _uri { get; set; }
+        [JsonProperty(PropertyName = "uri")]
+        public string Uri { get; set; }
 
     }
 }
