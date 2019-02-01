@@ -42,6 +42,33 @@ namespace Streetcred.Portal.Client
 
 
         /// <summary>
+        /// Uploads an image and returns a URL with the static remote location
+        /// </summary>
+        /// <param name='uploadedFiles'>
+        /// The uploaded files.
+        /// </param>
+        /// <param name='filename'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<string>> UploadImageWithHttpMessagesAsync(Stream uploadedFiles = default(Stream), string filename = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// List available ledger networks
+        /// </summary>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<NetworkInfo>>> GetNetworksWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
         /// Gets the connections.
         /// </summary>
         /// <param name='xStreetcredTenantId'>
@@ -356,31 +383,6 @@ namespace Streetcred.Portal.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse> DeleteTenantWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Uploads an image and returns a URL with the static remote location
-        /// </summary>
-        /// <param name='uploadedFiles'>
-        /// The uploaded files.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<string>> UploadImageWithHttpMessagesAsync(Stream uploadedFiles = default(Stream), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Gets the networks.
-        /// </summary>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<IList<NetworkInfo>>> GetNetworksWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }

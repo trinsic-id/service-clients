@@ -19,6 +19,72 @@ namespace Streetcred.Portal.Client
     public static partial class PortalServiceClientExtensions
     {
             /// <summary>
+            /// Uploads an image and returns a URL with the static remote location
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='uploadedFiles'>
+            /// The uploaded files.
+            /// </param>
+            /// <param name='filename'>
+            /// </param>
+            public static string UploadImage(this IPortalServiceClient operations, Stream uploadedFiles = default(Stream), string filename = default(string))
+            {
+                return operations.UploadImageAsync(uploadedFiles, filename).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Uploads an image and returns a URL with the static remote location
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='uploadedFiles'>
+            /// The uploaded files.
+            /// </param>
+            /// <param name='filename'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> UploadImageAsync(this IPortalServiceClient operations, Stream uploadedFiles = default(Stream), string filename = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UploadImageWithHttpMessagesAsync(uploadedFiles, filename, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// List available ledger networks
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            public static IList<NetworkInfo> GetNetworks(this IPortalServiceClient operations)
+            {
+                return operations.GetNetworksAsync().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// List available ledger networks
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<NetworkInfo>> GetNetworksAsync(this IPortalServiceClient operations, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetNetworksWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Gets the connections.
             /// </summary>
             /// <param name='operations'>
@@ -750,68 +816,6 @@ namespace Streetcred.Portal.Client
             public static async Task DeleteTenantAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.DeleteTenantWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// Uploads an image and returns a URL with the static remote location
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='uploadedFiles'>
-            /// The uploaded files.
-            /// </param>
-            public static string UploadImage(this IPortalServiceClient operations, Stream uploadedFiles = default(Stream))
-            {
-                return operations.UploadImageAsync(uploadedFiles).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Uploads an image and returns a URL with the static remote location
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='uploadedFiles'>
-            /// The uploaded files.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> UploadImageAsync(this IPortalServiceClient operations, Stream uploadedFiles = default(Stream), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.UploadImageWithHttpMessagesAsync(uploadedFiles, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Gets the networks.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            public static IList<NetworkInfo> GetNetworks(this IPortalServiceClient operations)
-            {
-                return operations.GetNetworksAsync().GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Gets the networks.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IList<NetworkInfo>> GetNetworksAsync(this IPortalServiceClient operations, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetNetworksWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
             }
 
     }
