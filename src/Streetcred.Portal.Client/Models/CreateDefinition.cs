@@ -9,6 +9,10 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Represents a request object to create new credential definition for an
+    /// agency
+    /// </summary>
     public partial class CreateDefinition
     {
         /// <summary>
@@ -22,11 +26,19 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the CreateDefinition class.
         /// </summary>
-        public CreateDefinition(string schemaId = default(string), bool? requireApproval = default(bool?), bool? revocable = default(bool?))
+        /// <param name="schemaId">Gets or sets the schema identifier.</param>
+        /// <param name="requireApproval">Gets or sets a value indicating
+        /// whether [require approval].</param>
+        /// <param name="revocable">Gets or sets a value indicating whether
+        /// this Streetcred.Agents.Portal.Models.CreateDefinition is
+        /// revocable.</param>
+        /// <param name="maxCount">Maximum credential count.</param>
+        public CreateDefinition(string schemaId = default(string), bool? requireApproval = default(bool?), bool? revocable = default(bool?), int? maxCount = default(int?))
         {
             SchemaId = schemaId;
             RequireApproval = requireApproval;
             Revocable = revocable;
+            MaxCount = maxCount;
             CustomInit();
         }
 
@@ -36,19 +48,29 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the schema identifier.
         /// </summary>
         [JsonProperty(PropertyName = "schemaId")]
         public string SchemaId { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [require approval].
         /// </summary>
         [JsonProperty(PropertyName = "requireApproval")]
         public bool? RequireApproval { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this
+        /// Streetcred.Agents.Portal.Models.CreateDefinition is revocable.
         /// </summary>
         [JsonProperty(PropertyName = "revocable")]
         public bool? Revocable { get; set; }
+
+        /// <summary>
+        /// Gets or sets maximum credential count.
+        /// </summary>
+        [JsonProperty(PropertyName = "maxCount")]
+        public int? MaxCount { get; set; }
 
     }
 }

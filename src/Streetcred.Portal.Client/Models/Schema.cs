@@ -11,6 +11,9 @@ namespace Streetcred.Portal.Client.Models
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Schema.
+    /// </summary>
     public partial class Schema
     {
         /// <summary>
@@ -24,6 +27,10 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the Schema class.
         /// </summary>
+        /// <param name="id">Gets or sets the identifier.</param>
+        /// <param name="name">Gets or sets the name.</param>
+        /// <param name="version">Gets or sets the version.</param>
+        /// <param name="attrNames">Gets or sets the attribute names.</param>
         public Schema(string id = default(string), string name = default(string), string version = default(string), IList<string> attrNames = default(IList<string>))
         {
             Id = id;
@@ -39,21 +46,25 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the identifier.
         /// </summary>
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the name.
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the version.
         /// </summary>
         [JsonProperty(PropertyName = "version")]
         public string Version { get; set; }
 
         /// <summary>
+        /// Gets or sets the attribute names.
         /// </summary>
         [JsonProperty(PropertyName = "attrNames")]
         public IList<string> AttrNames { get; set; }

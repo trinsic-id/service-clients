@@ -22,6 +22,10 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the CreateInvitation class.
         /// </summary>
+        /// <param name="email">Gets or sets the tenant identifier.</param>
+        /// <param name="name">Gets or sets the connection identifier.</param>
+        /// <param name="multiParty">Gets or sets a value indicating whether
+        /// [multi party].</param>
         public CreateInvitation(string email = default(string), string name = default(string), bool? multiParty = default(bool?))
         {
             Email = email;
@@ -36,16 +40,19 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the tenant identifier.
         /// </summary>
         [JsonProperty(PropertyName = "email")]
         public string Email { get; set; }
 
         /// <summary>
+        /// Gets or sets the connection identifier.
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [multi party].
         /// </summary>
         [JsonProperty(PropertyName = "multiParty")]
         public bool? MultiParty { get; set; }

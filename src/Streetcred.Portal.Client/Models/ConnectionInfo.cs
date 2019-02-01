@@ -9,6 +9,9 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Connection information
+    /// </summary>
     public partial class ConnectionInfo
     {
         /// <summary>
@@ -22,8 +25,19 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the ConnectionInfo class.
         /// </summary>
-        /// <param name="state">Possible values include: 'Invited',
-        /// 'Negotiating', 'Connected'</param>
+        /// <param name="id">Gets or sets the identifier.</param>
+        /// <param name="name">Gets or sets the name.</param>
+        /// <param name="imageUrl">Gets or sets the image URL.</param>
+        /// <param name="myDid">Gets or sets my did.</param>
+        /// <param name="theirDid">Gets or sets their did.</param>
+        /// <param name="myKey">Gets or sets my key.</param>
+        /// <param name="theirKey">Gets or sets their key.</param>
+        /// <param name="state">Gets or sets the state. Possible values
+        /// include: 'Invited', 'Negotiating', 'Connected'</param>
+        /// <param name="invitation">Gets or sets the invitation.</param>
+        /// <param name="invitationUrl">Gets or sets the invitation
+        /// URL.</param>
+        /// <param name="createdAtUtc">Gets or sets the date created.</param>
         public ConnectionInfo(string id = default(string), string name = default(string), string imageUrl = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), System.DateTime? createdAtUtc = default(System.DateTime?))
         {
             Id = id;
@@ -46,58 +60,68 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the identifier.
         /// </summary>
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the name.
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the image URL.
         /// </summary>
         [JsonProperty(PropertyName = "imageUrl")]
         public string ImageUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets my did.
         /// </summary>
         [JsonProperty(PropertyName = "myDid")]
         public string MyDid { get; set; }
 
         /// <summary>
+        /// Gets or sets their did.
         /// </summary>
         [JsonProperty(PropertyName = "theirDid")]
         public string TheirDid { get; set; }
 
         /// <summary>
+        /// Gets or sets my key.
         /// </summary>
         [JsonProperty(PropertyName = "myKey")]
         public string MyKey { get; set; }
 
         /// <summary>
+        /// Gets or sets their key.
         /// </summary>
         [JsonProperty(PropertyName = "theirKey")]
         public string TheirKey { get; set; }
 
         /// <summary>
-        /// Gets or sets possible values include: 'Invited', 'Negotiating',
-        /// 'Connected'
+        /// Gets or sets the state. Possible values include: 'Invited',
+        /// 'Negotiating', 'Connected'
         /// </summary>
         [JsonProperty(PropertyName = "state")]
         public string State { get; set; }
 
         /// <summary>
+        /// Gets or sets the invitation.
         /// </summary>
         [JsonProperty(PropertyName = "invitation")]
         public string Invitation { get; set; }
 
         /// <summary>
+        /// Gets or sets the invitation URL.
         /// </summary>
         [JsonProperty(PropertyName = "invitationUrl")]
         public string InvitationUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the date created.
         /// </summary>
         [JsonProperty(PropertyName = "createdAtUtc")]
         public System.DateTime? CreatedAtUtc { get; set; }

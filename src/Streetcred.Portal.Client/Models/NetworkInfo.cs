@@ -9,6 +9,9 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Represents pool network information
+    /// </summary>
     public partial class NetworkInfo
     {
         /// <summary>
@@ -22,6 +25,14 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the NetworkInfo class.
         /// </summary>
+        /// <param name="networkId">Gets or sets the network
+        /// identifier.</param>
+        /// <param name="networkName">Gets or sets the name of the
+        /// network.</param>
+        /// <param name="genesisTransactions">Gets or sets the genesis
+        /// transactions.</param>
+        /// <param name="poolProtocolVersion">Gets or sets the pool protocol
+        /// version.</param>
         public NetworkInfo(string networkId = default(string), string networkName = default(string), string genesisTransactions = default(string), int? poolProtocolVersion = default(int?))
         {
             NetworkId = networkId;
@@ -37,21 +48,25 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the network identifier.
         /// </summary>
         [JsonProperty(PropertyName = "networkId")]
         public string NetworkId { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the network.
         /// </summary>
         [JsonProperty(PropertyName = "networkName")]
         public string NetworkName { get; set; }
 
         /// <summary>
+        /// Gets or sets the genesis transactions.
         /// </summary>
         [JsonProperty(PropertyName = "genesisTransactions")]
         public string GenesisTransactions { get; set; }
 
         /// <summary>
+        /// Gets or sets the pool protocol version.
         /// </summary>
         [JsonProperty(PropertyName = "poolProtocolVersion")]
         public int? PoolProtocolVersion { get; set; }

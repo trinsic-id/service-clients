@@ -9,6 +9,9 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Send offer.
+    /// </summary>
     public partial class SendOffer
     {
         /// <summary>
@@ -22,6 +25,9 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the SendOffer class.
         /// </summary>
+        /// <param name="definitionId">Gets or sets the credential definition
+        /// identifier.</param>
+        /// <param name="connectionId">Gets or sets their did.</param>
         public SendOffer(string definitionId = default(string), string connectionId = default(string))
         {
             DefinitionId = definitionId;
@@ -35,11 +41,13 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the credential definition identifier.
         /// </summary>
         [JsonProperty(PropertyName = "definitionId")]
         public string DefinitionId { get; set; }
 
         /// <summary>
+        /// Gets or sets their did.
         /// </summary>
         [JsonProperty(PropertyName = "connectionId")]
         public string ConnectionId { get; set; }

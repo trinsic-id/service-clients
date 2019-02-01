@@ -9,6 +9,9 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Tenant info.
+    /// </summary>
     public partial class TenantInfo
     {
         /// <summary>
@@ -22,6 +25,10 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the TenantInfo class.
         /// </summary>
+        /// <param name="name">Gets or sets the name.</param>
+        /// <param name="imageUrl">Gets or sets the image URI.</param>
+        /// <param name="network">Gets or sets the network.</param>
+        /// <param name="tenantId">Gets or sets the tenant identifier.</param>
         public TenantInfo(string name = default(string), string imageUrl = default(string), NetworkInfo network = default(NetworkInfo), string tenantId = default(string))
         {
             Name = name;
@@ -37,21 +44,25 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the name.
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the image URI.
         /// </summary>
         [JsonProperty(PropertyName = "imageUrl")]
         public string ImageUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the network.
         /// </summary>
         [JsonProperty(PropertyName = "network")]
         public NetworkInfo Network { get; set; }
 
         /// <summary>
+        /// Gets or sets the tenant identifier.
         /// </summary>
         [JsonProperty(PropertyName = "tenantId")]
         public string TenantId { get; set; }

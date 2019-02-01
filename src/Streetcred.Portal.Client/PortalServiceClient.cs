@@ -12,6 +12,7 @@ namespace Streetcred.Portal.Client
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
+    using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Threading;
@@ -308,7 +309,11 @@ namespace Streetcred.Portal.Client
             };
             CustomInitialize();
         }
+        /// <summary>
+        /// Gets the connections.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -452,7 +457,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the invitations.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -596,9 +605,14 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Sends the email invitation.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='createInvitation'>
+        /// The create invitation.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -749,9 +763,14 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Creates the connections.
+        /// </summary>
         /// <param name='connectionId'>
+        /// The connection identifier.
         /// </param>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -901,7 +920,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the credentials.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1045,7 +1068,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets a list of sent credential offers.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1190,15 +1217,18 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Send credential offer
+        /// Sends credential offer of the specified DefinitionId to the specified
+        /// ConnectionId
         /// </summary>
         /// <remarks>
         /// Sends credential offer of the specified DefinitionId to the specified
         /// ConnectionId
         /// </remarks>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='sendOffer'>
+        /// The definition and connection to which this offer will be sent.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1328,7 +1358,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the requests.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1472,9 +1506,14 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Approves the request.
+        /// </summary>
         /// <param name='credentialId'>
+        /// Credential identifier.
         /// </param>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1603,9 +1642,14 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Rejects the request.
+        /// </summary>
         /// <param name='credentialId'>
+        /// Credential identifier.
         /// </param>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1734,9 +1778,14 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Revokes the credential.
+        /// </summary>
         /// <param name='credentialId'>
+        /// Credential identifier.
         /// </param>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1865,7 +1914,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the definitions.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2009,9 +2062,21 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Create new credential definition.
+        /// </summary>
+        /// <remarks>
+        /// Create new credential definition for a given schema. The credential
+        /// definition
+        /// is what credentials are based on. Credential definitions require schema to
+        /// be
+        /// published on the ledger. You must register new schema
+        /// </remarks>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='definition'>
+        /// Definition.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2022,6 +2087,9 @@ namespace Streetcred.Portal.Client
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
@@ -2031,7 +2099,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> CreateDefinitionMethodWithHttpMessagesAsync(string xStreetcredTenantId, CreateDefinition definition = default(CreateDefinition), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ObjectId>> CreateDefinitionMethodWithHttpMessagesAsync(string xStreetcredTenantId, CreateDefinition definition = default(CreateDefinition), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredTenantId == null)
             {
@@ -2131,9 +2199,27 @@ namespace Streetcred.Portal.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse();
+            var _result = new HttpOperationResponse<ObjectId>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = SafeJsonConvert.DeserializeObject<ObjectId>(_responseContent, DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
             if (_shouldTrace)
             {
                 ServiceClientTracing.Exit(_invocationId, _result);
@@ -2141,9 +2227,13 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the definitions.
+        /// </summary>
         /// <param name='definitionId'>
         /// </param>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2273,12 +2363,10 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Get schema collection
+        /// Gets the schemas.
         /// </summary>
-        /// <remarks>
-        /// Returns a collection of schemas registered with this agency tenant as owner
-        /// </remarks>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2423,16 +2511,14 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Register new schema
+        /// Register new schema with the current agency tenant and write the schema to
+        /// the ledger.
         /// </summary>
-        /// <remarks>
-        /// Create schema with the current agency tenant as owner and write the schema
-        /// to the ledger
-        /// </remarks>
-        /// <param name='schema'>
-        /// The combination of 'name' and 'version' of the schema must be unique.
-        /// </param>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='schema'>
+        /// Schema details
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2455,12 +2541,8 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> RegisterSchemaWithHttpMessagesAsync(Schema schema, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<string>> RegisterSchemaWithHttpMessagesAsync(string xStreetcredTenantId, Schema schema = default(Schema), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (schema == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "schema");
-            }
             if (xStreetcredTenantId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
@@ -2587,6 +2669,9 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the tenants.
+        /// </summary>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -2710,7 +2795,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Updates the tenant information.
+        /// </summary>
         /// <param name='updateTenant'>
+        /// The update tenant.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2842,7 +2931,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Creates the tenant.
+        /// </summary>
         /// <param name='createTenant'>
+        /// Create tenant.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2859,7 +2952,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<TenantInfo>> CreateTenantWithHttpMessagesAsync(CreateTenantInfo createTenant = default(CreateTenantInfo), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<TenantInfo>> CreateTenantMethodWithHttpMessagesAsync(CreateTenant createTenant = default(CreateTenant), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2870,7 +2963,7 @@ namespace Streetcred.Portal.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("createTenant", createTenant);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "CreateTenant", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "CreateTenantMethod", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -2974,7 +3067,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Deletes the tenant.
+        /// </summary>
         /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -3097,7 +3194,11 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Uploads an image and returns a URL with the static remote location
+        /// </summary>
         /// <param name='uploadedFiles'>
+        /// The uploaded files.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -3114,7 +3215,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> UploadImageWithHttpMessagesAsync(IList<object> uploadedFiles = default(IList<object>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<string>> UploadImageWithHttpMessagesAsync(Stream uploadedFiles = default(Stream), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -3129,26 +3230,7 @@ namespace Streetcred.Portal.Client
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/tenants/image").ToString();
-            List<string> _queryParameters = new List<string>();
-            if (uploadedFiles != null)
-            {
-                if (uploadedFiles.Count == 0)
-                {
-                    _queryParameters.Add(string.Format("uploadedFiles={0}", System.Uri.EscapeDataString(string.Empty)));
-                }
-                else
-                {
-                    foreach (var _item in uploadedFiles)
-                    {
-                        _queryParameters.Add(string.Format("uploadedFiles={0}", System.Uri.EscapeDataString("" + _item)));
-                    }
-                }
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/tenants/upload_file").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -3171,6 +3253,13 @@ namespace Streetcred.Portal.Client
 
             // Serialize Request
             string _requestContent = null;
+            var values = new List<KeyValuePair<string, string>>();
+            if(uploadedFiles != null)
+            {
+                values.Add(new KeyValuePair<string,string>("uploadedFiles", uploadedFiles));
+            }
+            var _formContent = new FormUrlEncodedContent(values);
+            _httpRequest.Content = _formContent;
             // Set Credentials
             if (Credentials != null)
             {
@@ -3242,6 +3331,9 @@ namespace Streetcred.Portal.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the networks.
+        /// </summary>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>

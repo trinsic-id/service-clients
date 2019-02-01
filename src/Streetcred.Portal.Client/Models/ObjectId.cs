@@ -9,6 +9,9 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// An object identifier
+    /// </summary>
     public partial class ObjectId
     {
         /// <summary>
@@ -22,6 +25,7 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the ObjectId class.
         /// </summary>
+        /// <param name="id">Object identifier</param>
         public ObjectId(string id = default(string))
         {
             Id = id;
@@ -34,6 +38,7 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets object identifier
         /// </summary>
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
