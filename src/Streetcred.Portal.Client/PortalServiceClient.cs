@@ -15,6 +15,7 @@ namespace Streetcred.Portal.Client
     using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -690,7 +691,7 @@ namespace Streetcred.Portal.Client
             {
                 _requestContent = SafeJsonConvert.SerializeObject(createInvitation, SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Set Credentials
             if (Credentials != null)
@@ -1303,7 +1304,7 @@ namespace Streetcred.Portal.Client
             {
                 _requestContent = SafeJsonConvert.SerializeObject(sendOffer, SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Set Credentials
             if (Credentials != null)
@@ -2154,7 +2155,7 @@ namespace Streetcred.Portal.Client
             {
                 _requestContent = SafeJsonConvert.SerializeObject(definition, SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Set Credentials
             if (Credentials != null)
@@ -2596,7 +2597,7 @@ namespace Streetcred.Portal.Client
             {
                 _requestContent = SafeJsonConvert.SerializeObject(schema, SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Set Credentials
             if (Credentials != null)
@@ -2858,7 +2859,7 @@ namespace Streetcred.Portal.Client
             {
                 _requestContent = SafeJsonConvert.SerializeObject(updateTenant, SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Set Credentials
             if (Credentials != null)
@@ -2994,7 +2995,7 @@ namespace Streetcred.Portal.Client
             {
                 _requestContent = SafeJsonConvert.SerializeObject(createTenant, SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Set Credentials
             if (Credentials != null)
@@ -3253,13 +3254,30 @@ namespace Streetcred.Portal.Client
 
             // Serialize Request
             string _requestContent = null;
-            var values = new List<KeyValuePair<string, string>>();
-            if(uploadedFiles != null)
+            MultipartFormDataContent _multiPartContent = new MultipartFormDataContent();
+            if (uploadedFiles != null)
             {
-                values.Add(new KeyValuePair<string,string>("uploadedFiles", uploadedFiles));
+                StreamContent _uploadedFiles = new StreamContent(uploadedFiles);
+                _uploadedFiles.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                ContentDispositionHeaderValue _contentDispositionHeaderValue = new ContentDispositionHeaderValue("form-data");
+                _contentDispositionHeaderValue.Name = "uploadedFiles";
+                // get filename from stream if it's a file otherwise, just use  'unknown'
+                var _fileStream = uploadedFiles as FileStream;
+                var _fileName = (_fileStream != null ? _fileStream.Name : null) ?? "unknown";
+                if(System.Linq.Enumerable.Any(_fileName, c => c > 127) )
+                {
+                    // non ASCII chars detected, need UTF encoding:
+                    _contentDispositionHeaderValue.FileNameStar = _fileName;
+                }
+                else
+                {
+                    // ASCII only
+                    _contentDispositionHeaderValue.FileName = _fileName;
+                }
+                _uploadedFiles.Headers.ContentDisposition = _contentDispositionHeaderValue;
+                _multiPartContent.Add(_uploadedFiles, "uploadedFiles");
             }
-            var _formContent = new FormUrlEncodedContent(values);
-            _httpRequest.Content = _formContent;
+            _httpRequest.Content = _multiPartContent;
             // Set Credentials
             if (Credentials != null)
             {
