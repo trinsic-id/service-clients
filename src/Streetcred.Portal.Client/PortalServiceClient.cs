@@ -311,12 +311,19 @@ namespace Streetcred.Portal.Client
             CustomInitialize();
         }
         /// <summary>
-        /// Uploads an image and returns a URL with the static remote location
+        /// Upload image
         /// </summary>
+        /// <remarks>
+        /// Upload an image and return a URL with the static remote location
+        /// </remarks>
         /// <param name='uploadedFiles'>
         /// The uploaded files.
         /// </param>
         /// <param name='filename'>
+        /// The filename.
+        /// </param>
+        /// <param name='contentType'>
+        /// (Optional) Type of the image content.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -333,7 +340,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> UploadImageWithHttpMessagesAsync(Stream uploadedFiles = default(Stream), string filename = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<string>> UploadImageWithHttpMessagesAsync(Stream uploadedFiles = default(Stream), string filename = default(string), string contentType = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -344,6 +351,7 @@ namespace Streetcred.Portal.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("uploadedFiles", uploadedFiles);
                 tracingParameters.Add("filename", filename);
+                tracingParameters.Add("contentType", contentType);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "UploadImage", tracingParameters);
             }
@@ -399,6 +407,11 @@ namespace Streetcred.Portal.Client
             {
                 StringContent _filename = new StringContent(filename, System.Text.Encoding.UTF8);
                 _multiPartContent.Add(_filename, "filename");
+            }
+            if (contentType != null)
+            {
+                StringContent _contentType = new StringContent(contentType, System.Text.Encoding.UTF8);
+                _multiPartContent.Add(_contentType, "contentType");
             }
             _httpRequest.Content = _multiPartContent;
             // Set Credentials
@@ -1846,12 +1859,12 @@ namespace Streetcred.Portal.Client
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/credentials/requests/approve/{credentialId}").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/credentials/requests/{credentialId}").ToString();
             _url = _url.Replace("{credentialId}", System.Uri.EscapeDataString(credentialId));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.Method = new HttpMethod("PUT");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
             if (xStreetcredTenantId != null)
@@ -1932,7 +1945,7 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Rejects the request.
+        /// Reject credential request.
         /// </summary>
         /// <param name='credentialId'>
         /// Credential identifier.
@@ -1982,12 +1995,12 @@ namespace Streetcred.Portal.Client
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/credentials/requests/reject/{credentialId}").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/credentials/requests/{credentialId}").ToString();
             _url = _url.Replace("{credentialId}", System.Uri.EscapeDataString(credentialId));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.Method = new HttpMethod("DELETE");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
             if (xStreetcredTenantId != null)
@@ -2068,8 +2081,16 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Revokes the credential.
+        /// Revokes a credential.
         /// </summary>
+        /// <remarks>
+        /// Revoke credential that was issued previously. Process of revocation will
+        /// update the revocation
+        /// registry locally and on the ledger. Issued credentials can still
+        /// participate in proof workflows
+        /// and be considered valid, but only if the verifying ignores the revocation
+        /// trail.
+        /// </remarks>
         /// <param name='credentialId'>
         /// Credential identifier.
         /// </param>
@@ -2118,12 +2139,12 @@ namespace Streetcred.Portal.Client
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/credentials/revoke/{credentialId}").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/credentials/{credentialId}").ToString();
             _url = _url.Replace("{credentialId}", System.Uri.EscapeDataString(credentialId));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.Method = new HttpMethod("DELETE");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
             if (xStreetcredTenantId != null)
@@ -2230,7 +2251,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<DefinitionRecord>>> GetDefinitionsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<DefinitionInfo>>> GetDefinitionsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredTenantId == null)
             {
@@ -2323,7 +2344,7 @@ namespace Streetcred.Portal.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IList<DefinitionRecord>>();
+            var _result = new HttpOperationResponse<IList<DefinitionInfo>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -2332,7 +2353,7 @@ namespace Streetcred.Portal.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<DefinitionRecord>>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<IList<DefinitionInfo>>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -2355,11 +2376,13 @@ namespace Streetcred.Portal.Client
         /// Create new credential definition.
         /// </summary>
         /// <remarks>
-        /// Create new credential definition for a given schema. The credential
-        /// definition
-        /// is what credentials are based on. Credential definitions require schema to
-        /// be
-        /// published on the ledger. You must register new schema
+        /// Create new credential definition for a given schema. If schema already
+        /// exists on the ledger
+        /// specify the 'schema_id' - 'name', 'version' and 'attr_names' will be
+        /// ignored.
+        /// If schema doesn't exist, specify name, version and attr_names - schema_id
+        /// will be ignored and generated
+        /// automatically.
         /// </remarks>
         /// <param name='xStreetcredTenantId'>
         /// Identifier of the tenant used with this request.
@@ -2533,6 +2556,9 @@ namespace Streetcred.Portal.Client
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
@@ -2542,7 +2568,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> GetDefinitionWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<DefinitionInfo>> GetDefinitionWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (definitionId == null)
             {
@@ -2641,9 +2667,27 @@ namespace Streetcred.Portal.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse();
+            var _result = new HttpOperationResponse<DefinitionInfo>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = SafeJsonConvert.DeserializeObject<DefinitionInfo>(_responseContent, DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
             if (_shouldTrace)
             {
                 ServiceClientTracing.Exit(_invocationId, _result);
@@ -2800,9 +2844,12 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Register new schema with the current agency tenant and write the schema to
-        /// the ledger.
+        /// Register new schema
         /// </summary>
+        /// <remarks>
+        /// Register schema with the current agency tenant and write the schema
+        /// to the ledger using the tenant as issuer.
+        /// </remarks>
         /// <param name='xStreetcredTenantId'>
         /// Identifier of the tenant used with this request.
         /// </param>
@@ -2959,8 +3006,12 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Gets the tenants.
+        /// List available tenants
         /// </summary>
+        /// <remarks>
+        /// Get a collection of available tenants for the current authorization
+        /// context.
+        /// </remarks>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -2976,7 +3027,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<TenantInfo>>> GetTenantsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<TenantInfo>>> ListTenantsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2986,7 +3037,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetTenants", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "ListTenants", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -3085,146 +3136,14 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Updates the tenant information.
+        /// Create new tenant
         /// </summary>
-        /// <param name='updateTenant'>
-        /// The update tenant.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<TenantInfo>> UpdateTenantWithHttpMessagesAsync(TenantInfo updateTenant = default(TenantInfo), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            // Tracing
-            bool _shouldTrace = ServiceClientTracing.IsEnabled;
-            string _invocationId = null;
-            if (_shouldTrace)
-            {
-                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("updateTenant", updateTenant);
-                tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "UpdateTenant", tracingParameters);
-            }
-            // Construct URL
-            var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/tenants").ToString();
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("PUT");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            if(updateTenant != null)
-            {
-                _requestContent = SafeJsonConvert.SerializeObject(updateTenant, SerializationSettings);
-                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
-            // Send Request
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
-            }
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
-            }
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200 && (int)_statusCode != 401 && (int)_statusCode != 403)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_shouldTrace)
-                {
-                    ServiceClientTracing.Error(_invocationId, ex);
-                }
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<TenantInfo>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<TenantInfo>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.Exit(_invocationId, _result);
-            }
-            return _result;
-        }
-
-        /// <summary>
-        /// Creates the tenant.
-        /// </summary>
+        /// <remarks>
+        /// Create new tenant and setup a unique agency endpoint. The agency will be
+        /// set as an issuer
+        /// </remarks>
         /// <param name='createTenant'>
-        /// Create tenant.
+        /// Configuration options for creating new tenant.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -3243,6 +3162,10 @@ namespace Streetcred.Portal.Client
         /// </return>
         public async Task<HttpOperationResponse<TenantInfo>> CreateTenantMethodWithHttpMessagesAsync(CreateTenant createTenant = default(CreateTenant), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (createTenant != null)
+            {
+                createTenant.Validate();
+            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -3357,10 +3280,16 @@ namespace Streetcred.Portal.Client
         }
 
         /// <summary>
-        /// Deletes the tenant.
+        /// Delete a tenant.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
-        /// Identifier of the tenant used with this request.
+        /// <remarks>
+        /// Permanently remove a tenant, including their wallet, endpoint registrations
+        /// and all data.
+        /// All definitions, connections and credentials issued will be deleted.
+        /// This action cannot be reverted.
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// Tenant identifier.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -3371,21 +3300,11 @@ namespace Streetcred.Portal.Client
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> DeleteTenantWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> DeleteTenantWithHttpMessagesAsync(string tenantId = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
-            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -3393,27 +3312,28 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("tenantId", tenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "DeleteTenant", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/tenants").ToString();
+            List<string> _queryParameters = new List<string>();
+            if (tenantId != null)
+            {
+                _queryParameters.Add(string.Format("tenantId={0}", System.Uri.EscapeDataString(tenantId)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
             _httpRequest.Method = new HttpMethod("DELETE");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
-            {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
-                {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
-            }
 
 
             if (customHeaders != null)

@@ -6,11 +6,12 @@
 
 namespace Streetcred.Portal.Client.Models
 {
+    using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Linq;
 
     /// <summary>
-    /// Configuration for creating tenant
+    /// Configuration options for creating new tenant
     /// </summary>
     public partial class CreateTenant
     {
@@ -25,16 +26,19 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the CreateTenant class.
         /// </summary>
+        /// <param name="name">The name of the tenant.</param>
         /// <param name="issuerSeed">(Optional) Issuer seed used for
         /// deterministic DID generation.
         /// If omitted, a random DID/Key is generated</param>
-        /// <param name="name">The name of the tenant.</param>
+        /// <param name="imageUrl">(Optional) Location of image URL used as
+        /// profile for this tenant</param>
         /// <param name="networkId">(Optional) Ledger network identifier.
         /// Default is Streetcred Test Network</param>
-        public CreateTenant(string issuerSeed = default(string), string name = default(string), string networkId = default(string))
+        public CreateTenant(string name, string issuerSeed = default(string), string imageUrl = default(string), string networkId = default(string))
         {
             IssuerSeed = issuerSeed;
             Name = name;
+            ImageUrl = imageUrl;
             NetworkId = networkId;
             CustomInit();
         }
@@ -59,11 +63,31 @@ namespace Streetcred.Portal.Client.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets (Optional) Location of image URL used as profile for
+        /// this tenant
+        /// </summary>
+        [JsonProperty(PropertyName = "image_url")]
+        public string ImageUrl { get; set; }
+
+        /// <summary>
         /// Gets or sets (Optional) Ledger network identifier. Default is
         /// Streetcred Test Network
         /// </summary>
         [JsonProperty(PropertyName = "network_id")]
         public string NetworkId { get; set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (Name == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Name");
+            }
+        }
     }
 }

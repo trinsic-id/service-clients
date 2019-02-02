@@ -7,6 +7,8 @@
 namespace Streetcred.Portal.Client.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -26,18 +28,21 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the CreateDefinition class.
         /// </summary>
-        /// <param name="schemaId">Gets or sets the schema identifier.</param>
-        /// <param name="requireApproval">Gets or sets a value indicating
-        /// whether [require approval].</param>
-        /// <param name="revocable">Gets or sets a value indicating whether
-        /// this Streetcred.Agents.Portal.Models.CreateDefinition is
-        /// revocable.</param>
+        /// <param name="schemaId">Schema identifier for this
+        /// definition</param>
+        /// <param name="name">Name of the schema.</param>
+        /// <param name="version">Schema version.</param>
+        /// <param name="attrNames">Schema attribute names.</param>
+        /// <param name="supportRevocation">Support credential
+        /// revocation</param>
         /// <param name="maxCount">Maximum credential count.</param>
-        public CreateDefinition(string schemaId = default(string), bool? requireApproval = default(bool?), bool? revocable = default(bool?), int? maxCount = default(int?))
+        public CreateDefinition(string schemaId = default(string), string name = default(string), string version = default(string), IList<string> attrNames = default(IList<string>), bool? supportRevocation = default(bool?), int? maxCount = default(int?))
         {
             SchemaId = schemaId;
-            RequireApproval = requireApproval;
-            Revocable = revocable;
+            Name = name;
+            Version = version;
+            AttrNames = attrNames;
+            SupportRevocation = supportRevocation;
             MaxCount = maxCount;
             CustomInit();
         }
@@ -48,28 +53,39 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the schema identifier.
+        /// Gets or sets schema identifier for this definition
         /// </summary>
-        [JsonProperty(PropertyName = "schemaId")]
+        [JsonProperty(PropertyName = "schema_id")]
         public string SchemaId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [require approval].
+        /// Gets or sets name of the schema.
         /// </summary>
-        [JsonProperty(PropertyName = "requireApproval")]
-        public bool? RequireApproval { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this
-        /// Streetcred.Agents.Portal.Models.CreateDefinition is revocable.
+        /// Gets or sets schema version.
         /// </summary>
-        [JsonProperty(PropertyName = "revocable")]
-        public bool? Revocable { get; set; }
+        [JsonProperty(PropertyName = "version")]
+        public string Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets schema attribute names.
+        /// </summary>
+        [JsonProperty(PropertyName = "attr_names")]
+        public IList<string> AttrNames { get; set; }
+
+        /// <summary>
+        /// Gets or sets support credential revocation
+        /// </summary>
+        [JsonProperty(PropertyName = "support_revocation")]
+        public bool? SupportRevocation { get; set; }
 
         /// <summary>
         /// Gets or sets maximum credential count.
         /// </summary>
-        [JsonProperty(PropertyName = "maxCount")]
+        [JsonProperty(PropertyName = "max_count")]
         public int? MaxCount { get; set; }
 
     }
