@@ -36,7 +36,9 @@ namespace Streetcred.Portal.Client.Models
         /// <param name="supportRevocation">Support credential
         /// revocation</param>
         /// <param name="maxCount">Maximum credential count.</param>
-        public CreateDefinition(string schemaId = default(string), string name = default(string), string version = default(string), IList<string> attrNames = default(IList<string>), bool? supportRevocation = default(bool?), int? maxCount = default(int?))
+        /// <param name="tag">Unique tag to differentiate definitions of the
+        /// same schema</param>
+        public CreateDefinition(string schemaId = default(string), string name = default(string), string version = default(string), IList<string> attrNames = default(IList<string>), bool? supportRevocation = default(bool?), int? maxCount = default(int?), string tag = default(string))
         {
             SchemaId = schemaId;
             Name = name;
@@ -44,6 +46,7 @@ namespace Streetcred.Portal.Client.Models
             AttrNames = attrNames;
             SupportRevocation = supportRevocation;
             MaxCount = maxCount;
+            Tag = tag;
             CustomInit();
         }
 
@@ -87,6 +90,13 @@ namespace Streetcred.Portal.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "max_count")]
         public int? MaxCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets unique tag to differentiate definitions of the same
+        /// schema
+        /// </summary>
+        [JsonProperty(PropertyName = "tag")]
+        public string Tag { get; set; }
 
     }
 }

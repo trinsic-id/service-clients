@@ -2380,9 +2380,9 @@ namespace Streetcred.Portal.Client
         /// exists on the ledger
         /// specify the 'schema_id' - 'name', 'version' and 'attr_names' will be
         /// ignored.
-        /// If schema doesn't exist, specify name, version and attr_names - schema_id
-        /// will be ignored and generated
-        /// automatically.
+        /// If schema doesn't exist, you must specify 'name', 'version' and
+        /// 'attr_names'
+        /// - schema_id will be ignored and generated automatically.
         /// </remarks>
         /// <param name='xStreetcredTenantId'>
         /// Identifier of the tenant used with this request.
