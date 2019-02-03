@@ -308,9 +308,14 @@ namespace Streetcred.Cloud.Client
             };
             CustomInitialize();
         }
+        /// <summary>
+        /// Accepts the invitation.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='invitation'>
+        /// The invitation.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -461,7 +466,14 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the connections.
+        /// </summary>
+        /// <remarks>
+        /// Retrieves a list of connections that are in 'Connected' state.
+        /// </remarks>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -605,7 +617,11 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Gets the invitations.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -749,9 +765,14 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Associates the destination.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='destinationRegistration'>
+        /// The delivery registration.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -881,9 +902,14 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Registers the push.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='deviceRegistration'>
+        /// The device registration.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1013,6 +1039,9 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Returns the agent configuration
+        /// </summary>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -1042,7 +1071,7 @@ namespace Streetcred.Cloud.Client
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1136,7 +1165,11 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Retreives the messages.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1280,9 +1313,14 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Deletes the messages.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='messageIds'>
+        /// The message ids.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1412,6 +1450,9 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Lists the wallets async.
+        /// </summary>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -1535,7 +1576,14 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Create new wallet.
+        /// </summary>
+        /// <remarks>
+        /// These are remarks.
+        /// </remarks>
         /// <param name='walletInfo'>
+        /// The wallet information.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -1667,7 +1715,11 @@ namespace Streetcred.Cloud.Client
             return _result;
         }
 
+        /// <summary>
+        /// Deletes the wallet async.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.

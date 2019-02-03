@@ -25,7 +25,7 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the ConnectionInfo class.
         /// </summary>
-        /// <param name="id">Gets or sets the identifier.</param>
+        /// <param name="connectionId">Gets or sets the identifier.</param>
         /// <param name="name">Gets or sets the name.</param>
         /// <param name="imageUrl">Gets or sets the image URL.</param>
         /// <param name="myDid">Gets or sets my did.</param>
@@ -38,9 +38,9 @@ namespace Streetcred.Portal.Client.Models
         /// <param name="invitationUrl">Gets or sets the invitation
         /// URL.</param>
         /// <param name="createdAtUtc">Gets or sets the date created.</param>
-        public ConnectionInfo(string id = default(string), string name = default(string), string imageUrl = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), System.DateTime? createdAtUtc = default(System.DateTime?))
+        public ConnectionInfo(string connectionId = default(string), string name = default(string), string imageUrl = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), System.DateTime? createdAtUtc = default(System.DateTime?))
         {
-            Id = id;
+            ConnectionId = connectionId;
             Name = name;
             ImageUrl = imageUrl;
             MyDid = myDid;
@@ -62,8 +62,8 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        [JsonProperty(PropertyName = "connectionId")]
+        public string ConnectionId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.

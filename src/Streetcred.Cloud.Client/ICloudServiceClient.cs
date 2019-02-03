@@ -40,9 +40,14 @@ namespace Streetcred.Cloud.Client
         ServiceClientCredentials Credentials { get; }
 
 
+        /// <summary>
+        /// Accepts the invitation.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='invitation'>
+        /// The invitation.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -52,7 +57,14 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<ObjectId>> AcceptInvitationWithHttpMessagesAsync(string xStreetcredWalletId, ConnectionInvitationMessage invitation = default(ConnectionInvitationMessage), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Gets the connections.
+        /// </summary>
+        /// <remarks>
+        /// Retrieves a list of connections that are in 'Connected' state.
+        /// </remarks>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -62,7 +74,11 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<ConnectionInfo>>> GetConnectionsWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Gets the invitations.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -72,9 +88,14 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<ConnectionInfo>>> GetInvitationsWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Associates the destination.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='destinationRegistration'>
+        /// The delivery registration.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -84,9 +105,14 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse> AssociateDestinationWithHttpMessagesAsync(string xStreetcredWalletId, DestinationRegistration destinationRegistration = default(DestinationRegistration), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Registers the push.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='deviceRegistration'>
+        /// The device registration.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -96,6 +122,9 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse> RegisterPushWithHttpMessagesAsync(string xStreetcredWalletId, DeviceRegistration deviceRegistration = default(DeviceRegistration), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Returns the agent configuration
+        /// </summary>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -104,7 +133,11 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<ProvisioningInfo>> GetConfigurationWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Retreives the messages.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -114,9 +147,14 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<string>>> RetreiveMessagesWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Deletes the messages.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='messageIds'>
+        /// The message ids.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -126,6 +164,9 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse> DeleteMessagesWithHttpMessagesAsync(string xStreetcredWalletId, IList<string> messageIds = default(IList<string>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Lists the wallets async.
+        /// </summary>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -134,7 +175,14 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<WalletInfo>>> ListWalletsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Create new wallet.
+        /// </summary>
+        /// <remarks>
+        /// These are remarks.
+        /// </remarks>
         /// <param name='walletInfo'>
+        /// The wallet information.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -144,7 +192,11 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<ObjectId>> CreateWalletWithHttpMessagesAsync(WalletInfo walletInfo = default(WalletInfo), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Deletes the wallet async.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.

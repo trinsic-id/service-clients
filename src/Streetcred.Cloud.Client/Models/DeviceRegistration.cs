@@ -9,6 +9,9 @@ namespace Streetcred.Cloud.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Device Registration
+    /// </summary>
     public partial class DeviceRegistration
     {
         /// <summary>
@@ -22,6 +25,7 @@ namespace Streetcred.Cloud.Client.Models
         /// <summary>
         /// Initializes a new instance of the DeviceRegistration class.
         /// </summary>
+        /// <param name="deviceId">Gets or sets the device identifier.</param>
         public DeviceRegistration(string deviceId = default(string))
         {
             DeviceId = deviceId;
@@ -34,6 +38,7 @@ namespace Streetcred.Cloud.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the device identifier.
         /// </summary>
         [JsonProperty(PropertyName = "deviceId")]
         public string DeviceId { get; set; }

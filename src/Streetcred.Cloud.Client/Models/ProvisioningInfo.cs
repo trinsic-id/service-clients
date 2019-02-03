@@ -9,6 +9,9 @@ namespace Streetcred.Cloud.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Provisioning info.
+    /// </summary>
     public partial class ProvisioningInfo
     {
         /// <summary>
@@ -22,11 +25,16 @@ namespace Streetcred.Cloud.Client.Models
         /// <summary>
         /// Initializes a new instance of the ProvisioningInfo class.
         /// </summary>
-        public ProvisioningInfo(string uri = default(string), string verkey = default(string), string did = default(string))
+        /// <param name="issuerDid">Gets or sets the issuer did.</param>
+        /// <param name="name">Gets or sets the name.</param>
+        /// <param name="imageUrl">Gets or sets the image URL.</param>
+        /// <param name="endpoint">Gets or sets the endpoint.</param>
+        public ProvisioningInfo(string issuerDid = default(string), string name = default(string), string imageUrl = default(string), AgentEndpoint endpoint = default(AgentEndpoint))
         {
-            Uri = uri;
-            Verkey = verkey;
-            Did = did;
+            IssuerDid = issuerDid;
+            Name = name;
+            ImageUrl = imageUrl;
+            Endpoint = endpoint;
             CustomInit();
         }
 
@@ -36,19 +44,28 @@ namespace Streetcred.Cloud.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the issuer did.
         /// </summary>
-        [JsonProperty(PropertyName = "uri")]
-        public string Uri { get; private set; }
+        [JsonProperty(PropertyName = "issuerDid")]
+        public string IssuerDid { get; set; }
 
         /// <summary>
+        /// Gets or sets the name.
         /// </summary>
-        [JsonProperty(PropertyName = "verkey")]
-        public string Verkey { get; private set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the image URL.
         /// </summary>
-        [JsonProperty(PropertyName = "did")]
-        public string Did { get; private set; }
+        [JsonProperty(PropertyName = "imageUrl")]
+        public string ImageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "endpoint")]
+        public AgentEndpoint Endpoint { get; set; }
 
     }
 }

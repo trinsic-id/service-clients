@@ -9,6 +9,9 @@ namespace Streetcred.Cloud.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Represents a request to register a delivery association
+    /// </summary>
     public partial class DestinationRegistration
     {
         /// <summary>
@@ -22,6 +25,7 @@ namespace Streetcred.Cloud.Client.Models
         /// <summary>
         /// Initializes a new instance of the DestinationRegistration class.
         /// </summary>
+        /// <param name="didOrKey">Gets the identifier.</param>
         public DestinationRegistration(string didOrKey = default(string))
         {
             DidOrKey = didOrKey;
@@ -34,6 +38,7 @@ namespace Streetcred.Cloud.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets the identifier.
         /// </summary>
         [JsonProperty(PropertyName = "did_or_key")]
         public string DidOrKey { get; set; }

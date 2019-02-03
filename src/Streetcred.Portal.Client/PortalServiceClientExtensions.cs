@@ -104,12 +104,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<ConnectionInfo> GetConnections(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<ConnectionInfo> GetConnections(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetConnectionsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetConnectionsAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -118,15 +118,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ConnectionInfo>> GetConnectionsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ConnectionInfo>> GetConnectionsAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetConnectionsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetConnectionsWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -138,12 +138,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<ConnectionInfo> GetInvitations(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<ConnectionInfo> GetInvitations(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetInvitationsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetInvitationsAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -152,15 +152,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ConnectionInfo>> GetInvitationsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ConnectionInfo>> GetInvitationsAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetInvitationsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetInvitationsWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -172,15 +172,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='createInvitation'>
             /// The create invitation.
             /// </param>
-            public static ObjectId CreateInvitationMethod(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation))
+            public static ObjectId CreateInvitationMethod(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CreateInvitation createInvitation = default(CreateInvitation))
             {
-                return operations.CreateInvitationMethodAsync(xStreetcredTenantId, createInvitation).GetAwaiter().GetResult();
+                return operations.CreateInvitationMethodAsync(xStreetcredTenantConnectionId, createInvitation).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -189,7 +189,7 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='createInvitation'>
@@ -198,9 +198,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ObjectId> CreateInvitationMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ObjectId> CreateInvitationMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CreateInvitation createInvitation = default(CreateInvitation), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateInvitationMethodWithHttpMessagesAsync(xStreetcredTenantId, createInvitation, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.CreateInvitationMethodWithHttpMessagesAsync(xStreetcredTenantConnectionId, createInvitation, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -215,12 +215,12 @@ namespace Streetcred.Portal.Client
             /// <param name='connectionId'>
             /// The connection identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static ConnectionInfo GetConnection(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId)
+            public static ConnectionInfo GetConnection(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantConnectionId)
             {
-                return operations.GetConnectionAsync(connectionId, xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetConnectionAsync(connectionId, xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -232,15 +232,15 @@ namespace Streetcred.Portal.Client
             /// <param name='connectionId'>
             /// The connection identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ConnectionInfo> GetConnectionAsync(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ConnectionInfo> GetConnectionAsync(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetConnectionWithHttpMessagesAsync(connectionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetConnectionWithHttpMessagesAsync(connectionId, xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -252,12 +252,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<CredentialRecord> GetCredentials(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<CredentialRecord> GetCredentials(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetCredentialsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetCredentialsAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -266,15 +266,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<CredentialRecord>> GetCredentialsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<CredentialRecord>> GetCredentialsAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetCredentialsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetCredentialsWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -286,12 +286,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<CredentialRecord> GetOffers(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<CredentialRecord> GetOffers(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetOffersAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetOffersAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -300,15 +300,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<CredentialRecord>> GetOffersAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<CredentialRecord>> GetOffersAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetOffersWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetOffersWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -325,15 +325,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='sendOffer'>
             /// The definition and connection to which this offer will be sent.
             /// </param>
-            public static void SendOfferMethod(this IPortalServiceClient operations, string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer))
+            public static void SendOfferMethod(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, SendOffer sendOffer = default(SendOffer))
             {
-                operations.SendOfferMethodAsync(xStreetcredTenantId, sendOffer).GetAwaiter().GetResult();
+                operations.SendOfferMethodAsync(xStreetcredTenantConnectionId, sendOffer).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -347,7 +347,7 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='sendOffer'>
@@ -356,9 +356,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task SendOfferMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task SendOfferMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, SendOffer sendOffer = default(SendOffer), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.SendOfferMethodWithHttpMessagesAsync(xStreetcredTenantId, sendOffer, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.SendOfferMethodWithHttpMessagesAsync(xStreetcredTenantConnectionId, sendOffer, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -367,12 +367,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<CredentialRecord> GetRequests(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<CredentialRecord> GetRequests(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetRequestsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetRequestsAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -381,15 +381,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<CredentialRecord>> GetRequestsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<CredentialRecord>> GetRequestsAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetRequestsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetRequestsWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -404,12 +404,12 @@ namespace Streetcred.Portal.Client
             /// <param name='credentialId'>
             /// Credential identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static void ApproveRequest(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId)
+            public static void ApproveRequest(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantConnectionId)
             {
-                operations.ApproveRequestAsync(credentialId, xStreetcredTenantId).GetAwaiter().GetResult();
+                operations.ApproveRequestAsync(credentialId, xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -421,15 +421,15 @@ namespace Streetcred.Portal.Client
             /// <param name='credentialId'>
             /// Credential identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApproveRequestAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApproveRequestAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApproveRequestWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApproveRequestWithHttpMessagesAsync(credentialId, xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -441,12 +441,12 @@ namespace Streetcred.Portal.Client
             /// <param name='credentialId'>
             /// Credential identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static void RejectRequest(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId)
+            public static void RejectRequest(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantConnectionId)
             {
-                operations.RejectRequestAsync(credentialId, xStreetcredTenantId).GetAwaiter().GetResult();
+                operations.RejectRequestAsync(credentialId, xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -458,15 +458,15 @@ namespace Streetcred.Portal.Client
             /// <param name='credentialId'>
             /// Credential identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RejectRequestAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RejectRequestAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RejectRequestWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.RejectRequestWithHttpMessagesAsync(credentialId, xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -486,12 +486,12 @@ namespace Streetcred.Portal.Client
             /// <param name='credentialId'>
             /// Credential identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static void RevokeCredential(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId)
+            public static void RevokeCredential(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantConnectionId)
             {
-                operations.RevokeCredentialAsync(credentialId, xStreetcredTenantId).GetAwaiter().GetResult();
+                operations.RevokeCredentialAsync(credentialId, xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -511,15 +511,15 @@ namespace Streetcred.Portal.Client
             /// <param name='credentialId'>
             /// Credential identifier.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RevokeCredentialAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RevokeCredentialAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RevokeCredentialWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.RevokeCredentialWithHttpMessagesAsync(credentialId, xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -528,12 +528,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<DefinitionInfo> GetDefinitions(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<DefinitionInfo> GetDefinitions(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetDefinitionsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetDefinitionsAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -542,15 +542,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<DefinitionInfo>> GetDefinitionsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<DefinitionInfo>> GetDefinitionsAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetDefinitionsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetDefinitionsWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -571,15 +571,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='definition'>
             /// Definition.
             /// </param>
-            public static ObjectId CreateDefinitionMethod(this IPortalServiceClient operations, string xStreetcredTenantId, CreateDefinition definition = default(CreateDefinition))
+            public static ObjectId CreateDefinitionMethod(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CreateDefinition definition = default(CreateDefinition))
             {
-                return operations.CreateDefinitionMethodAsync(xStreetcredTenantId, definition).GetAwaiter().GetResult();
+                return operations.CreateDefinitionMethodAsync(xStreetcredTenantConnectionId, definition).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -597,7 +597,7 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='definition'>
@@ -606,9 +606,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ObjectId> CreateDefinitionMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CreateDefinition definition = default(CreateDefinition), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ObjectId> CreateDefinitionMethodAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CreateDefinition definition = default(CreateDefinition), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateDefinitionMethodWithHttpMessagesAsync(xStreetcredTenantId, definition, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.CreateDefinitionMethodWithHttpMessagesAsync(xStreetcredTenantConnectionId, definition, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -622,12 +622,12 @@ namespace Streetcred.Portal.Client
             /// </param>
             /// <param name='definitionId'>
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static DefinitionInfo GetDefinition(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId)
+            public static DefinitionInfo GetDefinition(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantConnectionId)
             {
-                return operations.GetDefinitionAsync(definitionId, xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetDefinitionAsync(definitionId, xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -638,15 +638,15 @@ namespace Streetcred.Portal.Client
             /// </param>
             /// <param name='definitionId'>
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<DefinitionInfo> GetDefinitionAsync(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DefinitionInfo> GetDefinitionAsync(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetDefinitionWithHttpMessagesAsync(definitionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetDefinitionWithHttpMessagesAsync(definitionId, xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -658,12 +658,12 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<SchemaRecord> GetSchemas(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<SchemaRecord> GetSchemas(this IPortalServiceClient operations, string xStreetcredTenantConnectionId)
             {
-                return operations.GetSchemasAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetSchemasAsync(xStreetcredTenantConnectionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -672,15 +672,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<SchemaRecord>> GetSchemasAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<SchemaRecord>> GetSchemasAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetSchemasWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetSchemasWithHttpMessagesAsync(xStreetcredTenantConnectionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -696,15 +696,15 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='schema'>
             /// Schema details
             /// </param>
-            public static string RegisterSchema(this IPortalServiceClient operations, string xStreetcredTenantId, Schema schema = default(Schema))
+            public static string RegisterSchema(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, Schema schema = default(Schema))
             {
-                return operations.RegisterSchemaAsync(xStreetcredTenantId, schema).GetAwaiter().GetResult();
+                return operations.RegisterSchemaAsync(xStreetcredTenantConnectionId, schema).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -717,7 +717,7 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
+            /// <param name='xStreetcredTenantConnectionId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='schema'>
@@ -726,9 +726,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<string> RegisterSchemaAsync(this IPortalServiceClient operations, string xStreetcredTenantId, Schema schema = default(Schema), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> RegisterSchemaAsync(this IPortalServiceClient operations, string xStreetcredTenantConnectionId, Schema schema = default(Schema), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.RegisterSchemaWithHttpMessagesAsync(xStreetcredTenantId, schema, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.RegisterSchemaWithHttpMessagesAsync(xStreetcredTenantConnectionId, schema, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

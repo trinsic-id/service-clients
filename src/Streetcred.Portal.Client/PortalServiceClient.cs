@@ -614,7 +614,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the connections.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -638,11 +638,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetConnectionsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetConnectionsWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -651,7 +651,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetConnections", tracingParameters);
             }
@@ -664,13 +664,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -762,7 +762,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the invitations.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -786,11 +786,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetInvitationsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<ConnectionInfo>>> GetInvitationsWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -799,7 +799,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetInvitations", tracingParameters);
             }
@@ -812,13 +812,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -910,7 +910,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Sends the email invitation.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='createInvitation'>
@@ -937,11 +937,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ObjectId>> CreateInvitationMethodWithHttpMessagesAsync(string xStreetcredTenantId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ObjectId>> CreateInvitationMethodWithHttpMessagesAsync(string xStreetcredTenantConnectionId, CreateInvitation createInvitation = default(CreateInvitation), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -951,7 +951,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("createInvitation", createInvitation);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "CreateInvitationMethod", tracingParameters);
             }
@@ -964,13 +964,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1071,7 +1071,7 @@ namespace Streetcred.Portal.Client
         /// <param name='connectionId'>
         /// The connection identifier.
         /// </param>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -1095,15 +1095,15 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ConnectionInfo>> GetConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ConnectionInfo>> GetConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (connectionId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "connectionId");
             }
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1113,7 +1113,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("connectionId", connectionId);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetConnection", tracingParameters);
             }
@@ -1127,13 +1127,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1225,7 +1225,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the credentials.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -1249,11 +1249,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<CredentialRecord>>> GetCredentialsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<CredentialRecord>>> GetCredentialsWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1262,7 +1262,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetCredentials", tracingParameters);
             }
@@ -1275,13 +1275,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1373,7 +1373,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets a list of sent credential offers.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -1397,11 +1397,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<CredentialRecord>>> GetOffersWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<CredentialRecord>>> GetOffersWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1410,7 +1410,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetOffers", tracingParameters);
             }
@@ -1423,13 +1423,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1526,7 +1526,7 @@ namespace Streetcred.Portal.Client
         /// Sends credential offer of the specified DefinitionId to the specified
         /// ConnectionId
         /// </remarks>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='sendOffer'>
@@ -1550,11 +1550,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> SendOfferMethodWithHttpMessagesAsync(string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> SendOfferMethodWithHttpMessagesAsync(string xStreetcredTenantConnectionId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1564,7 +1564,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("sendOffer", sendOffer);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "SendOfferMethod", tracingParameters);
             }
@@ -1577,13 +1577,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1663,7 +1663,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the requests.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -1687,11 +1687,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<CredentialRecord>>> GetRequestsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<CredentialRecord>>> GetRequestsWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1700,7 +1700,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetRequests", tracingParameters);
             }
@@ -1713,13 +1713,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1814,7 +1814,7 @@ namespace Streetcred.Portal.Client
         /// <param name='credentialId'>
         /// Credential identifier.
         /// </param>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -1835,15 +1835,15 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> ApproveRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> ApproveRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (credentialId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "credentialId");
             }
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1853,7 +1853,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("credentialId", credentialId);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "ApproveRequest", tracingParameters);
             }
@@ -1867,13 +1867,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("PUT");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -1950,7 +1950,7 @@ namespace Streetcred.Portal.Client
         /// <param name='credentialId'>
         /// Credential identifier.
         /// </param>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -1971,15 +1971,15 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RejectRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> RejectRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (credentialId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "credentialId");
             }
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1989,7 +1989,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("credentialId", credentialId);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "RejectRequest", tracingParameters);
             }
@@ -2003,13 +2003,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("DELETE");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -2094,7 +2094,7 @@ namespace Streetcred.Portal.Client
         /// <param name='credentialId'>
         /// Credential identifier.
         /// </param>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -2115,15 +2115,15 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RevokeCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> RevokeCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (credentialId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "credentialId");
             }
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2133,7 +2133,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("credentialId", credentialId);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "RevokeCredential", tracingParameters);
             }
@@ -2147,13 +2147,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("DELETE");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -2227,7 +2227,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the definitions.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -2251,11 +2251,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<DefinitionInfo>>> GetDefinitionsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<DefinitionInfo>>> GetDefinitionsWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2264,7 +2264,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetDefinitions", tracingParameters);
             }
@@ -2277,13 +2277,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -2384,7 +2384,7 @@ namespace Streetcred.Portal.Client
         /// 'attr_names'
         /// - schema_id will be ignored and generated automatically.
         /// </remarks>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='definition'>
@@ -2411,11 +2411,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ObjectId>> CreateDefinitionMethodWithHttpMessagesAsync(string xStreetcredTenantId, CreateDefinition definition = default(CreateDefinition), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ObjectId>> CreateDefinitionMethodWithHttpMessagesAsync(string xStreetcredTenantConnectionId, CreateDefinition definition = default(CreateDefinition), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2425,7 +2425,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("definition", definition);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "CreateDefinitionMethod", tracingParameters);
             }
@@ -2438,13 +2438,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -2544,7 +2544,7 @@ namespace Streetcred.Portal.Client
         /// </summary>
         /// <param name='definitionId'>
         /// </param>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -2568,15 +2568,15 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<DefinitionInfo>> GetDefinitionWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<DefinitionInfo>> GetDefinitionWithHttpMessagesAsync(string definitionId, string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (definitionId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "definitionId");
             }
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2586,7 +2586,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("definitionId", definitionId);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetDefinition", tracingParameters);
             }
@@ -2600,13 +2600,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -2698,7 +2698,7 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the schemas.
         /// </summary>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='customHeaders'>
@@ -2722,11 +2722,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<SchemaRecord>>> GetSchemasWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<SchemaRecord>>> GetSchemasWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2735,7 +2735,7 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetSchemas", tracingParameters);
             }
@@ -2748,13 +2748,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 
@@ -2850,7 +2850,7 @@ namespace Streetcred.Portal.Client
         /// Register schema with the current agency tenant and write the schema
         /// to the ledger using the tenant as issuer.
         /// </remarks>
-        /// <param name='xStreetcredTenantId'>
+        /// <param name='xStreetcredTenantConnectionId'>
         /// Identifier of the tenant used with this request.
         /// </param>
         /// <param name='schema'>
@@ -2877,11 +2877,11 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> RegisterSchemaWithHttpMessagesAsync(string xStreetcredTenantId, Schema schema = default(Schema), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<string>> RegisterSchemaWithHttpMessagesAsync(string xStreetcredTenantConnectionId, Schema schema = default(Schema), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (xStreetcredTenantId == null)
+            if (xStreetcredTenantConnectionId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantConnectionId");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -2891,7 +2891,7 @@ namespace Streetcred.Portal.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("schema", schema);
-                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("xStreetcredTenantConnectionId", xStreetcredTenantConnectionId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "RegisterSchema", tracingParameters);
             }
@@ -2904,13 +2904,13 @@ namespace Streetcred.Portal.Client
             _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new System.Uri(_url);
             // Set Headers
-            if (xStreetcredTenantId != null)
+            if (xStreetcredTenantConnectionId != null)
             {
-                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-ConnectionId"))
                 {
-                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-ConnectionId");
                 }
-                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-ConnectionId", xStreetcredTenantConnectionId);
             }
 
 

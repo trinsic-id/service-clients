@@ -9,6 +9,9 @@ namespace Streetcred.Cloud.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Wallet information
+    /// </summary>
     public partial class WalletInfo
     {
         /// <summary>
@@ -22,6 +25,9 @@ namespace Streetcred.Cloud.Client.Models
         /// <summary>
         /// Initializes a new instance of the WalletInfo class.
         /// </summary>
+        /// <param name="type">Gets or sets the type.</param>
+        /// <param name="id">Gets or sets the identifier.</param>
+        /// <param name="name">Gets or sets the name.</param>
         public WalletInfo(string type = default(string), string id = default(string), string name = default(string))
         {
             Type = type;
@@ -36,16 +42,19 @@ namespace Streetcred.Cloud.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the type.
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
         /// <summary>
+        /// Gets or sets the identifier.
         /// </summary>
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the name.
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
