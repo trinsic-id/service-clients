@@ -861,9 +861,11 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static ProvisioningInfo GetAgentInfo(this IPortalServiceClient operations)
+            /// <param name='tenantId'>
+            /// </param>
+            public static ProvisioningInfo GetAgentInfo(this IPortalServiceClient operations, string tenantId = default(string))
             {
-                return operations.GetAgentInfoAsync().GetAwaiter().GetResult();
+                return operations.GetAgentInfoAsync(tenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -872,12 +874,14 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='tenantId'>
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ProvisioningInfo> GetAgentInfoAsync(this IPortalServiceClient operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ProvisioningInfo> GetAgentInfoAsync(this IPortalServiceClient operations, string tenantId = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetAgentInfoWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetAgentInfoWithHttpMessagesAsync(tenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

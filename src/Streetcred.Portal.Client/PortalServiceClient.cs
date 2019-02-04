@@ -3406,6 +3406,8 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Returns the agent configuration
         /// </summary>
+        /// <param name='tenantId'>
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -3421,7 +3423,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ProvisioningInfo>> GetAgentInfoWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ProvisioningInfo>> GetAgentInfoWithHttpMessagesAsync(string tenantId = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -3430,12 +3432,22 @@ namespace Streetcred.Portal.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("tenantId", tenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetAgentInfo", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/tenants/agent_info").ToString();
+            List<string> _queryParameters = new List<string>();
+            if (tenantId != null)
+            {
+                _queryParameters.Add(string.Format("tenantId={0}", System.Uri.EscapeDataString(tenantId)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
