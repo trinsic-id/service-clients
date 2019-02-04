@@ -855,5 +855,33 @@ namespace Streetcred.Portal.Client
                 (await operations.DeleteTenantWithHttpMessagesAsync(tenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
+            /// <summary>
+            /// Returns the agent configuration
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            public static ProvisioningInfo GetAgentInfo(this IPortalServiceClient operations)
+            {
+                return operations.GetAgentInfoAsync().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Returns the agent configuration
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ProvisioningInfo> GetAgentInfoAsync(this IPortalServiceClient operations, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetAgentInfoWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
     }
 }
