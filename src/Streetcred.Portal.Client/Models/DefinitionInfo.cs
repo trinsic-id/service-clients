@@ -7,6 +7,8 @@
 namespace Streetcred.Portal.Client.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class DefinitionInfo
@@ -22,10 +24,11 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the DefinitionInfo class.
         /// </summary>
-        public DefinitionInfo(string name = default(string), string version = default(string), bool? supportsRevocation = default(bool?), int? maxCredentialCount = default(int?), string schemaId = default(string), string definitionId = default(string))
+        public DefinitionInfo(string name = default(string), string version = default(string), IList<string> attributes = default(IList<string>), bool? supportsRevocation = default(bool?), int? maxCredentialCount = default(int?), string schemaId = default(string), string definitionId = default(string))
         {
             Name = name;
             Version = version;
+            Attributes = attributes;
             SupportsRevocation = supportsRevocation;
             MaxCredentialCount = maxCredentialCount;
             SchemaId = schemaId;
@@ -47,6 +50,11 @@ namespace Streetcred.Portal.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "version")]
         public string Version { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "attributes")]
+        public IList<string> Attributes { get; set; }
 
         /// <summary>
         /// </summary>
