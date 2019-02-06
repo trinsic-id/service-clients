@@ -7,6 +7,8 @@
 namespace Streetcred.Portal.Client.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class SchemaRecord
@@ -22,9 +24,11 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the SchemaRecord class.
         /// </summary>
-        public SchemaRecord(string schemaJson = default(string), string id = default(string))
+        public SchemaRecord(string name = default(string), string version = default(string), IList<string> attributeNames = default(IList<string>), string id = default(string))
         {
-            SchemaJson = schemaJson;
+            Name = name;
+            Version = version;
+            AttributeNames = attributeNames;
             Id = id;
             CustomInit();
         }
@@ -36,8 +40,18 @@ namespace Streetcred.Portal.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "schemaJson")]
-        public string SchemaJson { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "version")]
+        public string Version { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "attributeNames")]
+        public IList<string> AttributeNames { get; set; }
 
         /// <summary>
         /// </summary>

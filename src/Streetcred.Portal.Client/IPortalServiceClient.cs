@@ -140,6 +140,8 @@ namespace Streetcred.Portal.Client
         /// <summary>
         /// Gets the credentials.
         /// </summary>
+        /// <param name='definitionId'>
+        /// </param>
         /// <param name='xStreetcredTenantId'>
         /// Identifier of the tenant used with this request.
         /// </param>
@@ -149,21 +151,7 @@ namespace Streetcred.Portal.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<CredentialRecord>>> GetCredentialsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Gets a list of sent credential offers.
-        /// </summary>
-        /// <param name='xStreetcredTenantId'>
-        /// Identifier of the tenant used with this request.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<IList<CredentialRecord>>> GetOffersWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<CredentialInfo>>> GetCredentialsWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Sends credential offer of the specified DefinitionId to the
@@ -188,10 +176,16 @@ namespace Streetcred.Portal.Client
         Task<HttpOperationResponse> SendOfferMethodWithHttpMessagesAsync(string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
-        /// Gets the requests.
+        /// Issues the credential.
         /// </summary>
+        /// <param name='credentialId'>
+        /// The credential identifier.
+        /// </param>
         /// <param name='xStreetcredTenantId'>
         /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='values'>
+        /// The values.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -199,7 +193,7 @@ namespace Streetcred.Portal.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<CredentialRecord>>> GetRequestsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> IssueCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, IDictionary<string, string> values = default(IDictionary<string, string>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Approves the request.

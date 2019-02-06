@@ -252,12 +252,14 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='definitionId'>
+            /// </param>
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<CredentialRecord> GetCredentials(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<CredentialInfo> GetCredentials(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId)
             {
-                return operations.GetCredentialsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetCredentialsAsync(definitionId, xStreetcredTenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -266,39 +268,7 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='xStreetcredTenantId'>
-            /// Identifier of the tenant used with this request.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IList<CredentialRecord>> GetCredentialsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetCredentialsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Gets a list of sent credential offers.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='xStreetcredTenantId'>
-            /// Identifier of the tenant used with this request.
-            /// </param>
-            public static IList<CredentialRecord> GetOffers(this IPortalServiceClient operations, string xStreetcredTenantId)
-            {
-                return operations.GetOffersAsync(xStreetcredTenantId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Gets a list of sent credential offers.
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
+            /// <param name='definitionId'>
             /// </param>
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
@@ -306,9 +276,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<CredentialRecord>> GetOffersAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<CredentialInfo>> GetCredentialsAsync(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetOffersWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetCredentialsWithHttpMessagesAsync(definitionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -362,37 +332,46 @@ namespace Streetcred.Portal.Client
             }
 
             /// <summary>
-            /// Gets the requests.
+            /// Issues the credential.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='credentialId'>
+            /// The credential identifier.
+            /// </param>
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<CredentialRecord> GetRequests(this IPortalServiceClient operations, string xStreetcredTenantId)
+            /// <param name='values'>
+            /// The values.
+            /// </param>
+            public static void IssueCredential(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, IDictionary<string, string> values = default(IDictionary<string, string>))
             {
-                return operations.GetRequestsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                operations.IssueCredentialAsync(credentialId, xStreetcredTenantId, values).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Gets the requests.
+            /// Issues the credential.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='credentialId'>
+            /// The credential identifier.
+            /// </param>
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='values'>
+            /// The values.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<CredentialRecord>> GetRequestsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task IssueCredentialAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, IDictionary<string, string> values = default(IDictionary<string, string>), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetRequestsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
+                (await operations.IssueCredentialWithHttpMessagesAsync(credentialId, xStreetcredTenantId, values, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
