@@ -247,7 +247,7 @@ namespace Streetcred.Portal.Client
             }
 
             /// <summary>
-            /// Gets the credentials.
+            /// Lists the credentials.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -257,13 +257,13 @@ namespace Streetcred.Portal.Client
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<CredentialInfo> GetCredentials(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId)
+            public static IList<CredentialInfo> ListCredentials(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId)
             {
-                return operations.GetCredentialsAsync(definitionId, xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.ListCredentialsAsync(definitionId, xStreetcredTenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Gets the credentials.
+            /// Lists the credentials.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -276,12 +276,105 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<CredentialInfo>> GetCredentialsAsync(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<CredentialInfo>> ListCredentialsAsync(this IPortalServiceClient operations, string definitionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetCredentialsWithHttpMessagesAsync(definitionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListCredentialsWithHttpMessagesAsync(definitionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
+            }
+
+            /// <summary>
+            /// Gets the credentials.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='credentialId'>
+            /// The credential identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static CredentialInfo GetCredential(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId)
+            {
+                return operations.GetCredentialAsync(credentialId, xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets the credentials.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='credentialId'>
+            /// The credential identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<CredentialInfo> GetCredentialAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetCredentialWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Revokes a credential.
+            /// </summary>
+            /// <remarks>
+            /// Revoke credential that was issued previously. Process of revocation will
+            /// update the revocation
+            /// registry locally and on the ledger. Issued credentials can still
+            /// participate in proof workflows
+            /// and be considered valid, but only if the verifying ignores the revocation
+            /// trail.
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='credentialId'>
+            /// Credential identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static void RevokeCredential(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId)
+            {
+                operations.RevokeCredentialAsync(credentialId, xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Revokes a credential.
+            /// </summary>
+            /// <remarks>
+            /// Revoke credential that was issued previously. Process of revocation will
+            /// update the revocation
+            /// registry locally and on the ledger. Issued credentials can still
+            /// participate in proof workflows
+            /// and be considered valid, but only if the verifying ignores the revocation
+            /// trail.
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='credentialId'>
+            /// Credential identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task RevokeCredentialAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.RevokeCredentialWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -446,59 +539,6 @@ namespace Streetcred.Portal.Client
             public static async Task RejectRequestAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.RejectRequestWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// Revokes a credential.
-            /// </summary>
-            /// <remarks>
-            /// Revoke credential that was issued previously. Process of revocation will
-            /// update the revocation
-            /// registry locally and on the ledger. Issued credentials can still
-            /// participate in proof workflows
-            /// and be considered valid, but only if the verifying ignores the revocation
-            /// trail.
-            /// </remarks>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='credentialId'>
-            /// Credential identifier.
-            /// </param>
-            /// <param name='xStreetcredTenantId'>
-            /// Identifier of the tenant used with this request.
-            /// </param>
-            public static void RevokeCredential(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId)
-            {
-                operations.RevokeCredentialAsync(credentialId, xStreetcredTenantId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Revokes a credential.
-            /// </summary>
-            /// <remarks>
-            /// Revoke credential that was issued previously. Process of revocation will
-            /// update the revocation
-            /// registry locally and on the ledger. Issued credentials can still
-            /// participate in proof workflows
-            /// and be considered valid, but only if the verifying ignores the revocation
-            /// trail.
-            /// </remarks>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='credentialId'>
-            /// Credential identifier.
-            /// </param>
-            /// <param name='xStreetcredTenantId'>
-            /// Identifier of the tenant used with this request.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task RevokeCredentialAsync(this IPortalServiceClient operations, string credentialId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.RevokeCredentialWithHttpMessagesAsync(credentialId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>

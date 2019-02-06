@@ -138,7 +138,7 @@ namespace Streetcred.Portal.Client
         Task<HttpOperationResponse<ConnectionInfo>> GetConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
-        /// Gets the credentials.
+        /// Lists the credentials.
         /// </summary>
         /// <param name='definitionId'>
         /// </param>
@@ -151,7 +151,49 @@ namespace Streetcred.Portal.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<CredentialInfo>>> GetCredentialsWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<CredentialInfo>>> ListCredentialsWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Gets the credentials.
+        /// </summary>
+        /// <param name='credentialId'>
+        /// The credential identifier.
+        /// </param>
+        /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<CredentialInfo>> GetCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Revokes a credential.
+        /// </summary>
+        /// <remarks>
+        /// Revoke credential that was issued previously. Process of revocation
+        /// will update the revocation
+        /// registry locally and on the ledger. Issued credentials can still
+        /// participate in proof workflows
+        /// and be considered valid, but only if the verifying ignores the
+        /// revocation trail.
+        /// </remarks>
+        /// <param name='credentialId'>
+        /// Credential identifier.
+        /// </param>
+        /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> RevokeCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Sends credential offer of the specified DefinitionId to the
@@ -228,31 +270,6 @@ namespace Streetcred.Portal.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse> RejectRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Revokes a credential.
-        /// </summary>
-        /// <remarks>
-        /// Revoke credential that was issued previously. Process of revocation
-        /// will update the revocation
-        /// registry locally and on the ledger. Issued credentials can still
-        /// participate in proof workflows
-        /// and be considered valid, but only if the verifying ignores the
-        /// revocation trail.
-        /// </remarks>
-        /// <param name='credentialId'>
-        /// Credential identifier.
-        /// </param>
-        /// <param name='xStreetcredTenantId'>
-        /// Identifier of the tenant used with this request.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse> RevokeCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the definitions.
