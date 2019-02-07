@@ -37,8 +37,9 @@ namespace Streetcred.Cloud.Client.Models
         /// <param name="invitation">Gets or sets the invitation.</param>
         /// <param name="invitationUrl">Gets or sets the invitation
         /// URL.</param>
+        /// <param name="endpoint">Gets or sets the endpoint.</param>
         /// <param name="createdAtUtc">Gets or sets the date created.</param>
-        public ConnectionInfo(string connectionId = default(string), string name = default(string), string imageUrl = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), System.DateTime? createdAtUtc = default(System.DateTime?))
+        public ConnectionInfo(string connectionId = default(string), string name = default(string), string imageUrl = default(string), string myDid = default(string), string theirDid = default(string), string myKey = default(string), string theirKey = default(string), string state = default(string), string invitation = default(string), string invitationUrl = default(string), AgentEndpoint endpoint = default(AgentEndpoint), System.DateTime? createdAtUtc = default(System.DateTime?))
         {
             ConnectionId = connectionId;
             Name = name;
@@ -50,6 +51,7 @@ namespace Streetcred.Cloud.Client.Models
             State = state;
             Invitation = invitation;
             InvitationUrl = invitationUrl;
+            Endpoint = endpoint;
             CreatedAtUtc = createdAtUtc;
             CustomInit();
         }
@@ -119,6 +121,12 @@ namespace Streetcred.Cloud.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "invitationUrl")]
         public string InvitationUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "endpoint")]
+        public AgentEndpoint Endpoint { get; set; }
 
         /// <summary>
         /// Gets or sets the date created.

@@ -7,6 +7,8 @@
 namespace Streetcred.Portal.Client.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class CredentialInfo
@@ -24,13 +26,14 @@ namespace Streetcred.Portal.Client.Models
         /// </summary>
         /// <param name="state">Possible values include: 'Offered',
         /// 'Requested', 'Issued', 'Rejected', 'Revoked'</param>
-        public CredentialInfo(string credentialId = default(string), string state = default(string), string connectionId = default(string), string definitionId = default(string), string schemaId = default(string))
+        public CredentialInfo(string credentialId = default(string), string state = default(string), string connectionId = default(string), string definitionId = default(string), string schemaId = default(string), IDictionary<string, string> values = default(IDictionary<string, string>))
         {
             CredentialId = credentialId;
             State = state;
             ConnectionId = connectionId;
             DefinitionId = definitionId;
             SchemaId = schemaId;
+            Values = values;
             CustomInit();
         }
 
@@ -65,6 +68,11 @@ namespace Streetcred.Portal.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "schemaId")]
         public string SchemaId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "values")]
+        public IDictionary<string, string> Values { get; set; }
 
     }
 }
