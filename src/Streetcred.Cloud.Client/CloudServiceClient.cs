@@ -1779,7 +1779,7 @@ namespace Streetcred.Cloud.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<string>>> RetreiveMessagesWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<MessageInfo>>> RetreiveMessagesWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredWalletId == null)
             {
@@ -1872,7 +1872,7 @@ namespace Streetcred.Cloud.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IList<string>>();
+            var _result = new HttpOperationResponse<IList<MessageInfo>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -1881,7 +1881,7 @@ namespace Streetcred.Cloud.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<string>>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<IList<MessageInfo>>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

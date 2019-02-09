@@ -9,24 +9,23 @@ namespace Streetcred.Cloud.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class AgentEndpoint
+    public partial class MessageInfo
     {
         /// <summary>
-        /// Initializes a new instance of the AgentEndpoint class.
+        /// Initializes a new instance of the MessageInfo class.
         /// </summary>
-        public AgentEndpoint()
+        public MessageInfo()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the AgentEndpoint class.
+        /// Initializes a new instance of the MessageInfo class.
         /// </summary>
-        public AgentEndpoint(string did = default(string), string verkey = default(string), string uri = default(string))
+        public MessageInfo(string id = default(string), string content = default(string))
         {
-            Did = did;
-            Verkey = verkey;
-            Uri = uri;
+            Id = id;
+            Content = content;
             CustomInit();
         }
 
@@ -37,18 +36,13 @@ namespace Streetcred.Cloud.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "did")]
-        public string Did { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "verkey")]
-        public string Verkey { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "uri")]
-        public string Uri { get; set; }
+        [JsonProperty(PropertyName = "content")]
+        public string Content { get; set; }
 
     }
 }

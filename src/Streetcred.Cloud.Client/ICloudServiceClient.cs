@@ -199,7 +199,7 @@ namespace Streetcred.Cloud.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<string>>> RetreiveMessagesWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<MessageInfo>>> RetreiveMessagesWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Deletes the messages.

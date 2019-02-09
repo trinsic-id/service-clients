@@ -371,7 +371,7 @@ namespace Streetcred.Cloud.Client
             /// <param name='xStreetcredWalletId'>
             /// Identifier of the cloud wallet used with this request.
             /// </param>
-            public static IList<string> RetreiveMessages(this ICloudServiceClient operations, string xStreetcredWalletId)
+            public static IList<MessageInfo> RetreiveMessages(this ICloudServiceClient operations, string xStreetcredWalletId)
             {
                 return operations.RetreiveMessagesAsync(xStreetcredWalletId).GetAwaiter().GetResult();
             }
@@ -388,7 +388,7 @@ namespace Streetcred.Cloud.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<string>> RetreiveMessagesAsync(this ICloudServiceClient operations, string xStreetcredWalletId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<MessageInfo>> RetreiveMessagesAsync(this ICloudServiceClient operations, string xStreetcredWalletId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.RetreiveMessagesWithHttpMessagesAsync(xStreetcredWalletId, null, cancellationToken).ConfigureAwait(false))
                 {
