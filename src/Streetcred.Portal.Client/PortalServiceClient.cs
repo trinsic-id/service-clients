@@ -3050,7 +3050,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ProofRequestInfo>> GetWithHttpMessagesAsync(string proofRequestId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ProofRequestInfo>> GetProofRequestWithHttpMessagesAsync(string proofRequestId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (proofRequestId == null)
             {
@@ -3070,7 +3070,7 @@ namespace Streetcred.Portal.Client
                 tracingParameters.Add("proofRequestId", proofRequestId);
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "Get", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetProofRequest", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -3204,7 +3204,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<ProofRequestInfo>>> ListWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<ProofRequestInfo>>> ListProofRequestsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredTenantId == null)
             {
@@ -3219,7 +3219,7 @@ namespace Streetcred.Portal.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "List", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "ListProofRequests", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -3355,7 +3355,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ObjectId>> CreateWithHttpMessagesAsync(string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ObjectId>> CreateProofRequestWithHttpMessagesAsync(string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredTenantId == null)
             {
@@ -3371,7 +3371,7 @@ namespace Streetcred.Portal.Client
                 tracingParameters.Add("proofRequest", proofRequest);
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "Create", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "CreateProofRequest", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -4046,7 +4046,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<VerificationInfo>>> List1WithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<VerificationInfo>>> ListVerificationsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredTenantId == null)
             {
@@ -4061,7 +4061,7 @@ namespace Streetcred.Portal.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "List1", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "ListVerifications", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;

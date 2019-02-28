@@ -765,9 +765,9 @@ namespace Streetcred.Portal.Client
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static ProofRequestInfo Get(this IPortalServiceClient operations, string proofRequestId, string xStreetcredTenantId)
+            public static ProofRequestInfo GetProofRequest(this IPortalServiceClient operations, string proofRequestId, string xStreetcredTenantId)
             {
-                return operations.GetAsync(proofRequestId, xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.GetProofRequestAsync(proofRequestId, xStreetcredTenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -785,9 +785,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ProofRequestInfo> GetAsync(this IPortalServiceClient operations, string proofRequestId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ProofRequestInfo> GetProofRequestAsync(this IPortalServiceClient operations, string proofRequestId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(proofRequestId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetProofRequestWithHttpMessagesAsync(proofRequestId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -802,9 +802,9 @@ namespace Streetcred.Portal.Client
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<ProofRequestInfo> List(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<ProofRequestInfo> ListProofRequests(this IPortalServiceClient operations, string xStreetcredTenantId)
             {
-                return operations.ListAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.ListProofRequestsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -819,9 +819,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ProofRequestInfo>> ListAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ProofRequestInfo>> ListProofRequestsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListProofRequestsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -839,9 +839,9 @@ namespace Streetcred.Portal.Client
             /// <param name='proofRequest'>
             /// The proof request.
             /// </param>
-            public static ObjectId Create(this IPortalServiceClient operations, string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest))
+            public static ObjectId CreateProofRequest(this IPortalServiceClient operations, string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest))
             {
-                return operations.CreateAsync(xStreetcredTenantId, proofRequest).GetAwaiter().GetResult();
+                return operations.CreateProofRequestAsync(xStreetcredTenantId, proofRequest).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -859,9 +859,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ObjectId> CreateAsync(this IPortalServiceClient operations, string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ObjectId> CreateProofRequestAsync(this IPortalServiceClient operations, string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateWithHttpMessagesAsync(xStreetcredTenantId, proofRequest, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.CreateProofRequestWithHttpMessagesAsync(xStreetcredTenantId, proofRequest, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -1029,9 +1029,9 @@ namespace Streetcred.Portal.Client
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<VerificationInfo> List1(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<VerificationInfo> ListVerifications(this IPortalServiceClient operations, string xStreetcredTenantId)
             {
-                return operations.List1Async(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.ListVerificationsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1046,9 +1046,9 @@ namespace Streetcred.Portal.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<VerificationInfo>> List1Async(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<VerificationInfo>> ListVerificationsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.List1WithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListVerificationsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
