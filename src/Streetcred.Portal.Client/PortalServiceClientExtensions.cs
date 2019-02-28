@@ -754,6 +754,120 @@ namespace Streetcred.Portal.Client
             }
 
             /// <summary>
+            /// Gets the specified proof request identifier.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='proofRequestId'>
+            /// The proof request identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static ProofRequestInfo Get(this IPortalServiceClient operations, string proofRequestId, string xStreetcredTenantId)
+            {
+                return operations.GetAsync(proofRequestId, xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets the specified proof request identifier.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='proofRequestId'>
+            /// The proof request identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ProofRequestInfo> GetAsync(this IPortalServiceClient operations, string proofRequestId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetWithHttpMessagesAsync(proofRequestId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Lists this instance.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static IList<ProofRequestInfo> List(this IPortalServiceClient operations, string xStreetcredTenantId)
+            {
+                return operations.ListAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists this instance.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<ProofRequestInfo>> ListAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Creates the specified proof request.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='proofRequest'>
+            /// The proof request.
+            /// </param>
+            public static ObjectId Create(this IPortalServiceClient operations, string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest))
+            {
+                return operations.CreateAsync(xStreetcredTenantId, proofRequest).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates the specified proof request.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='proofRequest'>
+            /// The proof request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ObjectId> CreateAsync(this IPortalServiceClient operations, string xStreetcredTenantId, ProofRequest proofRequest = default(ProofRequest), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreateWithHttpMessagesAsync(xStreetcredTenantId, proofRequest, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// List available tenants
             /// </summary>
             /// <remarks>
@@ -901,6 +1015,40 @@ namespace Streetcred.Portal.Client
             public static async Task<ProvisioningInfo> GetAgentInfoAsync(this IPortalServiceClient operations, string tenantId = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetAgentInfoWithHttpMessagesAsync(tenantId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Lists this instance.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static IList<VerificationInfo> List1(this IPortalServiceClient operations, string xStreetcredTenantId)
+            {
+                return operations.List1Async(xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists this instance.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<VerificationInfo>> List1Async(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.List1WithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
