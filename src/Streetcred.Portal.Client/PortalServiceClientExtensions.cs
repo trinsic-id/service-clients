@@ -1066,12 +1066,14 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='templateId'>
+            /// </param>
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
-            public static IList<VerificationInfo> ListVerifications(this IPortalServiceClient operations, string xStreetcredTenantId)
+            public static IList<VerificationInfo> ListVerificationsForTemplate(this IPortalServiceClient operations, string templateId, string xStreetcredTenantId)
             {
-                return operations.ListVerificationsAsync(xStreetcredTenantId).GetAwaiter().GetResult();
+                return operations.ListVerificationsForTemplateAsync(templateId, xStreetcredTenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1080,15 +1082,57 @@ namespace Streetcred.Portal.Client
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='templateId'>
+            /// </param>
             /// <param name='xStreetcredTenantId'>
             /// Identifier of the tenant used with this request.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<VerificationInfo>> ListVerificationsAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<VerificationInfo>> ListVerificationsForTemplateAsync(this IPortalServiceClient operations, string templateId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListVerificationsWithHttpMessagesAsync(xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListVerificationsForTemplateWithHttpMessagesAsync(templateId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Lists the verifications for connection.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='connectionId'>
+            /// The connection identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static IList<VerificationInfo> ListVerificationsForConnection(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId)
+            {
+                return operations.ListVerificationsForConnectionAsync(connectionId, xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists the verifications for connection.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='connectionId'>
+            /// The connection identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<VerificationInfo>> ListVerificationsForConnectionAsync(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListVerificationsForConnectionWithHttpMessagesAsync(connectionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
