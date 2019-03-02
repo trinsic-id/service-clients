@@ -508,5 +508,22 @@ namespace Streetcred.Portal.Client
         /// </param>
         Task<HttpOperationResponse<IList<VerificationInfo>>> ListVerificationsWithHttpMessagesAsync(string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Creates the specified create verification.
+        /// </summary>
+        /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='createVerification'>
+        /// The create verification.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<ObjectId>> SendVerificationWithHttpMessagesAsync(string xStreetcredTenantId, CreateVerification createVerification = default(CreateVerification), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
     }
 }

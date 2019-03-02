@@ -1094,5 +1094,45 @@ namespace Streetcred.Portal.Client
                 }
             }
 
+            /// <summary>
+            /// Creates the specified create verification.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='createVerification'>
+            /// The create verification.
+            /// </param>
+            public static ObjectId SendVerification(this IPortalServiceClient operations, string xStreetcredTenantId, CreateVerification createVerification = default(CreateVerification))
+            {
+                return operations.SendVerificationAsync(xStreetcredTenantId, createVerification).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates the specified create verification.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='createVerification'>
+            /// The create verification.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ObjectId> SendVerificationAsync(this IPortalServiceClient operations, string xStreetcredTenantId, CreateVerification createVerification = default(CreateVerification), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.SendVerificationWithHttpMessagesAsync(xStreetcredTenantId, createVerification, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
     }
 }

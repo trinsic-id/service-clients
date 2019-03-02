@@ -9,6 +9,9 @@ namespace Streetcred.Portal.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
+    /// <summary>
+    /// Verification Info
+    /// </summary>
     public partial class VerificationInfo
     {
         /// <summary>
@@ -22,8 +25,12 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the VerificationInfo class.
         /// </summary>
-        /// <param name="state">Possible values include: 'Requested',
-        /// 'Accepted', 'Rejected'</param>
+        /// <param name="connectionId">Gets or sets the connection
+        /// identifier.</param>
+        /// <param name="verificationId">Gets or sets the verification
+        /// identifier.</param>
+        /// <param name="state">Gets or sets the state. Possible values
+        /// include: 'Requested', 'Accepted', 'Rejected'</param>
         public VerificationInfo(string connectionId = default(string), string verificationId = default(string), string state = default(string))
         {
             ConnectionId = connectionId;
@@ -38,18 +45,20 @@ namespace Streetcred.Portal.Client.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the connection identifier.
         /// </summary>
         [JsonProperty(PropertyName = "connectionId")]
         public string ConnectionId { get; set; }
 
         /// <summary>
+        /// Gets or sets the verification identifier.
         /// </summary>
         [JsonProperty(PropertyName = "verificationId")]
         public string VerificationId { get; set; }
 
         /// <summary>
-        /// Gets or sets possible values include: 'Requested', 'Accepted',
-        /// 'Rejected'
+        /// Gets or sets the state. Possible values include: 'Requested',
+        /// 'Accepted', 'Rejected'
         /// </summary>
         [JsonProperty(PropertyName = "state")]
         public string State { get; set; }
