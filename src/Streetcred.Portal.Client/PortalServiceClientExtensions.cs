@@ -285,6 +285,46 @@ namespace Streetcred.Portal.Client
             }
 
             /// <summary>
+            /// Lists the credentials for connection.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='connectionId'>
+            /// The connection identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            public static IList<CredentialInfo> ListCredentialsForConnection(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId)
+            {
+                return operations.ListCredentialsForConnectionAsync(connectionId, xStreetcredTenantId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists the credentials for connection.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='connectionId'>
+            /// The connection identifier.
+            /// </param>
+            /// <param name='xStreetcredTenantId'>
+            /// Identifier of the tenant used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<CredentialInfo>> ListCredentialsForConnectionAsync(this IPortalServiceClient operations, string connectionId, string xStreetcredTenantId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListCredentialsForConnectionWithHttpMessagesAsync(connectionId, xStreetcredTenantId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Gets the credentials.
             /// </summary>
             /// <param name='operations'>

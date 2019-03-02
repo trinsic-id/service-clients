@@ -154,6 +154,23 @@ namespace Streetcred.Portal.Client
         Task<HttpOperationResponse<IList<CredentialInfo>>> ListCredentialsWithHttpMessagesAsync(string definitionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
+        /// Lists the credentials for connection.
+        /// </summary>
+        /// <param name='connectionId'>
+        /// The connection identifier.
+        /// </param>
+        /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<CredentialInfo>>> ListCredentialsForConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
         /// Gets the credentials.
         /// </summary>
         /// <param name='credentialId'>
