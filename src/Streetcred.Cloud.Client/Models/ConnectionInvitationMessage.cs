@@ -7,6 +7,8 @@
 namespace Streetcred.Cloud.Client.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class ConnectionInvitationMessage
@@ -24,14 +26,15 @@ namespace Streetcred.Cloud.Client.Models
         /// Initializes a new instance of the ConnectionInvitationMessage
         /// class.
         /// </summary>
-        public ConnectionInvitationMessage(string id = default(string), string type = default(string), AgentEndpoint endpoint = default(AgentEndpoint), string name = default(string), string imageUrl = default(string), string connectionKey = default(string))
+        public ConnectionInvitationMessage(string label = default(string), string imageUrl = default(string), string serviceEndpoint = default(string), IList<string> routingKeys = default(IList<string>), IList<string> recipientKeys = default(IList<string>), string id = default(string), string type = default(string))
         {
+            Label = label;
+            ImageUrl = imageUrl;
+            ServiceEndpoint = serviceEndpoint;
+            RoutingKeys = routingKeys;
+            RecipientKeys = recipientKeys;
             Id = id;
             Type = type;
-            Endpoint = endpoint;
-            Name = name;
-            ImageUrl = imageUrl;
-            ConnectionKey = connectionKey;
             CustomInit();
         }
 
@@ -42,23 +45,8 @@ namespace Streetcred.Cloud.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "@id")]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "@type")]
-        public string Type { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "endpoint")]
-        public AgentEndpoint Endpoint { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
+        [JsonProperty(PropertyName = "label")]
+        public string Label { get; set; }
 
         /// <summary>
         /// </summary>
@@ -67,8 +55,28 @@ namespace Streetcred.Cloud.Client.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "connectionKey")]
-        public string ConnectionKey { get; set; }
+        [JsonProperty(PropertyName = "serviceEndpoint")]
+        public string ServiceEndpoint { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "routingKeys")]
+        public IList<string> RoutingKeys { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "recipientKeys")]
+        public IList<string> RecipientKeys { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "@id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "@type")]
+        public string Type { get; set; }
 
     }
 }
