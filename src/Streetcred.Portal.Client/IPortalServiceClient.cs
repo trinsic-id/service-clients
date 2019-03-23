@@ -255,40 +255,6 @@ namespace Streetcred.Portal.Client
         Task<HttpOperationResponse> IssueCredentialWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, IDictionary<string, string> values = default(IDictionary<string, string>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
-        /// Approves the request.
-        /// </summary>
-        /// <param name='credentialId'>
-        /// Credential identifier.
-        /// </param>
-        /// <param name='xStreetcredTenantId'>
-        /// Identifier of the tenant used with this request.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse> ApproveRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Reject credential request.
-        /// </summary>
-        /// <param name='credentialId'>
-        /// Credential identifier.
-        /// </param>
-        /// <param name='xStreetcredTenantId'>
-        /// Identifier of the tenant used with this request.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse> RejectRequestWithHttpMessagesAsync(string credentialId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
         /// Gets the definitions.
         /// </summary>
         /// <param name='xStreetcredTenantId'>

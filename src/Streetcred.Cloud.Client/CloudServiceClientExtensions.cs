@@ -171,10 +171,14 @@ namespace Streetcred.Cloud.Client
                 }
             }
 
+            /// <summary>
+            /// Lists the credentials for connection identifier.
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='connectionId'>
+            /// The connection identifier.
             /// </param>
             /// <param name='xStreetcredWalletId'>
             /// Identifier of the cloud wallet used with this request.
@@ -184,10 +188,14 @@ namespace Streetcred.Cloud.Client
                 return operations.ListCredentialsForConnectionIdAsync(connectionId, xStreetcredWalletId).GetAwaiter().GetResult();
             }
 
+            /// <summary>
+            /// Lists the credentials for connection identifier.
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='connectionId'>
+            /// The connection identifier.
             /// </param>
             /// <param name='xStreetcredWalletId'>
             /// Identifier of the cloud wallet used with this request.
@@ -203,6 +211,9 @@ namespace Streetcred.Cloud.Client
                 }
             }
 
+            /// <summary>
+            /// Lists the credentials.
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -214,6 +225,9 @@ namespace Streetcred.Cloud.Client
                 return operations.ListCredentialsAsync(xStreetcredWalletId).GetAwaiter().GetResult();
             }
 
+            /// <summary>
+            /// Lists the credentials.
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -231,10 +245,14 @@ namespace Streetcred.Cloud.Client
                 }
             }
 
+            /// <summary>
+            /// Accepts the credential offer.
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='credentialId'>
+            /// The credential identifier.
             /// </param>
             /// <param name='xStreetcredWalletId'>
             /// Identifier of the cloud wallet used with this request.
@@ -244,10 +262,14 @@ namespace Streetcred.Cloud.Client
                 operations.AcceptCredentialOfferAsync(credentialId, xStreetcredWalletId).GetAwaiter().GetResult();
             }
 
+            /// <summary>
+            /// Accepts the credential offer.
+            /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='credentialId'>
+            /// The credential identifier.
             /// </param>
             /// <param name='xStreetcredWalletId'>
             /// Identifier of the cloud wallet used with this request.
@@ -431,6 +453,46 @@ namespace Streetcred.Cloud.Client
             public static async Task DeleteMessagesAsync(this ICloudServiceClient operations, string xStreetcredWalletId, IList<string> messageIds = default(IList<string>), CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.DeleteMessagesWithHttpMessagesAsync(xStreetcredWalletId, messageIds, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Lists the verifications for connection.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='connectionId'>
+            /// The connection identifier.
+            /// </param>
+            /// <param name='xStreetcredWalletId'>
+            /// Identifier of the cloud wallet used with this request.
+            /// </param>
+            public static IList<VerificationInfo> ListVerificationsForConnection(this ICloudServiceClient operations, string connectionId, string xStreetcredWalletId)
+            {
+                return operations.ListVerificationsForConnectionAsync(connectionId, xStreetcredWalletId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists the verifications for connection.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='connectionId'>
+            /// The connection identifier.
+            /// </param>
+            /// <param name='xStreetcredWalletId'>
+            /// Identifier of the cloud wallet used with this request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<VerificationInfo>> ListVerificationsForConnectionAsync(this ICloudServiceClient operations, string connectionId, string xStreetcredWalletId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListVerificationsForConnectionWithHttpMessagesAsync(connectionId, xStreetcredWalletId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>

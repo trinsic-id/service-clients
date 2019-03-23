@@ -105,7 +105,11 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<ConnectionInfo>>> GetInvitationsWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Lists the credentials for connection identifier.
+        /// </summary>
         /// <param name='connectionId'>
+        /// The connection identifier.
         /// </param>
         /// <param name='xStreetcredWalletId'>
         /// Identifier of the cloud wallet used with this request.
@@ -118,6 +122,9 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<CredentialInfo>>> ListCredentialsForConnectionIdWithHttpMessagesAsync(string connectionId, string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Lists the credentials.
+        /// </summary>
         /// <param name='xStreetcredWalletId'>
         /// Identifier of the cloud wallet used with this request.
         /// </param>
@@ -129,7 +136,11 @@ namespace Streetcred.Cloud.Client
         /// </param>
         Task<HttpOperationResponse<IList<CredentialInfo>>> ListCredentialsWithHttpMessagesAsync(string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>
+        /// Accepts the credential offer.
+        /// </summary>
         /// <param name='credentialId'>
+        /// The credential identifier.
         /// </param>
         /// <param name='xStreetcredWalletId'>
         /// Identifier of the cloud wallet used with this request.
@@ -217,6 +228,23 @@ namespace Streetcred.Cloud.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse> DeleteMessagesWithHttpMessagesAsync(string xStreetcredWalletId, IList<string> messageIds = default(IList<string>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Lists the verifications for connection.
+        /// </summary>
+        /// <param name='connectionId'>
+        /// The connection identifier.
+        /// </param>
+        /// <param name='xStreetcredWalletId'>
+        /// Identifier of the cloud wallet used with this request.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<VerificationInfo>>> ListVerificationsForConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredWalletId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Lists the wallets async.
