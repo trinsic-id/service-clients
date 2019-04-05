@@ -7,6 +7,8 @@
 namespace Streetcred.Portal.Client.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class ProofPredicateInfo
@@ -22,7 +24,7 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// Initializes a new instance of the ProofPredicateInfo class.
         /// </summary>
-        public ProofPredicateInfo(string pType = default(string), string pValue = default(string), string name = default(string), ProofPredicateInfoRestrictions restrictions = default(ProofPredicateInfoRestrictions), RevocationInterval nonRevoked = default(RevocationInterval))
+        public ProofPredicateInfo(string pType = default(string), string pValue = default(string), string name = default(string), IList<AttributeFilter> restrictions = default(IList<AttributeFilter>), RevocationInterval nonRevoked = default(RevocationInterval))
         {
             PType = pType;
             PValue = pValue;
@@ -55,7 +57,7 @@ namespace Streetcred.Portal.Client.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "restrictions")]
-        public ProofPredicateInfoRestrictions Restrictions { get; set; }
+        public IList<AttributeFilter> Restrictions { get; set; }
 
         /// <summary>
         /// </summary>
