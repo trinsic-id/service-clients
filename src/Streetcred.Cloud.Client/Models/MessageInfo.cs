@@ -22,10 +22,11 @@ namespace Streetcred.Cloud.Client.Models
         /// <summary>
         /// Initializes a new instance of the MessageInfo class.
         /// </summary>
-        public MessageInfo(string id = default(string), string content = default(string))
+        public MessageInfo(string id = default(string), string content = default(string), string timestamp = default(string))
         {
             Id = id;
             Content = content;
+            Timestamp = timestamp;
             CustomInit();
         }
 
@@ -43,6 +44,11 @@ namespace Streetcred.Cloud.Client.Models
         /// </summary>
         [JsonProperty(PropertyName = "content")]
         public string Content { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "timestamp")]
+        public string Timestamp { get; set; }
 
     }
 }
