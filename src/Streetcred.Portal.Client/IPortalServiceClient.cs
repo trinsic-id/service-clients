@@ -232,7 +232,7 @@ namespace Streetcred.Portal.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse> SendOfferMethodWithHttpMessagesAsync(string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ObjectId>> SendCredentialOfferWithHttpMessagesAsync(string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Issues the credential.
@@ -492,6 +492,23 @@ namespace Streetcred.Portal.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse<IList<VerificationInfo>>> ListVerificationsForConnectionWithHttpMessagesAsync(string connectionId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Get the verification with the given identifier
+        /// </summary>
+        /// <param name='verificationId'>
+        /// The verification identifier.
+        /// </param>
+        /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<VerificationInfo>> GetVerificationWithHttpMessagesAsync(string verificationId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Creates the specified create verification.

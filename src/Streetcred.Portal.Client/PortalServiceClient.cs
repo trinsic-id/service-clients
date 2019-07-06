@@ -1859,6 +1859,9 @@ namespace Streetcred.Portal.Client
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
@@ -1868,7 +1871,7 @@ namespace Streetcred.Portal.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> SendOfferMethodWithHttpMessagesAsync(string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ObjectId>> SendCredentialOfferWithHttpMessagesAsync(string xStreetcredTenantId, SendOffer sendOffer = default(SendOffer), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (xStreetcredTenantId == null)
             {
@@ -1884,7 +1887,7 @@ namespace Streetcred.Portal.Client
                 tracingParameters.Add("sendOffer", sendOffer);
                 tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "SendOfferMethod", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "SendCredentialOffer", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -1968,9 +1971,27 @@ namespace Streetcred.Portal.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse();
+            var _result = new HttpOperationResponse<ObjectId>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = SafeJsonConvert.DeserializeObject<ObjectId>(_responseContent, DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
             if (_shouldTrace)
             {
                 ServiceClientTracing.Exit(_invocationId, _result);
@@ -4199,6 +4220,163 @@ namespace Streetcred.Portal.Client
                 try
                 {
                     _result.Body = SafeJsonConvert.DeserializeObject<IList<VerificationInfo>>(_responseContent, DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
+        /// <summary>
+        /// Get the verification with the given identifier
+        /// </summary>
+        /// <param name='verificationId'>
+        /// The verification identifier.
+        /// </param>
+        /// <param name='xStreetcredTenantId'>
+        /// Identifier of the tenant used with this request.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<VerificationInfo>> GetVerificationWithHttpMessagesAsync(string verificationId, string xStreetcredTenantId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (verificationId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "verificationId");
+            }
+            if (xStreetcredTenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "xStreetcredTenantId");
+            }
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("verificationId", verificationId);
+                tracingParameters.Add("xStreetcredTenantId", xStreetcredTenantId);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "GetVerification", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/verifications/{verificationId}").ToString();
+            _url = _url.Replace("{verificationId}", System.Uri.EscapeDataString(verificationId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (xStreetcredTenantId != null)
+            {
+                if (_httpRequest.Headers.Contains("X-Streetcred-Tenant-Id"))
+                {
+                    _httpRequest.Headers.Remove("X-Streetcred-Tenant-Id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("X-Streetcred-Tenant-Id", xStreetcredTenantId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Set Credentials
+            if (Credentials != null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            }
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200 && (int)_statusCode != 401 && (int)_statusCode != 403)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<VerificationInfo>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = SafeJsonConvert.DeserializeObject<VerificationInfo>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
