@@ -24,7 +24,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '2.2.401'
+    version: '2.2.301'
 
 - task: Npm@1
   inputs:
