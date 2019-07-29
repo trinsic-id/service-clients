@@ -28,13 +28,6 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'pack'
-    packagesToPack: 'csharp/**/*.csproj'
-    versioningScheme: 'off'
-    buildProperties: '/p:PackageVersion=$(packageVersion)'
-
-- task: DotNetCoreCLI@2
-  inputs:
     command: 'custom'
     projects: 'csharp/**/*.csproj'
     custom: 'pack'
