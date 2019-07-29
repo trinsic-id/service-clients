@@ -1,7 +1,7 @@
 {
-  "name": "streetcred-serviceclients",
+  "name": "@streetcred.id/service-clients",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
@@ -14,6 +14,6 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "ms-rest-js": "^1.0.1"
+    "@azure/ms-rest-js": "^1.0.1"
   }
 }
