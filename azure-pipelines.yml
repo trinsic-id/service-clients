@@ -13,22 +13,23 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  packageVersion: '1.0.0'
 
 steps:
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'install -g autorest'
+
+- task: CmdLine@2
+  inputs:
+    script: 'autorest --input-file=swagger.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+
 - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'pack'
+    packagesToPack: 'csharp/**/*.csproj'
+    versioningScheme: 'byBuildNumber'
