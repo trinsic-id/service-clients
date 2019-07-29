@@ -31,5 +31,19 @@ steps:
     command: 'pack'
     packagesToPack: 'csharp/**/*.csproj'
     versioningScheme: 'off'
-    buildProperties: '-p:PackageVersion=$(packageVersion)'
+    buildProperties: '/p:PackageVersion=$(packageVersion)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: 'csharp/**/*.csproj'
+    custom: 'pack'
+    arguments: '/p:PackageVersion=$(packageVersion) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: 'csharp/**/*.csproj'
+    custom: 'pack'
+    arguments: '/p:PackageVersion=$(packageVersion)-$(Build.BuildNumber) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/ci'
 
