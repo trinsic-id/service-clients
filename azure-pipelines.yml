@@ -12,7 +12,6 @@ pool:
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  packageVersion: '1.0.0'
 
 steps:
 
@@ -31,4 +30,6 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'csharp/**/*.csproj'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'off'
+    buildProperties: '-p:PackageVersion=$(packageVersion)'
+
