@@ -1,0 +1,19 @@
+{
+  "name": "streetcred-serviceclients",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "Streetcred ID Inc.",
+  "license": "Apache-2.0",
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "ms-rest-js": "^1.0.1"
+  }
+}
