@@ -40,3 +40,8 @@ steps:
     custom: 'pack'
     arguments: '/p:PackageVersion=$(packageVersion)-$(Build.BuildNumber) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/ci'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'packages'
+    publishLocation: 'Container'
