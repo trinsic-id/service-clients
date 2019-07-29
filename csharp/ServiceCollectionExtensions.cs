@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Rest;
 using Streetcred.ServiceClients;
 
 namespace Microsoft.Extensions.DependencyInjection
