@@ -1,0 +1,47 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'install -g autorest'
+
+- task: CmdLine@2
+  inputs:
+    script: 'autorest --input-file=swagger.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+
+- task: NuGetToolInstaller@1
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: 'csharp/**/*.csproj'
+    custom: 'pack'
+    arguments: '/p:PackageVersion=$(packageVersion) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: 'csharp/**/*.csproj'
+    custom: 'pack'
+    arguments: '/p:PackageVersion=$(packageVersion)-$(Build.BuildNumber) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/ci'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'packages'
+    publishLocation: 'Container'
