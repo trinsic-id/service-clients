@@ -1,15 +1,17 @@
 import { ServiceClientCredentials, WebResource } from "@azure/ms-rest-js";
-import { ServiceClientOptions } from "./serviceClientOptions"
 
 export class StreetcredClientCredentials implements ServiceClientCredentials {
-    options: ServiceClientOptions;
+    accessToken: string
+    subscriptionKey: string;
 
-    constructor (options: ServiceClientOptions) {
-        this.options = options;
+    constructor(accessToken: string, subscriptionKey: string) {
+        this.accessToken = accessToken;
+        this.subscriptionKey = subscriptionKey;
     }
+
     signRequest(webResource: WebResource): Promise<WebResource> {
-        webResource.headers.set("Authorization", `Bearer ${this.options.accessToken}`);
-        webResource.headers.set("X-Streetcred-Subscription-Key", this.options.subscriptionKey);
+        webResource.headers.set("Authorization", `Bearer ${this.accessToken}`);
+        webResource.headers.set("X-Streetcred-Subscription-Key", this.subscriptionKey);
         return Promise.resolve(webResource);
     }
 }
