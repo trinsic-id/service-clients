@@ -1,1326 +1,1634 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "version" : "v1",
-    "title" : "Agency"
+  "swagger": "2.0",
+  "info": {
+    "title": "Agency",
+    "version": "v1"
   },
-  "host" : "streetcred.azure-api.net",
-  "basePath" : "/v1",
-  "tags" : [ ],
-  "schemes" : [ "https" ],
-  "security" : [ {
-    "accessToken" : [ ]
-  }, {
-    "subscriptionKey" : [ ]
-  } ],
-  "paths" : {
-    "/common/upload" : {
-      "post" : {
-        "tags" : [ "Common" ],
-        "summary" : "Upload image",
-        "description" : "Upload an image and return a URL with the static remote location",
-        "operationId" : "UploadImage",
-        "consumes" : [ "multipart/form-data" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "uploadedFiles",
-          "in" : "formData",
-          "description" : "The uploaded files.",
-          "required" : false,
-          "type" : "file"
-        }, {
-          "name" : "filename",
-          "in" : "formData",
-          "description" : "The filename.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "contentType",
-          "in" : "formData",
-          "description" : "(Optional) Type of the image content.",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/CommonUploadPost200ApplicationJsonResponse"
+  "host": "streetcred.azure-api.net",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "accessToken": {
+      "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    },
+    "subscriptionKey": {
+      "type": "apiKey",
+      "name": "X-Streetcred-Subscription-Key",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "accessToken": []
+    },
+    {
+      "subscriptionKey": []
+    }
+  ],
+  "paths": {
+    "/common/upload": {
+      "post": {
+        "description": "Upload an image and return a URL with the static remote location",
+        "operationId": "UploadImage",
+        "summary": "Upload image",
+        "tags": [
+          "Common"
+        ],
+        "parameters": [
+          {
+            "name": "uploadedFiles",
+            "in": "formData",
+            "description": "The uploaded files.",
+            "type": "file"
+          },
+          {
+            "name": "filename",
+            "in": "formData",
+            "description": "The filename.",
+            "type": "string"
+          },
+          {
+            "name": "contentType",
+            "in": "formData",
+            "description": "(Optional) Type of the image content.",
+            "type": "string"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CommonUploadPost200ApplicationJsonResponse"
             }
           }
-        }
+        },
+        "produces": [
+          "application/json"
+        ]
       }
     },
-    "/common/networks" : {
-      "get" : {
-        "tags" : [ "Common" ],
-        "summary" : "List available ledger networks",
-        "description" : "List available ledger networks",
-        "operationId" : "ListNetworks",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/NetworkContractArray"
+    "/common/networks": {
+      "get": {
+        "description": "List available ledger networks",
+        "operationId": "ListNetworks",
+        "summary": "List available ledger networks",
+        "tags": [
+          "Common"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/NetworkContractArray"
             }
           }
-        }
+        },
+        "produces": [
+          "application/json"
+        ]
       }
     },
-    "/connections" : {
-      "get" : {
-        "tags" : [ "Connections" ],
-        "summary" : "List connections.",
-        "description" : "Retrieve a list of connections.",
-        "operationId" : "ListConnections",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "state",
-          "in" : "query",
-          "required" : false,
-          "type" : "string",
-          "enum" : [ "Invited", "Negotiating", "Connected" ]
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/ConnectionContractArray"
+    "/connections": {
+      "get": {
+        "description": "Retrieve a list of connections.",
+        "operationId": "ListConnections",
+        "summary": "List connections.",
+        "tags": [
+          "Connections"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "Invited",
+              "Negotiating",
+              "Connected"
+            ]
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConnectionContractArray"
             }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Sends the email invitation.",
+        "operationId": "CreateConnection",
+        "summary": "Sends the email invitation.",
+        "tags": [
+          "Connections"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connectionInvitationParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ConnectionInvitationParameters"
+            },
+            "description": "The create invitation."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/connections/{connectionId}": {
+      "get": {
+        "description": "Creates the connections.",
+        "operationId": "GetConnection",
+        "summary": "Creates the connections.",
+        "tags": [
+          "Connections"
+        ],
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "description": "The connection identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConnectionContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/credentials": {
+      "get": {
+        "description": "Lists the credentials.",
+        "operationId": "ListCredentials",
+        "summary": "Lists the credentials.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "Offered",
+              "Requested",
+              "Issued",
+              "Rejected",
+              "Revoked"
+            ]
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialContractArray"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": " Sends credential offer of the specified DefinitionId to the specified ConnectionId",
+        "operationId": "CreateCredential",
+        "summary": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "credentialOfferParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CredentialOfferParameters"
+            },
+            "description": "The definition and connection to which this offer will be sent."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/credentials/{credentialId}": {
+      "get": {
+        "description": "Gets the credentials.",
+        "operationId": "GetCredential",
+        "summary": "Gets the credentials.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "credentialId",
+            "in": "path",
+            "description": "The credential identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "put": {
+        "description": "Issues the credential.",
+        "operationId": "IssueCredential",
+        "summary": "Issues the credential.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "credentialId",
+            "in": "path",
+            "description": "The credential identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "values",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Values"
+            },
+            "description": "The values."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       },
-      "post" : {
-        "tags" : [ "Connections" ],
-        "summary" : "Sends the email invitation.",
-        "description" : "Sends the email invitation.",
-        "operationId" : "CreateConnection",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "connectionInvitationParameters",
-          "description" : "The create invitation.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/ConnectionInvitationParameters"
+      "delete": {
+        "description": "Revoke credential that was issued previously. Process of revocation will update the revocation\r\nregistry locally and on the ledger. Issued credentials can still participate in proof workflows\r\nand be considered valid, but only if the verifying ignores the revocation trail.",
+        "operationId": "RevokeCredential",
+        "summary": "Revokes a credential.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "credentialId",
+            "in": "path",
+            "description": "Credential identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/IdContract"
-            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
     },
-    "/connections/{connectionId}" : {
-      "get" : {
-        "tags" : [ "Connections" ],
-        "summary" : "Creates the connections.",
-        "description" : "Creates the connections.",
-        "operationId" : "GetConnection",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "connectionId",
-          "in" : "path",
-          "description" : "The connection identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/ConnectionContract"
+    "/credentials/definitions": {
+      "get": {
+        "description": "Gets the definitions.",
+        "operationId": "ListCredentialDefinitions",
+        "summary": "Gets the definitions.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialDefinitionContractArray"
             }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Create new credential definition for a given schema. If schema already exists on the ledger\r\nspecify the 'schema_id' - 'name', 'version' and 'attr_names' will be ignored.\r\nIf schema doesn't exist, you must specify 'name', 'version' and 'attr_names'\r\n- schema_id will be ignored and generated automatically.",
+        "operationId": "CreateCredentialDefinition",
+        "summary": "Create new credential definition.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "credentialDefinitionParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CredentialDefinitionParameters"
+            },
+            "description": "Definition."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/credentials/definitions/{definitionId}": {
+      "get": {
+        "description": "Gets the definitions.",
+        "operationId": "GetCredentialDefinition",
+        "summary": "Gets the definitions.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "definitionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialDefinitionContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/credentials/schemas": {
+      "get": {
+        "description": "Gets the schemas.",
+        "operationId": "ListSchemas",
+        "summary": "Gets the schemas.",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SchemaRecordArray"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer.",
+        "operationId": "CreateSchema",
+        "summary": "Register new schema",
+        "tags": [
+          "Credentials"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "schemaParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SchemaParameters"
+            },
+            "description": "Schema details"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialsSchemasPost200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/tenants": {
+      "get": {
+        "description": "Get a collection of available tenants for the current authorization context.",
+        "operationId": "ListTenants",
+        "summary": "List available tenants",
+        "tags": [
+          "Tenants"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContractArray"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Create new tenant and setup a unique agency endpoint. The agency will be set as an issuer",
+        "operationId": "CreateTenant",
+        "summary": "Create new tenant",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TenantParameters"
+            },
+            "description": "Configuration options for creating new tenant."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/tenants/{tenantId}": {
+      "get": {
+        "description": "Returns the agent configuration",
+        "operationId": "GetTenant",
+        "summary": "Returns the agent configuration",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
+        "operationId": "DeleteTenant",
+        "summary": "Delete a tenant.",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "Tenant identifier.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
     },
-    "/credentials" : {
-      "get" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Lists the credentials.",
-        "description" : "Lists the credentials.",
-        "operationId" : "ListCredentials",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "connectionId",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "state",
-          "in" : "query",
-          "required" : false,
-          "type" : "string",
-          "enum" : [ "Offered", "Requested", "Issued", "Rejected", "Revoked" ]
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/CredentialContractArray"
+    "/verifications": {
+      "get": {
+        "description": "Lists the verifications for connection.",
+        "operationId": "ListVerificationsForConnection",
+        "summary": "Lists the verifications for connection.",
+        "tags": [
+          "Verifications"
+        ],
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "query",
+            "description": "The connection identifier.",
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerificationContractArray"
             }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Creates the specified create verification.",
+        "operationId": "CreateVerification",
+        "summary": "Creates the specified create verification.",
+        "tags": [
+          "Verifications"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "verificationParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/VerificationParameters"
+            },
+            "description": "The create verification."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/verifications/{verificationId}": {
+      "get": {
+        "description": "Get the verification with the given identifier",
+        "operationId": "GetVerification",
+        "summary": "Get the verification with the given identifier",
+        "tags": [
+          "Verifications"
+        ],
+        "parameters": [
+          {
+            "name": "verificationId",
+            "in": "path",
+            "description": "The verification identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerificationContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/verifications/definitions/{definitionId}": {
+      "get": {
+        "description": "Gets the specified proof request identifier.",
+        "operationId": "GetVerificationDefinition",
+        "summary": "Gets the specified proof request identifier.",
+        "tags": [
+          "Verifications"
+        ],
+        "parameters": [
+          {
+            "name": "definitionId",
+            "in": "path",
+            "description": "The proof request identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerificationDefinitionContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/verifications/definitions": {
+      "get": {
+        "description": "Lists this instance.",
+        "operationId": "ListVerificationDefinitions",
+        "summary": "Lists this instance.",
+        "tags": [
+          "Verifications"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerificationDefinitionContractArray"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Creates the specified proof request.",
+        "operationId": "CreateVerificationDefinition",
+        "summary": "Creates the specified proof request.",
+        "tags": [
+          "Verifications"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "proofRequest",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProofRequest"
+            },
+            "description": "The proof request."
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdContract"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/webhooks": {
+      "get": {
+        "description": "List all webhooks",
+        "operationId": "ListWebhooks",
+        "summary": "List all webhooks",
+        "tags": [
+          "Webhooks"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WebhooksGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Create new webhook",
+        "operationId": "CreateWebhook",
+        "summary": "Create new webhook",
+        "tags": [
+          "Webhooks"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "webhookParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/WebhookParameters"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       },
-      "post" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
-        "description" : " Sends credential offer of the specified DefinitionId to the specified ConnectionId",
-        "operationId" : "CreateCredential",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "credentialOfferParameters",
-          "description" : "The definition and connection to which this offer will be sent.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/CredentialOfferParameters"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/IdContract"
+      "delete": {
+        "description": "Remove registered webhook",
+        "operationId": "RemoveWebhook",
+        "summary": "Remove registered webhook",
+        "tags": [
+          "Webhooks"
+        ],
+        "parameters": [
+          {
+            "name": "X-Streetcred-Tenant-Id",
+            "in": "header",
+            "description": "Identifier of the tenant used with this request.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "webhookParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/WebhookParameters"
             }
           }
-        }
-      }
-    },
-    "/credentials/{credentialId}" : {
-      "get" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Gets the credentials.",
-        "description" : "Gets the credentials.",
-        "operationId" : "GetCredential",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "credentialId",
-          "in" : "path",
-          "description" : "The credential identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/CredentialContract"
-            }
-          }
-        }
-      },
-      "put" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Issues the credential.",
-        "description" : "Issues the credential.",
-        "operationId" : "IssueCredential",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "credentialId",
-          "in" : "path",
-          "description" : "The credential identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "values",
-          "description" : "The values.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/Values"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success"
-          }
-        }
-      },
-      "delete" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Revokes a credential.",
-        "description" : "Revoke credential that was issued previously. Process of revocation will update the revocation\r\nregistry locally and on the ledger. Issued credentials can still participate in proof workflows\r\nand be considered valid, but only if the verifying ignores the revocation trail.",
-        "operationId" : "RevokeCredential",
-        "parameters" : [ {
-          "name" : "credentialId",
-          "in" : "path",
-          "description" : "Credential identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success"
-          }
-        }
-      }
-    },
-    "/credentials/definitions" : {
-      "get" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Gets the definitions.",
-        "description" : "Gets the definitions.",
-        "operationId" : "ListCredentialDefinitions",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/CredentialDefinitionContractArray"
-            }
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Create new credential definition.",
-        "description" : "Create new credential definition for a given schema. If schema already exists on the ledger\r\nspecify the 'schema_id' - 'name', 'version' and 'attr_names' will be ignored.\r\nIf schema doesn't exist, you must specify 'name', 'version' and 'attr_names'\r\n- schema_id will be ignored and generated automatically.",
-        "operationId" : "CreateCredentialDefinition",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "credentialDefinitionParameters",
-          "description" : "Definition.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/CredentialDefinitionParameters"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/IdContract"
-            }
-          }
-        }
-      }
-    },
-    "/credentials/definitions/{definitionId}" : {
-      "get" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Gets the definitions.",
-        "description" : "Gets the definitions.",
-        "operationId" : "GetCredentialDefinition",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "definitionId",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/CredentialDefinitionContract"
-            }
-          }
-        }
-      }
-    },
-    "/credentials/schemas" : {
-      "get" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Gets the schemas.",
-        "description" : "Gets the schemas.",
-        "operationId" : "ListSchemas",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/SchemaRecordArray"
-            }
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "Credentials" ],
-        "summary" : "Register new schema",
-        "description" : "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer.",
-        "operationId" : "CreateSchema",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "schemaParameters",
-          "description" : "Schema details",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/SchemaParameters"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/CredentialsSchemasPost200ApplicationJsonResponse"
-            }
-          }
-        }
-      }
-    },
-    "/tenants" : {
-      "get" : {
-        "tags" : [ "Tenants" ],
-        "summary" : "List available tenants",
-        "description" : "Get a collection of available tenants for the current authorization context.",
-        "operationId" : "ListTenants",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/TenantContractArray"
-            }
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "Tenants" ],
-        "summary" : "Create new tenant",
-        "description" : "Create new tenant and setup a unique agency endpoint. The agency will be set as an issuer",
-        "operationId" : "CreateTenant",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "tenantParameters",
-          "description" : "Configuration options for creating new tenant.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/TenantParameters"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/TenantContract"
-            }
-          }
-        }
-      }
-    },
-    "/tenants/{tenantId}" : {
-      "get" : {
-        "tags" : [ "Tenants" ],
-        "summary" : "Returns the agent configuration",
-        "description" : "Returns the agent configuration",
-        "operationId" : "GetTenant",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "tenantId",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/TenantContract"
-            }
-          }
-        }
-      },
-      "delete" : {
-        "tags" : [ "Tenants" ],
-        "summary" : "Delete a tenant.",
-        "description" : "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
-        "operationId" : "DeleteTenant",
-        "parameters" : [ {
-          "name" : "tenantId",
-          "in" : "path",
-          "description" : "Tenant identifier.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success"
-          }
-        }
-      }
-    },
-    "/verifications" : {
-      "get" : {
-        "tags" : [ "Verifications" ],
-        "summary" : "Lists the verifications for connection.",
-        "description" : "Lists the verifications for connection.",
-        "operationId" : "ListVerificationsForConnection",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "connectionId",
-          "in" : "query",
-          "description" : "The connection identifier.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/VerificationContractArray"
-            }
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "Verifications" ],
-        "summary" : "Creates the specified create verification.",
-        "description" : "Creates the specified create verification.",
-        "operationId" : "CreateVerification",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "verificationParameters",
-          "description" : "The create verification.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/VerificationParameters"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/IdContract"
-            }
-          }
-        }
-      }
-    },
-    "/verifications/{verificationId}" : {
-      "get" : {
-        "tags" : [ "Verifications" ],
-        "summary" : "Get the verification with the given identifier",
-        "description" : "Get the verification with the given identifier",
-        "operationId" : "GetVerification",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "verificationId",
-          "in" : "path",
-          "description" : "The verification identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/VerificationContract"
-            }
-          }
-        }
-      }
-    },
-    "/verifications/definitions/{definitionId}" : {
-      "get" : {
-        "tags" : [ "Verifications" ],
-        "summary" : "Gets the specified proof request identifier.",
-        "description" : "Gets the specified proof request identifier.",
-        "operationId" : "GetVerificationDefinition",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "definitionId",
-          "in" : "path",
-          "description" : "The proof request identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/VerificationDefinitionContract"
-            }
-          }
-        }
-      }
-    },
-    "/verifications/definitions" : {
-      "get" : {
-        "tags" : [ "Verifications" ],
-        "summary" : "Lists this instance.",
-        "description" : "Lists this instance.",
-        "operationId" : "ListVerificationDefinitions",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/VerificationDefinitionContractArray"
-            }
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "Verifications" ],
-        "summary" : "Creates the specified proof request.",
-        "description" : "Creates the specified proof request.",
-        "operationId" : "CreateVerificationDefinition",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "X-Streetcred-Tenant-Id",
-          "in" : "header",
-          "description" : "Identifier of the tenant used with this request.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "proofRequest",
-          "description" : "The proof request.",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/ProofRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/IdContract"
-            }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
     }
   },
-  "securityDefinitions" : {
-    "accessToken" : {
-      "description" : "Standard Authorization header using the Bearer scheme. Example \\\"bearer {token}\\\"",
-      "type" : "apiKey",
-      "name" : "Authorization",
-      "in" : "header"
+  "definitions": {
+    "IFormFile": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "readOnly": true
+        },
+        "contentDisposition": {
+          "type": "string",
+          "readOnly": true
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "readOnly": true
+        },
+        "length": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "fileName": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
     },
-    "subscriptionKey" : {
-      "type" : "apiKey",
-      "name" : "X-Streetcred-Subscription-Key",
-      "in" : "header"
+    "NetworkContract": {
+      "description": "Represents pool network information",
+      "type": "object",
+      "properties": {
+        "network_id": {
+          "description": "Gets or sets the network identifier.",
+          "type": "string"
+        },
+        "network_name": {
+          "description": "Gets or sets the name of the network.",
+          "type": "string"
+        },
+        "genesis_transactions": {
+          "description": "Gets or sets the genesis transactions.",
+          "type": "string"
+        },
+        "pool_protocol_version": {
+          "format": "int32",
+          "description": "Gets or sets the pool protocol version.",
+          "type": "integer"
+        }
+      }
+    },
+    "ConnectionContract": {
+      "description": "Connection information",
+      "type": "object",
+      "properties": {
+        "connectionId": {
+          "description": "Gets or sets the identifier.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Gets or sets the name.",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "Gets or sets the image URL.",
+          "type": "string"
+        },
+        "myDid": {
+          "description": "Gets or sets my did.",
+          "type": "string"
+        },
+        "theirDid": {
+          "description": "Gets or sets their did.",
+          "type": "string"
+        },
+        "myKey": {
+          "description": "Gets or sets my key.",
+          "type": "string"
+        },
+        "theirKey": {
+          "description": "Gets or sets their key.",
+          "type": "string"
+        },
+        "state": {
+          "description": "Gets or sets the state.",
+          "enum": [
+            "Invited",
+            "Negotiating",
+            "Connected"
+          ],
+          "type": "string"
+        },
+        "invitation": {
+          "description": "Gets or sets the invitation.",
+          "type": "string"
+        },
+        "invitationUrl": {
+          "description": "Gets or sets the invitation URL.",
+          "type": "string"
+        },
+        "endpoint": {
+          "$ref": "#/definitions/AgentEndpoint",
+          "description": "Gets or sets the endpoint."
+        },
+        "createdAtUtc": {
+          "format": "date-time",
+          "description": "Gets or sets the date created.",
+          "type": "string"
+        }
+      }
+    },
+    "AgentEndpoint": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string"
+        },
+        "verkey": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        }
+      }
+    },
+    "ConnectionInvitationParameters": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "Gets or sets the tenant identifier.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Gets or sets the connection identifier.",
+          "type": "string"
+        },
+        "multi_party": {
+          "description": "Gets or sets a value indicating whether [multi party].",
+          "type": "boolean"
+        }
+      }
+    },
+    "IdContract": {
+      "description": "An object identifier",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Object identifier",
+          "type": "string"
+        }
+      }
+    },
+    "CredentialContract": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "Offered",
+            "Requested",
+            "Issued",
+            "Rejected",
+            "Revoked"
+          ],
+          "type": "string"
+        },
+        "connectionId": {
+          "type": "string"
+        },
+        "definitionId": {
+          "type": "string"
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "values": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CredentialOfferParameters": {
+      "description": "Send offer.",
+      "type": "object",
+      "properties": {
+        "definitionId": {
+          "description": "Gets or sets the credential definition identifier.",
+          "type": "string"
+        },
+        "connectionId": {
+          "description": "Gets or sets their did.",
+          "type": "string"
+        }
+      }
+    },
+    "CredentialDefinitionContract": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "attributes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supportsRevocation": {
+          "type": "boolean"
+        },
+        "maxCredentialCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "definitionId": {
+          "type": "string"
+        }
+      }
+    },
+    "CredentialDefinitionParameters": {
+      "description": "Represents a request object to create new credential definition for an agency",
+      "type": "object",
+      "properties": {
+        "schema_id": {
+          "description": "Schema identifier for this definition",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the schema.",
+          "type": "string"
+        },
+        "version": {
+          "description": "Schema version.",
+          "type": "string"
+        },
+        "attr_names": {
+          "description": "Schema attribute names.",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "support_revocation": {
+          "description": "Support credential revocation",
+          "type": "boolean"
+        },
+        "max_count": {
+          "format": "int32",
+          "description": "Maximum credential count.",
+          "type": "integer"
+        },
+        "tag": {
+          "description": "Unique tag to differentiate definitions of the same schema",
+          "type": "string"
+        }
+      }
+    },
+    "SchemaParameters": {
+      "description": "Schema.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Gets or sets the identifier.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Gets or sets the name.",
+          "type": "string"
+        },
+        "version": {
+          "description": "Gets or sets the version.",
+          "type": "string"
+        },
+        "attr_names": {
+          "description": "Gets or sets the attribute names.",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SchemaRecord": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "attributeNames": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "TenantContract": {
+      "description": "Tenant info.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Gets or sets the name.",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "Gets or sets the image URI.",
+          "type": "string"
+        },
+        "network": {
+          "$ref": "#/definitions/NetworkContract",
+          "description": "Gets or sets the network."
+        },
+        "tenantId": {
+          "description": "Gets or sets the tenant identifier.",
+          "type": "string"
+        }
+      }
+    },
+    "TenantParameters": {
+      "description": "Configuration options for creating new tenant",
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "issuer_seed": {
+          "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the tenant.",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "(Optional) Location of image URL used as profile for this tenant",
+          "type": "string"
+        },
+        "network_id": {
+          "description": "(Optional) Ledger network identifier. Default is Streetcred Test Network",
+          "type": "string"
+        }
+      }
+    },
+    "VerificationContract": {
+      "description": "Verification Info",
+      "type": "object",
+      "properties": {
+        "connectionId": {
+          "description": "Gets or sets the connection identifier.",
+          "type": "string"
+        },
+        "verificationId": {
+          "description": "Gets or sets the verification identifier.",
+          "type": "string"
+        },
+        "state": {
+          "description": "Gets or sets the state.",
+          "enum": [
+            "Requested",
+            "Accepted",
+            "Rejected"
+          ],
+          "type": "string"
+        },
+        "createdAtUtc": {
+          "format": "date-time",
+          "description": "Gets or sets the created at UTC.",
+          "type": "string"
+        },
+        "updatedAtUtc": {
+          "format": "date-time",
+          "description": "Gets or sets the updated at UTC.",
+          "type": "string"
+        },
+        "isValid": {
+          "description": "Returns true if the provided proof is valid.",
+          "type": "boolean"
+        },
+        "verifiedAtUtc": {
+          "format": "date-time",
+          "description": "Gets or sets the verified at UTC.",
+          "type": "string"
+        }
+      }
+    },
+    "VerificationParameters": {
+      "description": "Create verification",
+      "type": "object",
+      "properties": {
+        "proofRequestId": {
+          "description": "Gets or sets the proof request identifier.",
+          "type": "string"
+        },
+        "connectionId": {
+          "description": "Gets or sets the connection identifier.",
+          "type": "string"
+        }
+      }
+    },
+    "VerificationDefinitionContract": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Gets or sets the identifier.",
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ProofRequest",
+          "description": "Gets or sets the proof request."
+        }
+      }
+    },
+    "ProofRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "nonce": {
+          "type": "string"
+        },
+        "requested_attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ProofAttributeInfo"
+          }
+        },
+        "requested_predicates": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ProofPredicateInfo"
+          }
+        },
+        "non_revoked": {
+          "$ref": "#/definitions/RevocationInterval"
+        }
+      }
+    },
+    "ProofAttributeInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "restrictions": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttributeFilter"
+          }
+        },
+        "non_revoked": {
+          "$ref": "#/definitions/RevocationInterval"
+        }
+      }
+    },
+    "ProofPredicateInfo": {
+      "type": "object",
+      "properties": {
+        "p_type": {
+          "type": "string"
+        },
+        "p_value": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "restrictions": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AttributeFilter"
+          }
+        },
+        "non_revoked": {
+          "$ref": "#/definitions/RevocationInterval"
+        }
+      }
+    },
+    "RevocationInterval": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "to": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "AttributeFilter": {
+      "type": "object",
+      "properties": {
+        "schema_id": {
+          "type": "string"
+        },
+        "schema_issuer_did": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "string"
+        },
+        "issuer_did": {
+          "type": "string"
+        },
+        "cred_def_id": {
+          "type": "string"
+        }
+      }
+    },
+    "WebhookParameters": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "CommonUploadPost200ApplicationJsonResponse": {
+      "type": "string"
+    },
+    "NetworkContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NetworkContract"
+      }
+    },
+    "ConnectionContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ConnectionContract"
+      }
+    },
+    "CredentialContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CredentialContract"
+      }
+    },
+    "Values": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "CredentialDefinitionContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CredentialDefinitionContract"
+      }
+    },
+    "SchemaRecordArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SchemaRecord"
+      }
+    },
+    "CredentialsSchemasPost200ApplicationJsonResponse": {
+      "type": "string"
+    },
+    "TenantContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TenantContract"
+      }
+    },
+    "VerificationContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/VerificationContract"
+      }
+    },
+    "VerificationDefinitionContractArray": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/VerificationDefinitionContract"
+      }
+    },
+    "WebhooksGet200ApplicationJsonResponse": {
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
-  "definitions" : {
-    "IFormFile" : {
-      "type" : "object",
-      "properties" : {
-        "contentType" : {
-          "type" : "string",
-          "readOnly" : true
-        },
-        "contentDisposition" : {
-          "type" : "string",
-          "readOnly" : true
-        },
-        "headers" : {
-          "type" : "object",
-          "readOnly" : true,
-          "additionalProperties" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        },
-        "length" : {
-          "type" : "integer",
-          "format" : "int64",
-          "readOnly" : true
-        },
-        "name" : {
-          "type" : "string",
-          "readOnly" : true
-        },
-        "fileName" : {
-          "type" : "string",
-          "readOnly" : true
-        }
-      }
-    },
-    "NetworkContract" : {
-      "type" : "object",
-      "properties" : {
-        "network_id" : {
-          "type" : "string",
-          "description" : "Gets or sets the network identifier."
-        },
-        "network_name" : {
-          "type" : "string",
-          "description" : "Gets or sets the name of the network."
-        },
-        "genesis_transactions" : {
-          "type" : "string",
-          "description" : "Gets or sets the genesis transactions."
-        },
-        "pool_protocol_version" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Gets or sets the pool protocol version."
-        }
-      },
-      "description" : "Represents pool network information"
-    },
-    "ConnectionContract" : {
-      "type" : "object",
-      "properties" : {
-        "connectionId" : {
-          "type" : "string",
-          "description" : "Gets or sets the identifier."
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "Gets or sets the name."
-        },
-        "imageUrl" : {
-          "type" : "string",
-          "description" : "Gets or sets the image URL."
-        },
-        "myDid" : {
-          "type" : "string",
-          "description" : "Gets or sets my did."
-        },
-        "theirDid" : {
-          "type" : "string",
-          "description" : "Gets or sets their did."
-        },
-        "myKey" : {
-          "type" : "string",
-          "description" : "Gets or sets my key."
-        },
-        "theirKey" : {
-          "type" : "string",
-          "description" : "Gets or sets their key."
-        },
-        "state" : {
-          "type" : "string",
-          "description" : "Gets or sets the state.",
-          "enum" : [ "Invited", "Negotiating", "Connected" ]
-        },
-        "invitation" : {
-          "type" : "string",
-          "description" : "Gets or sets the invitation."
-        },
-        "invitationUrl" : {
-          "type" : "string",
-          "description" : "Gets or sets the invitation URL."
-        },
-        "endpoint" : {
-          "description" : "Gets or sets the endpoint.",
-          "$ref" : "#/definitions/AgentEndpoint"
-        },
-        "createdAtUtc" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Gets or sets the date created."
-        }
-      },
-      "description" : "Connection information"
-    },
-    "AgentEndpoint" : {
-      "type" : "object",
-      "properties" : {
-        "did" : {
-          "type" : "string"
-        },
-        "verkey" : {
-          "type" : "string"
-        },
-        "uri" : {
-          "type" : "string"
-        }
-      }
-    },
-    "ConnectionInvitationParameters" : {
-      "type" : "object",
-      "properties" : {
-        "email" : {
-          "type" : "string",
-          "description" : "Gets or sets the tenant identifier."
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "Gets or sets the connection identifier."
-        },
-        "multi_party" : {
-          "type" : "boolean",
-          "description" : "Gets or sets a value indicating whether [multi party]."
-        }
-      },
-      "description" : ""
-    },
-    "IdContract" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "Object identifier"
-        }
-      },
-      "description" : "An object identifier"
-    },
-    "CredentialContract" : {
-      "type" : "object",
-      "properties" : {
-        "credentialId" : {
-          "type" : "string"
-        },
-        "state" : {
-          "type" : "string",
-          "enum" : [ "Offered", "Requested", "Issued", "Rejected", "Revoked" ]
-        },
-        "connectionId" : {
-          "type" : "string"
-        },
-        "definitionId" : {
-          "type" : "string"
-        },
-        "schemaId" : {
-          "type" : "string"
-        },
-        "values" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "type" : "string"
-          }
-        }
-      }
-    },
-    "CredentialOfferParameters" : {
-      "type" : "object",
-      "properties" : {
-        "definitionId" : {
-          "type" : "string",
-          "description" : "Gets or sets the credential definition identifier."
-        },
-        "connectionId" : {
-          "type" : "string",
-          "description" : "Gets or sets their did."
-        }
-      },
-      "description" : "Send offer."
-    },
-    "CredentialDefinitionContract" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "version" : {
-          "type" : "string"
-        },
-        "attributes" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "supportsRevocation" : {
-          "type" : "boolean"
-        },
-        "maxCredentialCount" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "schemaId" : {
-          "type" : "string"
-        },
-        "definitionId" : {
-          "type" : "string"
-        }
-      }
-    },
-    "CredentialDefinitionParameters" : {
-      "type" : "object",
-      "properties" : {
-        "schema_id" : {
-          "type" : "string",
-          "description" : "Schema identifier for this definition"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "Name of the schema."
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "Schema version."
-        },
-        "attr_names" : {
-          "type" : "array",
-          "description" : "Schema attribute names.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "support_revocation" : {
-          "type" : "boolean",
-          "description" : "Support credential revocation"
-        },
-        "max_count" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Maximum credential count."
-        },
-        "tag" : {
-          "type" : "string",
-          "description" : "Unique tag to differentiate definitions of the same schema"
-        }
-      },
-      "description" : "Represents a request object to create new credential definition for an agency"
-    },
-    "SchemaParameters" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "Gets or sets the identifier."
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "Gets or sets the name."
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "Gets or sets the version."
-        },
-        "attr_names" : {
-          "type" : "array",
-          "description" : "Gets or sets the attribute names.",
-          "items" : {
-            "type" : "string"
-          }
-        }
-      },
-      "description" : "Schema."
-    },
-    "SchemaRecord" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "version" : {
-          "type" : "string"
-        },
-        "attributeNames" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "id" : {
-          "type" : "string"
-        }
-      }
-    },
-    "TenantContract" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "Gets or sets the name."
-        },
-        "imageUrl" : {
-          "type" : "string",
-          "description" : "Gets or sets the image URI."
-        },
-        "network" : {
-          "description" : "Gets or sets the network.",
-          "$ref" : "#/definitions/NetworkContract"
-        },
-        "tenantId" : {
-          "type" : "string",
-          "description" : "Gets or sets the tenant identifier."
-        }
-      },
-      "description" : "Tenant info."
-    },
-    "TenantParameters" : {
-      "type" : "object",
-      "required" : [ "name" ],
-      "properties" : {
-        "issuer_seed" : {
-          "type" : "string",
-          "description" : "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the tenant."
-        },
-        "image_url" : {
-          "type" : "string",
-          "description" : "(Optional) Location of image URL used as profile for this tenant"
-        },
-        "network_id" : {
-          "type" : "string",
-          "description" : "(Optional) Ledger network identifier. Default is Streetcred Test Network"
-        }
-      },
-      "description" : "Configuration options for creating new tenant"
-    },
-    "VerificationContract" : {
-      "type" : "object",
-      "properties" : {
-        "connectionId" : {
-          "type" : "string",
-          "description" : "Gets or sets the connection identifier."
-        },
-        "verificationId" : {
-          "type" : "string",
-          "description" : "Gets or sets the verification identifier."
-        },
-        "state" : {
-          "type" : "string",
-          "description" : "Gets or sets the state.",
-          "enum" : [ "Requested", "Accepted", "Rejected" ]
-        },
-        "createdAtUtc" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Gets or sets the created at UTC."
-        },
-        "updatedAtUtc" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Gets or sets the updated at UTC."
-        },
-        "isValid" : {
-          "type" : "boolean",
-          "description" : "Returns true if the provided proof is valid."
-        },
-        "verifiedAtUtc" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Gets or sets the verified at UTC."
-        }
-      },
-      "description" : "Verification Info"
-    },
-    "VerificationParameters" : {
-      "type" : "object",
-      "properties" : {
-        "proofRequestId" : {
-          "type" : "string",
-          "description" : "Gets or sets the proof request identifier."
-        },
-        "connectionId" : {
-          "type" : "string",
-          "description" : "Gets or sets the connection identifier."
-        }
-      },
-      "description" : "Create verification"
-    },
-    "VerificationDefinitionContract" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "Gets or sets the identifier."
-        },
-        "data" : {
-          "description" : "Gets or sets the proof request.",
-          "$ref" : "#/definitions/ProofRequest"
-        }
-      },
-      "description" : ""
-    },
-    "ProofRequest" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "version" : {
-          "type" : "string"
-        },
-        "nonce" : {
-          "type" : "string"
-        },
-        "requested_attributes" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "$ref" : "#/definitions/ProofAttributeInfo"
-          }
-        },
-        "requested_predicates" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "$ref" : "#/definitions/ProofPredicateInfo"
-          }
-        },
-        "non_revoked" : {
-          "$ref" : "#/definitions/RevocationInterval"
-        }
-      }
-    },
-    "ProofAttributeInfo" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "restrictions" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/AttributeFilter"
-          }
-        },
-        "non_revoked" : {
-          "$ref" : "#/definitions/RevocationInterval"
-        }
-      }
-    },
-    "ProofPredicateInfo" : {
-      "type" : "object",
-      "properties" : {
-        "p_type" : {
-          "type" : "string"
-        },
-        "p_value" : {
-          "type" : "string"
-        },
-        "name" : {
-          "type" : "string"
-        },
-        "restrictions" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/AttributeFilter"
-          }
-        },
-        "non_revoked" : {
-          "$ref" : "#/definitions/RevocationInterval"
-        }
-      }
-    },
-    "RevocationInterval" : {
-      "type" : "object",
-      "properties" : {
-        "from" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "to" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
-    "AttributeFilter" : {
-      "type" : "object",
-      "properties" : {
-        "schema_id" : {
-          "type" : "string"
-        },
-        "schema_issuer_did" : {
-          "type" : "string"
-        },
-        "schema_name" : {
-          "type" : "string"
-        },
-        "schema_version" : {
-          "type" : "string"
-        },
-        "issuer_did" : {
-          "type" : "string"
-        },
-        "cred_def_id" : {
-          "type" : "string"
-        }
-      }
-    },
-    "CommonUploadPost200ApplicationJsonResponse" : {
-      "type" : "string"
-    },
-    "NetworkContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/NetworkContract"
-      },
-      "uniqueItems" : false
-    },
-    "ConnectionContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/ConnectionContract"
-      },
-      "uniqueItems" : false
-    },
-    "CredentialContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/CredentialContract"
-      },
-      "uniqueItems" : false
-    },
-    "Values" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "type" : "string"
-      }
-    },
-    "CredentialDefinitionContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/CredentialDefinitionContract"
-      },
-      "uniqueItems" : false
-    },
-    "SchemaRecordArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/SchemaRecord"
-      },
-      "uniqueItems" : false
-    },
-    "CredentialsSchemasPost200ApplicationJsonResponse" : {
-      "type" : "string"
-    },
-    "TenantContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/TenantContract"
-      },
-      "uniqueItems" : false
-    },
-    "VerificationContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/VerificationContract"
-      },
-      "uniqueItems" : false
-    },
-    "VerificationDefinitionContractArray" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/definitions/VerificationDefinitionContract"
-      },
-      "uniqueItems" : false
-    }
-  }
+  "tags": []
 }
