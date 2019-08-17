@@ -33,7 +33,11 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'autorest --input-file=swagger.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+    script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+
+- task: CmdLine@2
+  inputs:
+    script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
 
 - task: NuGetToolInstaller@1
 
