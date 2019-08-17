@@ -11,12 +11,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<StreetcredClientCredentials>();
             services.AddSingleton<IAgencyServiceClient, AgencyServiceClient>(provider =>
                 new AgencyServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
+            services.AddSingleton<ICloudServiceClient, CloudServiceClient>(provider =>
+                new CloudServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
             return services;
-        }
-
-        public static IServiceCollection AddStreetcredClient(this IServiceCollection services)
-        {
-            return AddStreetcredClient(services, options => { });
         }
     }
 }
