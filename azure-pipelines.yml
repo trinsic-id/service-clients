@@ -9,7 +9,8 @@ trigger:
     - master
   paths:
     include:
-    - swagger.json
+    - agency.json
+    - cloud.json
 pr: none
 
 pool:
