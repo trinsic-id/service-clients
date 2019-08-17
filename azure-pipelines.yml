@@ -19,6 +19,7 @@ pool:
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  packageVersion: 1.0.1
 
 steps:
 
