@@ -27,12 +27,12 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '2.2.301'
-
-- powershell: |
-      Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-      npm install --global --production npm-windows-upgrade
-      npm-windows-upgrade --npm-version latest
-    displayName: 'Upgrade npm'
+    
+- task: CmdLine@2
+  inputs:
+    script: |
+      npm install -g npm-windows-upgrade
+      npm-windows-upgrade -v 6.11.2
 
 - task: Npm@1
   inputs:
