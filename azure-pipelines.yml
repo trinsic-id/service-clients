@@ -28,11 +28,13 @@ steps:
     packageType: 'sdk'
     version: '2.2.301'
     
-- task: CmdLine@2
+- task: PowerShell@2
   inputs:
+    targetType: 'inline'
     script: |
-      npm install -g npm-windows-upgrade
-      npm-windows-upgrade -v 6.9.0
+      Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+      npm install --global --production npm-windows-upgrade
+      npm-windows-upgrade --npm-version latest
 
 - task: Npm@1
   inputs:
