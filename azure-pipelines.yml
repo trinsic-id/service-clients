@@ -85,26 +85,12 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: 'install -g typescript'
-  - task: Npm@1
-    inputs:
-      command: 'custom'
       workingDir: 'typescript'
       customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildId)'
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --typescript --output-folder=./typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: 'typescript'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/temp'
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/temp'
-      ArtifactName: 'temp'
-      publishLocation: 'Container'
+      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
   - task: Npm@1
     inputs:
       command: 'install'
@@ -116,15 +102,9 @@ jobs:
       customCommand: 'run build'
   - task: CopyFiles@2
     inputs:
-      SourceFolder: 'typescript/dist'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/dist'
-
-  - task: CopyFiles@2
-    inputs:
       SourceFolder: 'typescript'
-      Contents: 'package.json'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/npm'
   
   - task: PublishBuildArtifacts@1
     inputs:
