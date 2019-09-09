@@ -1,2 +1,5 @@
 node_modules
 dist
+*.ts
+!lib/index.ts
+!lib/streetcredClientCredentials.ts
