@@ -10,6 +10,6 @@
       "moduleResolution": "node",
       "lib": [ "es2017", "es7", "es6", "dom" ]
     },
-    "include": ["lib/**/*"],
+    "include": ["src/**/*"],
     "exclude": ["node_modules", "**/__tests__/*", "dist" ]
   }
