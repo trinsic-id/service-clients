@@ -86,7 +86,7 @@ jobs:
     inputs:
       command: 'custom'
       workingDir: 'typescript'
-      customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildNumber)'
+      customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildId)'
   - task: CmdLine@2
     inputs:
       script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
