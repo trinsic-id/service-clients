@@ -81,12 +81,13 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: 'install -g autorest'
+      customCommand: 'install -g autorest typescript'
   - task: Npm@1
     inputs:
       command: 'custom'
       workingDir: 'typescript'
       customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildId)'
+  
   - task: CmdLine@2
     inputs:
       script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
