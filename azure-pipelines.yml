@@ -95,9 +95,16 @@ jobs:
   - task: CmdLine@2
     inputs:
       script: 'autorest --input-file=agency.json --typescript --output-folder=./typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
-  - task: CmdLine@2
+  - task: CopyFiles@2
     inputs:
-      script: 'dir typescript'
+      SourceFolder: 'typescript'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/temp'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/temp'
+      ArtifactName: 'temp'
+      publishLocation: 'Container'
   - task: Npm@1
     inputs:
       command: 'install'
