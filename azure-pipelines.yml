@@ -75,7 +75,7 @@ jobs:
 
 - job: Npm
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
 
   steps:
   - task: Npm@1
