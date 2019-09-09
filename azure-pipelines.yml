@@ -13,60 +13,106 @@ trigger:
     - cloud.json
 pr: none
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   packageVersion: 1.1.0
+  majorMinorPackageVersion: 1.1
 
-steps:
+jobs:
+- job: Nuget
+  pool:
+    vmImage: 'windows-latest'
 
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '2.2.301'
-    
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-      npm install --global --production npm-windows-upgrade
-      npm-windows-upgrade --npm-version latest
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.301'
+      
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+        npm install --global --production npm-windows-upgrade
+        npm-windows-upgrade --npm-version latest
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'install -g autorest'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'install -g autorest'
 
-- task: CmdLine@2
-  inputs:
-    script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
-- task: CmdLine@2
-  inputs:
-    script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
 
-- task: NuGetToolInstaller@1
+  - task: NuGetToolInstaller@1
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'custom'
-    projects: 'csharp/**/*.csproj'
-    custom: 'pack'
-    arguments: '/p:PackageVersion=$(packageVersion) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'custom'
+      projects: 'csharp/**/*.csproj'
+      custom: 'pack'
+      arguments: '/p:PackageVersion=$(packageVersion) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'custom'
-    projects: 'csharp/**/*.csproj'
-    custom: 'pack'
-    arguments: '/p:PackageVersion=$(packageVersion)-$(Build.BuildNumber) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/ci'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'custom'
+      projects: 'csharp/**/*.csproj'
+      custom: 'pack'
+      arguments: '/p:PackageVersion=$(packageVersion)-$(Build.BuildNumber) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/ci'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'packages'
-    publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'packages'
+      publishLocation: 'Container'
+
+- job: Npm
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'install -g autorest'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: 'typescript'
+      customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildNumber)'
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: 'typescript'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: 'typescript'
+      customCommand: 'run build'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'typescript/dist'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/dist'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'typescript'
+      Contents: 'package.json'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'npm'
+      publishLocation: 'Container'
