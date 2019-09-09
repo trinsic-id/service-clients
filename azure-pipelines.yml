@@ -94,7 +94,10 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+      script: 'autorest --input-file=agency.json --typescript --output-folder=./typescript --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+  - task: CmdLine@2
+    inputs:
+      script: 'dir typescript'
   - task: Npm@1
     inputs:
       command: 'install'
