@@ -96,7 +96,7 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=\''https://streetcred.azure-api.net/\'']'
+      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://streetcred.azure-api.net/'']'
 
   - task: Npm@1
     inputs:
