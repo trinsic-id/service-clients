@@ -19,64 +19,64 @@ variables:
   majorMinorPackageVersion: 1.1
 
 jobs:
-- job: Nuget
-  pool:
-    vmImage: 'windows-latest'
+# - job: Nuget
+#   pool:
+#     vmImage: 'windows-latest'
 
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '2.2.301'
+#   steps:
+#   - task: UseDotNet@2
+#     inputs:
+#       packageType: 'sdk'
+#       version: '2.2.301'
       
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-        npm install --global --production npm-windows-upgrade
-        npm-windows-upgrade --npm-version latest
+#   - task: PowerShell@2
+#     inputs:
+#       targetType: 'inline'
+#       script: |
+#         Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+#         npm install --global --production npm-windows-upgrade
+#         npm-windows-upgrade --npm-version latest
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'install -g autorest'
+#   - task: Npm@1
+#     inputs:
+#       command: 'custom'
+#       customCommand: 'install -g autorest'
 
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+#   - task: CmdLine@2
+#     inputs:
+#       script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
+#   - task: CmdLine@2
+#     inputs:
+#       script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
 
-  - task: NuGetToolInstaller@1
+#   - task: NuGetToolInstaller@1
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'custom'
-      projects: 'csharp/**/*.csproj'
-      custom: 'pack'
-      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
+#   - task: DotNetCoreCLI@2
+#     inputs:
+#       command: 'custom'
+#       projects: 'csharp/**/*.csproj'
+#       custom: 'pack'
+#       arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'custom'
-      projects: 'csharp/**/*.csproj'
-      custom: 'pack'
-      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId)-preview /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/preview'
+#   - task: DotNetCoreCLI@2
+#     inputs:
+#       command: 'custom'
+#       projects: 'csharp/**/*.csproj'
+#       custom: 'pack'
+#       arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId)-preview /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/preview'
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/stable'
-      ArtifactName: 'nuget-stable'
-      publishLocation: 'Container'
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)/stable'
+#       ArtifactName: 'nuget-stable'
+#       publishLocation: 'Container'
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/preview'
-      ArtifactName: 'nuget-preview'
-      publishLocation: 'Container'
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)/preview'
+#       ArtifactName: 'nuget-preview'
+#       publishLocation: 'Container'
 
 - job: Npm
   pool:
@@ -98,16 +98,16 @@ jobs:
     inputs:
       script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=\''https://streetcred.azure-api.net/\'']'
 
-  - task: Npm@1
-    inputs:
-      command: 'install'
-      workingDir: 'typescript'
+  # - task: Npm@1
+  #   inputs:
+  #     command: 'install'
+  #     workingDir: 'typescript'
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      workingDir: 'typescript'
-      customCommand: 'run build'
+  # - task: Npm@1
+  #   inputs:
+  #     command: 'custom'
+  #     workingDir: 'typescript'
+  #     customCommand: 'run build'
       
   - task: CopyFiles@2
     inputs:
