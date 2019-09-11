@@ -827,6 +827,10 @@
                 "deviceId": {
                     "description": "Gets or sets the device identifier.",
                     "type": "string"
+                },
+                "deviceInfo": {
+                    "description": "Gets or sets the device information.",
+                    "type": "string"
                 }
             }
         },
