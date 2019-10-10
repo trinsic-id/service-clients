@@ -190,6 +190,28 @@
                 "produces": [
                     "application/json"
                 ]
+            },
+            "delete": {
+                "description": "Delete connection record.",
+                "operationId": "DeleteConnection",
+                "summary": "Delete connection record.",
+                "tags": [
+                    "Connections"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "Connection identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
             }
         },
         "/credentials": {
@@ -1407,12 +1429,12 @@
             "description": "Create verification",
             "type": "object",
             "properties": {
-                "proofRequestId": {
-                    "description": "Gets or sets the proof request identifier.",
+                "verificationDefinitionId": {
+                    "description": "Verification definition identifier.",
                     "type": "string"
                 },
                 "connectionId": {
-                    "description": "Gets or sets the connection identifier.",
+                    "description": "Connection identifier.",
                     "type": "string"
                 }
             }
