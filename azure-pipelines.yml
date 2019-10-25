@@ -43,11 +43,11 @@ jobs:
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+      script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
+      script: 'autorest --input-file=openapi/cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
 
   - task: NuGetToolInstaller@1
 
@@ -128,7 +128,7 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://streetcred.azure-api.net/'']'
+      script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://streetcred.azure-api.net/'']'
 
   - task: Npm@1
     inputs:
