@@ -9,8 +9,7 @@ trigger:
     - master
   paths:
     include:
-    - agency.json
-    - cloud.json
+    - openapi
 pr: none
 
 variables:
@@ -19,7 +18,7 @@ variables:
   majorMinorPackageVersion: 1.1
 
 jobs:
-- job: Nuget
+- job: Nuget_Production
   pool:
     vmImage: 'windows-latest'
 
@@ -44,11 +43,11 @@ jobs:
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+      script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
+      script: 'autorest --input-file=openapi/cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
 
   - task: NuGetToolInstaller@1
 
@@ -57,25 +56,58 @@ jobs:
       command: 'custom'
       projects: 'csharp/**/*.csproj'
       custom: 'pack'
-      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/stable'
+      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/production'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/production'
+      ArtifactName: 'nuget-production'
+      publishLocation: 'Container'
+
+- job: Nuget_Staging
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.301'
+      
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+        npm install --global --production npm-windows-upgrade
+        npm-windows-upgrade --npm-version latest
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'install -g autorest'
+
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/agency-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/cloud-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
+
+  - task: NuGetToolInstaller@1
 
   - task: DotNetCoreCLI@2
     inputs:
       command: 'custom'
       projects: 'csharp/**/*.csproj'
       custom: 'pack'
-      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId)-preview /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/preview'
+      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId)-staging /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/staging'
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/stable'
-      ArtifactName: 'nuget-stable'
-      publishLocation: 'Container'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/preview'
-      ArtifactName: 'nuget-preview'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/staging'
+      ArtifactName: 'nuget-staging'
       publishLocation: 'Container'
 
 - job: Npm
@@ -96,7 +128,7 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://streetcred.azure-api.net/'']'
+      script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://streetcred.azure-api.net/'']'
 
   - task: Npm@1
     inputs:
