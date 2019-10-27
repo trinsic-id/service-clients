@@ -639,7 +639,9 @@
                 "produces": [
                     "application/json"
                 ]
-            },
+            }
+        },
+        "/tenants/{tenantId}": {
             "delete": {
                 "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
                 "operationId": "DeleteTenant",
@@ -647,14 +649,20 @@
                 "tags": [
                     "Tenants"
                 ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
                     }
                 }
-            }
-        },
-        "/tenants/{tenantId}": {
+            },
             "get": {
                 "description": "Returns the agent configuration",
                 "operationId": "GetTenant",
