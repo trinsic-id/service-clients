@@ -5,7 +5,7 @@
         "version": "v1"
     },
     "host": "api.streetcred.id",
-    "basePath": "/agency-stagin/v1",
+    "basePath": "/agency/v1",
     "schemes": [
         "https"
     ],
