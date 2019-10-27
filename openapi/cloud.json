@@ -4,7 +4,7 @@
         "title": "Cloud",
         "version": "v1"
     },
-    "host": "streetcred.azure-api.net",
+    "host": "api.streetcred.id",
     "basePath": "/cloud/v1",
     "schemes": [
         "https"
