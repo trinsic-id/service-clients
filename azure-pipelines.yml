@@ -138,14 +138,6 @@ jobs:
     inputs:
       script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
 
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/cloud.json --typescript --output-folder=typescript --add-credentials --override-client-name=CloudServiceClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
-
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/cloudwallet.json --typescript --output-folder=typescript --add-credentials --override-client-name=CloudWalletServiceClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
-
   - task: Npm@1
     inputs:
       command: 'install'
