@@ -153,7 +153,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/ConnectionContract"
                         }
                     }
                 },
@@ -277,7 +277,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/CredentialContract"
                         }
                     }
                 },
@@ -506,6 +506,88 @@
                 ]
             }
         },
+        "/messages": {
+            "post": {
+                "operationId": "SendMessage",
+                "summary": "SendMessage",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "basicMessageParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/BasicMessageParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/messages/connection/{connectionId}": {
+            "get": {
+                "operationId": "ListMessages",
+                "summary": "ListMessages",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/BasicMessageRecordArray"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/messages/{messageId}": {
+            "get": {
+                "operationId": "GetMessage",
+                "summary": "GetMessage",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/BasicMessageContract"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
         "/tenants": {
             "get": {
                 "description": "Get a collection of available tenants for the current authorization context.",
@@ -560,6 +642,27 @@
             }
         },
         "/tenants/{tenantId}": {
+            "delete": {
+                "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
+                "operationId": "DeleteTenant",
+                "summary": "Delete a tenant.",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
             "get": {
                 "description": "Returns the agent configuration",
                 "operationId": "GetTenant",
@@ -586,22 +689,34 @@
                 "produces": [
                     "application/json"
                 ]
-            },
-            "delete": {
-                "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
-                "operationId": "DeleteTenant",
-                "summary": "Delete a tenant.",
+            }
+        },
+        "/tenants/status": {
+            "get": {
+                "operationId": "GetStatus",
+                "summary": "GetStatus",
                 "tags": [
                     "Tenants"
                 ],
-                "parameters": [
-                    {
-                        "name": "tenantId",
-                        "in": "path",
-                        "description": "Tenant identifier.",
-                        "required": true,
-                        "type": "string"
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/StatusContract"
+                        }
                     }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/tenants/accept_agreement": {
+            "post": {
+                "operationId": "AcceptLatestTransactionAuthorAgreement",
+                "summary": "AcceptLatestTransactionAuthorAgreement",
+                "tags": [
+                    "Tenants"
                 ],
                 "responses": {
                     "200": {
@@ -693,6 +808,36 @@
                         "description": "Success",
                         "schema": {
                             "$ref": "#/definitions/VerificationContract"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/verifications/{verificationId}/verify": {
+            "get": {
+                "description": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
+                "operationId": "VerifyVerification",
+                "summary": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "description": "Verification identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationResult"
                         }
                     }
                 },
@@ -827,7 +972,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/WebhookContract"
                         }
                     }
                 },
@@ -858,88 +1003,6 @@
                         "description": "Success"
                     }
                 }
-            }
-        },
-        "/messages": {
-            "post": {
-                "operationId": "SendMessage",
-                "summary": "SendMessage",
-                "tags": [
-                    "Messaging"
-                ],
-                "parameters": [
-                    {
-                        "name": "basicMessageParameters",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/BasicMessageParameters"
-                        }
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/messages/connection/{connectionId}": {
-            "get": {
-                "operationId": "ListMessages",
-                "summary": "ListMessages",
-                "tags": [
-                    "Messaging"
-                ],
-                "parameters": [
-                    {
-                        "name": "connectionId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/BasicMessageRecordArray"
-                        }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/messages/{messageId}": {
-            "get": {
-                "operationId": "GetMessage",
-                "summary": "GetMessage",
-                "tags": [
-                    "Messaging"
-                ],
-                "parameters": [
-                    {
-                        "name": "messageId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/BasicMessageContract"
-                        }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ]
             }
         },
         "/webhooks/{webhookId}/enable": {
@@ -989,54 +1052,20 @@
                     }
                 }
             }
-        },
-        "/verifications/{verificationId}/verify": {
-            "get": {
-                "description": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
-                "operationId": "VerifyVerification",
-                "summary": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
-                "tags": [
-                    "Verifications"
-                ],
-                "parameters": [
-                    {
-                        "name": "verificationId",
-                        "in": "path",
-                        "description": "Verification identifier",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/VerificationResult"
-                        }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ]
-            }
         }
     },
     "definitions": {
         "NetworkContract": {
-            "description": "Ledger network",
             "type": "object",
             "properties": {
                 "network_id": {
-                    "description": "Network identifier",
                     "type": "string"
                 },
                 "network_name": {
-                    "description": "Name of the network.",
                     "type": "string"
                 },
                 "pool_protocol_version": {
                     "format": "int32",
-                    "description": "Network ledger protocol version.\r\n            \r\nDefault value is '2'.",
                     "type": "integer"
                 }
             }
@@ -1117,14 +1146,6 @@
             },
             "example": "{}"
         },
-        "IdContract": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                }
-            }
-        },
         "CredentialContract": {
             "type": "object",
             "properties": {
@@ -1160,6 +1181,10 @@
         },
         "CredentialOfferParameters": {
             "description": "Send offer.",
+            "required": [
+                "definitionId",
+                "connectionId"
+            ],
             "type": "object",
             "properties": {
                 "definitionId": {
@@ -1169,6 +1194,17 @@
                 "connectionId": {
                     "description": "Gets or sets their did.",
                     "type": "string"
+                },
+                "issueWhenReady": {
+                    "description": "Specify if credential will be issued as soon as the\r\nthe other party accepts the credential offer.\r\nIf true, the field {attributeValues} must be \r\nspecified. Otherwise, issuance can be done by\r\ncalling the Issuance endpoint manually.\r\n\r\nDefault value is {false}.",
+                    "type": "boolean"
+                },
+                "attributeValues": {
+                    "description": "Credential attribute values.\r\nMust match all credential definition attribute names.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -1238,6 +1274,14 @@
                 },
                 "tag": {
                     "description": "Unique tag to differentiate definitions of the same schema",
+                    "type": "string"
+                }
+            }
+        },
+        "IdContract": {
+            "type": "object",
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }
@@ -1363,6 +1407,53 @@
                 "tenantId": {
                     "description": "Gets or sets the tenant identifier.",
                     "type": "string"
+                },
+                "extendedInformation": {
+                    "$ref": "#/definitions/TenantExtendedInformationContract",
+                    "description": "Extended tenant information"
+                }
+            }
+        },
+        "TenantExtendedInformationContract": {
+            "description": "Extended tenant information",
+            "type": "object",
+            "properties": {
+                "issuerDid": {
+                    "description": "Issuer DID",
+                    "type": "string"
+                },
+                "issuerKey": {
+                    "description": "Issuer Public Key",
+                    "type": "string"
+                },
+                "issuerKeyGenerationSeed": {
+                    "description": "Isuser key generation seed used for deterministic key creation (32 characters)",
+                    "type": "string"
+                },
+                "agentDid": {
+                    "description": "Agent DID",
+                    "type": "string"
+                },
+                "agentKey": {
+                    "description": "Agent Public Key",
+                    "type": "string"
+                },
+                "agentKeyGenerationSeed": {
+                    "description": "Agent key generation seed used for deterministic key creation (32 characters)",
+                    "type": "string"
+                },
+                "agentServiceEndpoint": {
+                    "description": "Agent service endpoint URL",
+                    "type": "string"
+                },
+                "transactionEndorsement": {
+                    "description": "Transaction endorsement type",
+                    "enum": [
+                        "Shared",
+                        "Dedicated",
+                        "Delegated"
+                    ],
+                    "type": "string"
                 }
             }
         },
@@ -1386,8 +1477,52 @@
                     "type": "string"
                 },
                 "network_id": {
-                    "description": "(Optional) Ledger network identifier. Default is Streetcred Test Network",
+                    "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
                     "type": "string"
+                },
+                "endorser_type": {
+                    "description": "(Required) Set the endorer type for this organization",
+                    "enum": [
+                        "Shared",
+                        "Dedicated",
+                        "Delegated"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "StatusContract": {
+            "type": "object",
+            "properties": {
+                "acceptanceText": {
+                    "type": "string"
+                },
+                "acceptanceVersion": {
+                    "type": "string"
+                },
+                "requireAcceptance": {
+                    "type": "boolean"
+                },
+                "txn_endorsement": {
+                    "description": "Configured transacation endorsement type",
+                    "enum": [
+                        "Shared",
+                        "Dedicated",
+                        "Delegated"
+                    ],
+                    "type": "string"
+                },
+                "ready": {
+                    "description": "Indicates if this tenant is ready to write transactions\r\n on the configured ledger network",
+                    "type": "boolean"
+                },
+                "status_messages": {
+                    "description": "Status messages that indicate problems or actions that need to be taken.\r\nWill be populated if the field 'ready' is 'false'.",
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -1583,7 +1718,7 @@
                     "description": "Gets or sets the type of webhook",
                     "enum": [
                         "Notification",
-                        "DelegatedSigning"
+                        "DelegatedEndorser"
                     ],
                     "type": "string"
                 },
@@ -1601,14 +1736,12 @@
             "type": "object",
             "properties": {
                 "url": {
-                    "description": "Gets or sets the webhook endpoing url",
                     "type": "string"
                 },
                 "type": {
-                    "description": "Gets or sets the type of webhook",
                     "enum": [
                         "Notification",
-                        "DelegatedSigning"
+                        "DelegatedEndorser"
                     ],
                     "type": "string"
                 }

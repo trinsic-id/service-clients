@@ -1102,6 +1102,9 @@
                     ],
                     "type": "string"
                 },
+                "invitation": {
+                    "type": "string"
+                },
                 "invitationUrl": {
                     "type": "string"
                 },
@@ -1178,6 +1181,10 @@
         },
         "CredentialOfferParameters": {
             "description": "Send offer.",
+            "required": [
+                "definitionId",
+                "connectionId"
+            ],
             "type": "object",
             "properties": {
                 "definitionId": {
@@ -1187,6 +1194,10 @@
                 "connectionId": {
                     "description": "Gets or sets their did.",
                     "type": "string"
+                },
+                "issueWhenReady": {
+                    "description": "Specify if credential will be issued as soon as the\r\nthe other party accepts the credential offer.\r\nIf true, the field {attributeValues} must be \r\nspecified. Otherwise, issuance can be done by\r\ncalling the Issuance endpoint manually.\r\n\r\nDefault value is {false}.",
+                    "type": "boolean"
                 },
                 "attributeValues": {
                     "description": "Credential attribute values.\r\nMust match all credential definition attribute names.",
