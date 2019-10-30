@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Custodian",
+        "title": "Custodian API",
         "version": "v1"
     },
     "host": "api.streetcred.id",
@@ -28,7 +28,7 @@
         "subscriptionKey" : [ ]
       } ],
     "paths": {
-        "/api/{walletId}/connections/invitations/accept": {
+        "/api/{walletId}/connections/invitation": {
             "post": {
                 "description": "Accepts the invitation.",
                 "operationId": "AcceptInvitation",
@@ -45,25 +45,21 @@
                         "type": "string"
                     },
                     {
-                        "name": "connectionInvitationMessage",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/ConnectionInvitationMessage"
-                        },
-                        "description": "The invitation."
+                        "name": "invitation",
+                        "in": "formData",
+                        "description": "The invitation.",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
-                    "application/json",
-                    "text/json",
-                    "application/*+json"
+                    "multipart/form-data"
                 ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/ConnectionContract"
                         }
                     },
                     "401": {
@@ -542,48 +538,6 @@
         }
     },
     "definitions": {
-        "ConnectionInvitationMessage": {
-            "type": "object",
-            "properties": {
-                "label": {
-                    "type": "string"
-                },
-                "imageUrl": {
-                    "type": "string"
-                },
-                "serviceEndpoint": {
-                    "type": "string"
-                },
-                "routingKeys": {
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "recipientKeys": {
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "@id": {
-                    "type": "string"
-                },
-                "@type": {
-                    "type": "string"
-                }
-            }
-        },
-        "IdContract": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                }
-            }
-        },
         "ConnectionContract": {
             "type": "object",
             "properties": {
@@ -743,6 +697,14 @@
                 },
                 "name": {
                     "description": "Gets or sets the name.",
+                    "type": "string"
+                }
+            }
+        },
+        "IdContract": {
+            "type": "object",
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }
