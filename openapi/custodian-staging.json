@@ -1,11 +1,11 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Cloud Wallet (Staging)",
+        "title": "Custodian (Staging)",
         "version": "v1"
     },
     "host": "api.streetcred.id",
-    "basePath": "/cloudwallet-staging/v1",
+    "basePath": "/custodian-staging/v1",
     "schemes": [
         "https"
     ],
