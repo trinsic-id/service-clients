@@ -1,11 +1,11 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Cloud Wallet",
+        "title": "Custodian",
         "version": "v1"
     },
     "host": "api.streetcred.id",
-    "basePath": "/cloudwallet/v1",
+    "basePath": "/custodian/v1",
     "schemes": [
         "https"
     ],

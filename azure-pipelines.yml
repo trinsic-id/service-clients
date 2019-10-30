@@ -51,7 +51,7 @@ jobs:
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/cloudwallet.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudWalletServiceClient'
+      script: 'autorest --input-file=openapi/custodian.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
 
   - task: NuGetToolInstaller@1
 
@@ -101,7 +101,7 @@ jobs:
  
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/cloudwallet-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudWalletServiceClient'
+      script: 'autorest --input-file=openapi/custodian-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
 
   - task: NuGetToolInstaller@1
 
