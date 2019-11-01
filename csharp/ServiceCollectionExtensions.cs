@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 new AgencyServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
             services.AddSingleton<ICloudServiceClient, CloudServiceClient>(provider =>
                 new CloudServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
-            services.AddSingleton<CustodianServiceClient, CustodianServiceClient>(provider =>
+            services.AddSingleton<ICustodianServiceClient, CustodianServiceClient>(provider =>
                 new CustodianServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
             return services;
         }
