@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Custodian API (Staging)",
+        "title": "Custodian (Staging)",
         "version": "v1"
     },
     "host": "api.streetcred.id",
@@ -424,20 +424,19 @@
                 ]
             },
             "post": {
-                "description": "These are remarks.",
+                "description": "Create new wallet",
                 "operationId": "CreateWallet",
-                "summary": "Create new wallet.",
+                "summary": "Create new wallet",
                 "tags": [
                     "Wallet"
                 ],
                 "parameters": [
                     {
-                        "name": "walletInfo",
+                        "name": "walletParameters",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/WalletInfo"
-                        },
-                        "description": "The wallet information."
+                            "$ref": "#/definitions/WalletParameters"
+                        }
                     }
                 ],
                 "consumes": [
@@ -450,7 +449,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/WalletContract"
                         }
                     },
                     "401": {
@@ -491,49 +490,6 @@
                         "description": "Forbidden"
                     }
                 }
-            }
-        },
-        "/api/wallets/create": {
-            "post": {
-                "operationId": "CreateWallet2",
-                "summary": "CreateWallet2",
-                "tags": [
-                    "Wallet"
-                ],
-                "parameters": [
-                    {
-                        "name": "walletParameters",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/WalletParameters"
-                        }
-                    }
-                ],
-                "consumes": [
-                    "application/json-patch+json",
-                    "application/json",
-                    "text/json",
-                    "application/*+json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/WalletContract"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
-                ]
             }
         }
     },
@@ -697,14 +653,6 @@
                 },
                 "name": {
                     "description": "Gets or sets the name.",
-                    "type": "string"
-                }
-            }
-        },
-        "IdContract": {
-            "type": "object",
-            "properties": {
-                "id": {
                     "type": "string"
                 }
             }

@@ -371,13 +371,13 @@
                 }
             }
         },
-        "/credentials/definitions": {
+        "/definitions/credentials": {
             "get": {
-                "description": "Gets the definitions.",
+                "description": "List all credential definitions by this issuer.",
                 "operationId": "ListCredentialDefinitions",
-                "summary": "Gets the definitions.",
+                "summary": "List all credential definitions by this issuer.",
                 "tags": [
-                    "Credentials"
+                    "Definitions"
                 ],
                 "responses": {
                     "200": {
@@ -392,18 +392,18 @@
                 ]
             },
             "post": {
-                "description": "Create new credential definition for a given schema. If schema already exists on the ledger\r\nspecify the 'schema_id' - 'name', 'version' and 'attr_names' will be ignored.\r\nIf schema doesn't exist, you must specify 'name', 'version' and 'attr_names'\r\n- schema_id will be ignored and generated automatically.",
+                "description": "Create new credential definition and schema with the given parameters.",
                 "operationId": "CreateCredentialDefinition",
-                "summary": "Create new credential definition.",
+                "summary": "Create new credential definition and schema with the given parameters.",
                 "tags": [
-                    "Credentials"
+                    "Definitions"
                 ],
                 "parameters": [
                     {
-                        "name": "credentialDefinitionParameters",
+                        "name": "credentialDefinitionFromSchemaParameters",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/CredentialDefinitionParameters"
+                            "$ref": "#/definitions/CredentialDefinitionFromSchemaParameters"
                         },
                         "description": "Definition."
                     }
@@ -415,7 +415,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/CredentialDefinitionContract"
                         }
                     }
                 },
@@ -424,13 +424,13 @@
                 ]
             }
         },
-        "/credentials/definitions/{definitionId}": {
+        "/definitions/credentials/{definitionId}": {
             "get": {
-                "description": "Gets the definitions.",
+                "description": "Get the credential definition with the specified identifier.",
                 "operationId": "GetCredentialDefinition",
-                "summary": "Gets the definitions.",
+                "summary": "Get the credential definition with the specified identifier.",
                 "tags": [
-                    "Credentials"
+                    "Definitions"
                 ],
                 "parameters": [
                     {
@@ -453,13 +453,13 @@
                 ]
             }
         },
-        "/credentials/schemas": {
+        "/definitions/schemas": {
             "get": {
-                "description": "Gets the schemas.",
+                "description": "List the schemas registered or used by this issuer.",
                 "operationId": "ListSchemas",
-                "summary": "Gets the schemas.",
+                "summary": "List the schemas registered or used by this issuer.",
                 "tags": [
-                    "Credentials"
+                    "Definitions"
                 ],
                 "responses": {
                     "200": {
@@ -474,11 +474,11 @@
                 ]
             },
             "post": {
-                "description": "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer.",
+                "description": "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer. This does not create credential definition.",
                 "operationId": "CreateSchema",
-                "summary": "Register new schema",
+                "summary": "Create new schema",
                 "tags": [
-                    "Credentials"
+                    "Definitions"
                 ],
                 "parameters": [
                     {
@@ -497,7 +497,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/CredentialsSchemasPost200ApplicationJsonResponse"
+                            "$ref": "#/definitions/DefinitionsSchemasPost200ApplicationJsonResponse"
                         }
                     }
                 },
@@ -691,40 +691,6 @@
                 ]
             }
         },
-        "/tenants/status": {
-            "get": {
-                "operationId": "GetStatus",
-                "summary": "GetStatus",
-                "tags": [
-                    "Tenants"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/StatusContract"
-                        }
-                    }
-                },
-                "produces": [
-                    "application/json"
-                ]
-            }
-        },
-        "/tenants/accept_agreement": {
-            "post": {
-                "operationId": "AcceptLatestTransactionAuthorAgreement",
-                "summary": "AcceptLatestTransactionAuthorAgreement",
-                "tags": [
-                    "Tenants"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
         "/verifications": {
             "get": {
                 "description": "Lists the verifications for connection.",
@@ -846,19 +812,19 @@
                 ]
             }
         },
-        "/verifications/definitions/{definitionId}": {
+        "/definitions/verifications/{definitionId}": {
             "get": {
-                "description": "Gets the specified proof request identifier.",
+                "description": "Gets the specified verification definition.",
                 "operationId": "GetVerificationDefinition",
-                "summary": "Gets the specified proof request identifier.",
+                "summary": "Gets the specified verification definition.",
                 "tags": [
-                    "Verifications"
+                    "Definitions"
                 ],
                 "parameters": [
                     {
                         "name": "definitionId",
                         "in": "path",
-                        "description": "The proof request identifier.",
+                        "description": "The verification identifier.",
                         "required": true,
                         "type": "string"
                     }
@@ -876,13 +842,13 @@
                 ]
             }
         },
-        "/verifications/definitions": {
+        "/definitions/verifications": {
             "get": {
-                "description": "Lists this instance.",
+                "description": "List all verification definitions.",
                 "operationId": "ListVerificationDefinitions",
-                "summary": "Lists this instance.",
+                "summary": "List all verification definitions.",
                 "tags": [
-                    "Verifications"
+                    "Definitions"
                 ],
                 "responses": {
                     "200": {
@@ -897,11 +863,11 @@
                 ]
             },
             "post": {
-                "description": "Creates the specified proof request.",
+                "description": "Creates new verification definition.",
                 "operationId": "CreateVerificationDefinition",
-                "summary": "Creates the specified proof request.",
+                "summary": "Creates new verification definition.",
                 "tags": [
-                    "Verifications"
+                    "Definitions"
                 ],
                 "parameters": [
                     {
@@ -1052,6 +1018,118 @@
                     }
                 }
             }
+        },
+        "/common/networks/{networkId}/txnAuthorAgreement": {
+            "get": {
+                "description": "Return the latest transaction author agreement and acceptance methods if one \r\nis set on the network with the specified {networkId}",
+                "operationId": "GetTransactionAuthorAgreement",
+                "summary": "Return the latest transaction author agreement and acceptance methods if one \r\nis set on the network with the specified {networkId}",
+                "tags": [
+                    "Common"
+                ],
+                "parameters": [
+                    {
+                        "name": "networkId",
+                        "in": "path",
+                        "description": "Network identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/NetworkTxnAgreementContract"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "put": {
+                "description": "Accept the latest transaction author agreement on the specified network.",
+                "operationId": "AcceptTransactionAuthorAgreement",
+                "summary": "Accept the latest transaction author agreement on the specified network.",
+                "tags": [
+                    "Common"
+                ],
+                "parameters": [
+                    {
+                        "name": "networkId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/definitions/credentials/{schemaId}": {
+            "post": {
+                "description": "Create credential definition from existing schema identifier.",
+                "operationId": "CreateCredentialDefinitionForSchemaId",
+                "summary": "Create credential definition from existing schema identifier.",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "schemaId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "credentialDefinitionParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionContract"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/tenants/issuerStatus": {
+            "get": {
+                "description": "If the tenant is configured with Dedicated endorsement, this\r\naction will check if the issuer DID has the required ENDORSER role \r\non the configured ledger network.\r\nAdditionally, check the acceptance of the transaction\r\nauthor agreement and return the text and version if acceptance\r\nis required.",
+                "operationId": "GetIssuerStatus",
+                "summary": "Get the issuer status for the current tenant.",
+                "tags": [
+                    "Tenants"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/IssuerStatusContract"
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
         }
     },
     "definitions": {
@@ -1067,6 +1145,27 @@
                 "pool_protocol_version": {
                     "format": "int32",
                     "type": "integer"
+                }
+            }
+        },
+        "NetworkTxnAgreementContract": {
+            "description": "Transaction author agreement",
+            "type": "object",
+            "properties": {
+                "text": {
+                    "description": "Acceptance agreement text",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Agreement version",
+                    "type": "string"
+                },
+                "acceptanceMethods": {
+                    "description": "List of agreement acceptance methods",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -1195,11 +1294,7 @@
                     "description": "Gets or sets their did.",
                     "type": "string"
                 },
-                "issueWhenReady": {
-                    "description": "Specify if credential will be issued as soon as the\r\nthe other party accepts the credential offer.\r\nIf true, the field {attributeValues} must be \r\nspecified. Otherwise, issuance can be done by\r\ncalling the Issuance endpoint manually.\r\n\r\nDefault value is {false}.",
-                    "type": "boolean"
-                },
-                "attributeValues": {
+                "credentialValues": {
                     "description": "Credential attribute values.\r\nMust match all credential definition attribute names.",
                     "type": "object",
                     "additionalProperties": {
@@ -1239,14 +1334,15 @@
                 }
             }
         },
-        "CredentialDefinitionParameters": {
+        "CredentialDefinitionFromSchemaParameters": {
             "description": "Represents a request object to create new credential definition for an agency",
+            "required": [
+                "name",
+                "version",
+                "attrNames"
+            ],
             "type": "object",
             "properties": {
-                "schema_id": {
-                    "description": "Schema identifier for this definition",
-                    "type": "string"
-                },
                 "name": {
                     "description": "Name of the schema.",
                     "type": "string"
@@ -1255,7 +1351,7 @@
                     "description": "Schema version.",
                     "type": "string"
                 },
-                "attr_names": {
+                "attrNames": {
                     "description": "Schema attribute names.",
                     "uniqueItems": false,
                     "type": "array",
@@ -1263,14 +1359,9 @@
                         "type": "string"
                     }
                 },
-                "support_revocation": {
+                "supportRevocation": {
                     "description": "Support credential revocation",
                     "type": "boolean"
-                },
-                "max_count": {
-                    "format": "int32",
-                    "description": "Maximum credential count.",
-                    "type": "integer"
                 },
                 "tag": {
                     "description": "Unique tag to differentiate definitions of the same schema",
@@ -1278,22 +1369,29 @@
                 }
             }
         },
-        "IdContract": {
+        "CredentialDefinitionParameters": {
+            "description": "Credential definition parameters",
             "type": "object",
             "properties": {
-                "id": {
+                "supportRevocation": {
+                    "description": "Support credential revocation",
+                    "type": "boolean"
+                },
+                "tag": {
+                    "description": "Unique tag to differentiate definitions of the same schema",
                     "type": "string"
                 }
             }
         },
         "SchemaParameters": {
             "description": "Schema.",
+            "required": [
+                "name",
+                "version",
+                "attrNames"
+            ],
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "Gets or sets the identifier.",
-                    "type": "string"
-                },
                 "name": {
                     "description": "Gets or sets the name.",
                     "type": "string"
@@ -1302,7 +1400,7 @@
                     "description": "Gets or sets the version.",
                     "type": "string"
                 },
-                "attr_names": {
+                "attrNames": {
                     "description": "Gets or sets the attribute names.",
                     "uniqueItems": false,
                     "type": "array",
@@ -1328,6 +1426,136 @@
                         "type": "string"
                     }
                 },
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "VerificationDefinitionContract": {
+            "description": "",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Gets or sets the identifier.",
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/ProofRequest",
+                    "description": "Gets or sets the proof request."
+                }
+            }
+        },
+        "ProofRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string"
+                },
+                "requested_attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeInfo"
+                    }
+                },
+                "requested_predicates": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofPredicateInfo"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            },
+            "example": "{\r\n  \"name\": \"proof-of-address-verification\",\r\n  \"version\": \"1.0\",\r\n  \"requested_attributes\": {\r\n    \"address-requirement\": {\r\n      \"name\": \"address\"\r\n    },\r\n    \"city-requirement\": {\r\n      \"name\": \"city\",\r\n      \"restrictions\": [\r\n        {\r\n          \"issuer_did\": \"<postOfficeDid>\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}"
+        },
+        "ProofAttributeInfo": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "restrictions": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeFilter"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            }
+        },
+        "ProofPredicateInfo": {
+            "type": "object",
+            "properties": {
+                "p_type": {
+                    "type": "string"
+                },
+                "p_value": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "restrictions": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeFilter"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            }
+        },
+        "RevocationInterval": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "to": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "AttributeFilter": {
+            "type": "object",
+            "properties": {
+                "schema_id": {
+                    "type": "string"
+                },
+                "schema_issuer_did": {
+                    "type": "string"
+                },
+                "schema_name": {
+                    "type": "string"
+                },
+                "schema_version": {
+                    "type": "string"
+                },
+                "issuer_did": {
+                    "type": "string"
+                },
+                "cred_def_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "IdContract": {
+            "type": "object",
+            "properties": {
                 "id": {
                     "type": "string"
                 }
@@ -1491,19 +1719,30 @@
                 }
             }
         },
-        "StatusContract": {
+        "IssuerStatusContract": {
+            "description": "Issuer Status contract",
             "type": "object",
             "properties": {
                 "acceptanceText": {
+                    "description": "Transaction Author Agreement Text",
                     "type": "string"
                 },
                 "acceptanceVersion": {
+                    "description": "Transaction Author Agreement Version",
                     "type": "string"
                 },
+                "acceptanceDigest": {
+                    "type": "string"
+                },
+                "acceptanceTime": {
+                    "format": "int64",
+                    "type": "integer"
+                },
                 "requireAcceptance": {
+                    "description": "Indicates if user needs to accept the \r\nlatest agreement on the network",
                     "type": "boolean"
                 },
-                "txn_endorsement": {
+                "txnEndorsement": {
                     "description": "Configured transacation endorsement type",
                     "enum": [
                         "Shared",
@@ -1512,17 +1751,9 @@
                     ],
                     "type": "string"
                 },
-                "ready": {
-                    "description": "Indicates if this tenant is ready to write transactions\r\n on the configured ledger network",
+                "issuerCanEndorse": {
+                    "description": "Indicates if the user has Endorser status",
                     "type": "boolean"
-                },
-                "status_messages": {
-                    "description": "Status messages that indicate problems or actions that need to be taken.\r\nWill be populated if the field 'ready' is 'false'.",
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },
@@ -1581,128 +1812,6 @@
                 "valid": {
                     "description": "True if verification passed, otherwise False",
                     "type": "boolean"
-                }
-            }
-        },
-        "VerificationDefinitionContract": {
-            "description": "",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "Gets or sets the identifier.",
-                    "type": "string"
-                },
-                "data": {
-                    "$ref": "#/definitions/ProofRequest",
-                    "description": "Gets or sets the proof request."
-                }
-            }
-        },
-        "ProofRequest": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "version": {
-                    "type": "string"
-                },
-                "nonce": {
-                    "type": "string"
-                },
-                "requested_attributes": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/ProofAttributeInfo"
-                    }
-                },
-                "requested_predicates": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/ProofPredicateInfo"
-                    }
-                },
-                "non_revoked": {
-                    "$ref": "#/definitions/RevocationInterval"
-                }
-            },
-            "example": "{\r\n  \"name\": \"proof-of-address-verification\",\r\n  \"version\": \"1.0\",\r\n  \"requested_attributes\": {\r\n    \"address-requirement\": {\r\n      \"name\": \"address\"\r\n    },\r\n    \"city-requirement\": {\r\n      \"name\": \"city\",\r\n      \"restrictions\": [\r\n        {\r\n          \"issuer_did\": \"<postOfficeDid>\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}"
-        },
-        "ProofAttributeInfo": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "restrictions": {
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/AttributeFilter"
-                    }
-                },
-                "non_revoked": {
-                    "$ref": "#/definitions/RevocationInterval"
-                }
-            }
-        },
-        "ProofPredicateInfo": {
-            "type": "object",
-            "properties": {
-                "p_type": {
-                    "type": "string"
-                },
-                "p_value": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "restrictions": {
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/AttributeFilter"
-                    }
-                },
-                "non_revoked": {
-                    "$ref": "#/definitions/RevocationInterval"
-                }
-            }
-        },
-        "RevocationInterval": {
-            "type": "object",
-            "properties": {
-                "from": {
-                    "format": "int32",
-                    "type": "integer"
-                },
-                "to": {
-                    "format": "int32",
-                    "type": "integer"
-                }
-            }
-        },
-        "AttributeFilter": {
-            "type": "object",
-            "properties": {
-                "schema_id": {
-                    "type": "string"
-                },
-                "schema_issuer_did": {
-                    "type": "string"
-                },
-                "schema_name": {
-                    "type": "string"
-                },
-                "schema_version": {
-                    "type": "string"
-                },
-                "issuer_did": {
-                    "type": "string"
-                },
-                "cred_def_id": {
-                    "type": "string"
                 }
             }
         },
@@ -1791,8 +1900,15 @@
                 "$ref": "#/definitions/SchemaRecord"
             }
         },
-        "CredentialsSchemasPost200ApplicationJsonResponse": {
+        "DefinitionsSchemasPost200ApplicationJsonResponse": {
             "type": "string"
+        },
+        "VerificationDefinitionContractArray": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/VerificationDefinitionContract"
+            }
         },
         "BasicMessageRecordArray": {
             "uniqueItems": false,
@@ -1813,13 +1929,6 @@
             "type": "array",
             "items": {
                 "$ref": "#/definitions/VerificationContract"
-            }
-        },
-        "VerificationDefinitionContractArray": {
-            "uniqueItems": false,
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/VerificationDefinitionContract"
             }
         },
         "WebhookContractArray": {
