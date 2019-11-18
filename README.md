@@ -1,6 +1,6 @@
 # Service Clients repository for Streetcred SSI platform
 
-## Avaialable Packages
+## Available Packages
 
 ### Nuget
 
