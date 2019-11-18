@@ -7,7 +7,7 @@ using Microsoft.Rest;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    internal class StreetcredClientCredentials : ServiceClientCredentials
+    public class StreetcredClientCredentials : ServiceClientCredentials
     {
         /// <summary>
         /// Gets the options.

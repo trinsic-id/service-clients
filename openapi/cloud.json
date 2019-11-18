@@ -1,0 +1,977 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Cloud",
+        "version": "v1"
+    },
+    "host": "api.streetcred.id",
+    "basePath": "/cloud/v1",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions" : {
+        "accessToken" : {
+          "description" : "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
+          "type" : "apiKey",
+          "name" : "Authorization",
+          "in" : "header"
+        },
+        "subscriptionKey" : {
+          "type" : "apiKey",
+          "name" : "X-Scrd-Api-Key",
+          "in" : "header"
+        }
+      },
+    "security" : [ {
+        "accessToken" : [ ]
+      }, {
+        "subscriptionKey" : [ ]
+      } ],
+    "paths": {
+        "/connections/invitations/accept": {
+            "post": {
+                "description": "Accepts the invitation.",
+                "operationId": "AcceptInvitation",
+                "summary": "Accepts the invitation.",
+                "tags": [
+                    "Connection"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "connectionInvitationMessage",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionInvitationMessage"
+                        },
+                        "description": "The invitation."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/IdContract"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/connections/{connectionId}": {
+            "get": {
+                "description": "Creates the connections.",
+                "operationId": "GetConnection",
+                "summary": "Creates the connections.",
+                "tags": [
+                    "Connection"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "The connection identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionContract"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/connections": {
+            "get": {
+                "description": "Retrieves a list of connections that are in 'Connected' state.",
+                "operationId": "GetConnections",
+                "summary": "Gets the connections.",
+                "tags": [
+                    "Connection"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionContractArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/connections/invitations": {
+            "get": {
+                "description": "Gets the invitations.",
+                "operationId": "GetInvitations",
+                "summary": "Gets the invitations.",
+                "tags": [
+                    "Connection"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionContractArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/connection/{connectionId}": {
+            "get": {
+                "description": "Lists the credentials for connection identifier.",
+                "operationId": "ListCredentialsForConnectionId",
+                "summary": "Lists the credentials for connection identifier.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "The connection identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialContractArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/api/credentials": {
+            "get": {
+                "description": "Lists the credentials.",
+                "operationId": "ListCredentials",
+                "summary": "Lists the credentials.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialContractArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/api/credentials/{credentialId}": {
+            "post": {
+                "description": "Accepts the credential offer.",
+                "operationId": "AcceptCredentialOffer",
+                "summary": "Accepts the credential offer.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialId",
+                        "in": "path",
+                        "description": "The credential identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/delivery/add_destination": {
+            "post": {
+                "description": "Associates the destination.",
+                "operationId": "AssociateDestination",
+                "summary": "Associates the destination.",
+                "tags": [
+                    "Delivery"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "destinationRegistration",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DestinationRegistration"
+                        },
+                        "description": "The delivery registration."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/delivery/add_device": {
+            "post": {
+                "description": "Registers the push.",
+                "operationId": "RegisterPush",
+                "summary": "Registers the push.",
+                "tags": [
+                    "Delivery"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "deviceRegistration",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DeviceRegistration"
+                        },
+                        "description": "The device registration."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api": {
+            "get": {
+                "description": "Returns the agent configuration",
+                "operationId": "GetConfiguration",
+                "summary": "Returns the agent configuration",
+                "tags": [
+                    "Discovery"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ProvisioningInfo"
+                        }
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/api/messages": {
+            "get": {
+                "description": "Retreives the messages.",
+                "operationId": "RetreiveMessages",
+                "summary": "Retreives the messages.",
+                "tags": [
+                    "Messages"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/MessageInfoArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            },
+            "delete": {
+                "description": "Deletes the messages.",
+                "operationId": "DeleteMessages",
+                "summary": "Deletes the messages.",
+                "tags": [
+                    "Messages"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "messageIds",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/MessageIds"
+                        },
+                        "description": "The message ids."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/presentations/connection/{connectionId}": {
+            "get": {
+                "description": "Lists the verifications for connection.",
+                "operationId": "ListVerificationsForConnection",
+                "summary": "Lists the verifications for connection.",
+                "tags": [
+                    "Presentation"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "The connection identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContractArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            }
+        },
+        "/api/wallets": {
+            "get": {
+                "description": "Lists the wallets async.",
+                "operationId": "ListWallets",
+                "summary": "Lists the wallets async.",
+                "tags": [
+                    "Wallet"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/WalletInfoArray"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            },
+            "post": {
+                "description": "These are remarks.",
+                "operationId": "CreateWallet",
+                "summary": "Create new wallet.",
+                "tags": [
+                    "Wallet"
+                ],
+                "parameters": [
+                    {
+                        "name": "walletInfo",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/WalletInfo"
+                        },
+                        "description": "The wallet information."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/IdContract"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ]
+            },
+            "delete": {
+                "description": "Deletes the wallet async.",
+                "operationId": "DeleteWallet",
+                "summary": "Deletes the wallet async.",
+                "tags": [
+                    "Wallet"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Streetcred-Wallet-Id",
+                        "in": "header",
+                        "description": "Identifier of the cloud wallet used with this request.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ConnectionInvitationMessage": {
+            "type": "object",
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "serviceEndpoint": {
+                    "type": "string"
+                },
+                "routingKeys": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "recipientKeys": {
+                    "uniqueItems": false,
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "@id": {
+                    "type": "string"
+                },
+                "@type": {
+                    "type": "string"
+                }
+            }
+        },
+        "IdContract": {
+            "description": "An object identifier",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Object identifier",
+                    "type": "string"
+                }
+            }
+        },
+        "ConnectionContract": {
+            "description": "Connection information",
+            "type": "object",
+            "properties": {
+                "connectionId": {
+                    "description": "Gets or sets the identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Gets or sets the name.",
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "description": "Gets or sets the image URL.",
+                    "type": "string"
+                },
+                "myDid": {
+                    "description": "Gets or sets my did.",
+                    "type": "string"
+                },
+                "theirDid": {
+                    "description": "Gets or sets their did.",
+                    "type": "string"
+                },
+                "myKey": {
+                    "description": "Gets or sets my key.",
+                    "type": "string"
+                },
+                "theirKey": {
+                    "description": "Gets or sets their key.",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "Gets or sets the state.",
+                    "enum": [
+                        "Invited",
+                        "Negotiating",
+                        "Connected"
+                    ],
+                    "type": "string"
+                },
+                "invitation": {
+                    "description": "Gets or sets the invitation.",
+                    "type": "string"
+                },
+                "invitationUrl": {
+                    "description": "Gets or sets the invitation URL.",
+                    "type": "string"
+                },
+                "endpoint": {
+                    "$ref": "#/definitions/AgentEndpoint",
+                    "description": "Gets or sets the endpoint."
+                },
+                "createdAtUtc": {
+                    "format": "date-time",
+                    "description": "Gets or sets the date created.",
+                    "type": "string"
+                }
+            }
+        },
+        "AgentEndpoint": {
+            "type": "object",
+            "properties": {
+                "did": {
+                    "type": "string"
+                },
+                "verkey": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                }
+            }
+        },
+        "CredentialContract": {
+            "type": "object",
+            "properties": {
+                "credentialId": {
+                    "type": "string"
+                },
+                "state": {
+                    "enum": [
+                        "Offered",
+                        "Requested",
+                        "Issued",
+                        "Rejected",
+                        "Revoked"
+                    ],
+                    "type": "string"
+                },
+                "connectionId": {
+                    "type": "string"
+                },
+                "definitionId": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "DestinationRegistration": {
+            "description": "Represents a request to register a delivery association",
+            "type": "object",
+            "properties": {
+                "did_or_key": {
+                    "description": "Gets the identifier.",
+                    "type": "string"
+                }
+            }
+        },
+        "DeviceRegistration": {
+            "description": "Device Registration",
+            "type": "object",
+            "properties": {
+                "deviceId": {
+                    "description": "Gets or sets the device identifier.",
+                    "type": "string"
+                },
+                "deviceInfo": {
+                    "description": "Gets or sets the device information.",
+                    "type": "string"
+                }
+            }
+        },
+        "ProvisioningInfo": {
+            "description": "Provisioning info.",
+            "type": "object",
+            "properties": {
+                "issuerDid": {
+                    "description": "Gets or sets the issuer did.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Gets or sets the name.",
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "description": "Gets or sets the image URL.",
+                    "type": "string"
+                },
+                "endpoint": {
+                    "$ref": "#/definitions/AgentEndpoint",
+                    "description": "Gets or sets the endpoint."
+                }
+            }
+        },
+        "MessageInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "VerificationContract": {
+            "description": "Verification Info",
+            "type": "object",
+            "properties": {
+                "connectionId": {
+                    "description": "Gets or sets the connection identifier.",
+                    "type": "string"
+                },
+                "verificationId": {
+                    "description": "Gets or sets the verification identifier.",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "Gets or sets the state.",
+                    "enum": [
+                        "Requested",
+                        "Accepted",
+                        "Rejected"
+                    ],
+                    "type": "string"
+                },
+                "createdAtUtc": {
+                    "format": "date-time",
+                    "description": "Gets or sets the created at UTC.",
+                    "type": "string"
+                },
+                "updatedAtUtc": {
+                    "format": "date-time",
+                    "description": "Gets or sets the updated at UTC.",
+                    "type": "string"
+                },
+                "isValid": {
+                    "description": "Returns true if the provided proof is valid.",
+                    "type": "boolean"
+                },
+                "verifiedAtUtc": {
+                    "format": "date-time",
+                    "description": "Gets or sets the verified at UTC.",
+                    "type": "string"
+                }
+            }
+        },
+        "WalletInfo": {
+            "description": "Wallet information",
+            "type": "object",
+            "properties": {
+                "type": {
+                    "description": "Gets or sets the type.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Gets or sets the identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Gets or sets the name.",
+                    "type": "string"
+                }
+            }
+        },
+        "ConnectionContractArray": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ConnectionContract"
+            }
+        },
+        "CredentialContractArray": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/CredentialContract"
+            }
+        },
+        "MessageInfoArray": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/MessageInfo"
+            }
+        },
+        "MessageIds": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "VerificationContractArray": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/VerificationContract"
+            }
+        },
+        "WalletInfoArray": {
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/WalletInfo"
+            }
+        }
+    },
+    "tags": []
+}
