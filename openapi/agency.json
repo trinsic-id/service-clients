@@ -1,8 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Agency",
-        "version": "v1"
+        "title": "Agency API",
+        "version": "v1",
+        "description": "A powerful API to issue, manage, and verify self-sovereign identity credentials"
     },
     "host": "api.streetcred.id",
     "basePath": "/agency/v1",
@@ -24,10 +25,10 @@
     },
     "security": [
         {
-            "accessToken": []
+            "apiKeyHeader": []
         },
         {
-            "subscriptionKey": []
+            "apiKeyQuery": []
         }
     ],
     "paths": {
@@ -43,20 +44,17 @@
                     {
                         "name": "uploadedFiles",
                         "in": "formData",
-                        "description": "The uploaded files.",
                         "required": true,
                         "type": "file"
                     },
                     {
                         "name": "filename",
                         "in": "formData",
-                        "description": "The filename.",
                         "type": "string"
                     },
                     {
                         "name": "contentType",
                         "in": "formData",
-                        "description": "(Optional) Type of the image content.",
                         "type": "string"
                     }
                 ],
@@ -126,13 +124,15 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
-                "description": "Initiate new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation.\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id\">documentation</a> on how to present the invitation data to mobile clients using QR code.</i>",
+                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/connections\">documentation</a> on how to present the invitation data to mobile clients using a QR code.</i>",
                 "operationId": "CreateConnection",
-                "summary": "Create new connection",
+                "summary": "Create a new connection",
                 "tags": [
                     "Connections"
                 ],
@@ -147,7 +147,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -158,15 +161,17 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
         "/connections/{connectionId}": {
             "get": {
-                "description": "Creates the connections.",
+                "description": "Get a connection by connectionId",
                 "operationId": "GetConnection",
-                "summary": "Creates the connections.",
+                "summary": "Get a connection by connectionId",
                 "tags": [
                     "Connections"
                 ],
@@ -188,13 +193,15 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "delete": {
-                "description": "Delete connection record.",
+                "description": "Delete a connection record",
                 "operationId": "DeleteConnection",
-                "summary": "Delete connection record.",
+                "summary": "Delete a connection record",
                 "tags": [
                     "Connections"
                 ],
@@ -250,11 +257,13 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
-                "description": " Sends credential offer of the specified DefinitionId to the specified ConnectionId",
+                "description": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
                 "operationId": "CreateCredential",
                 "summary": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
                 "tags": [
@@ -271,7 +280,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -282,7 +294,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -312,7 +326,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "put": {
@@ -331,16 +347,19 @@
                         "type": "string"
                     },
                     {
-                        "name": "values",
+                        "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/Values"
+                            "$ref": "#/definitions/Body"
                         },
                         "description": "The values."
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -388,7 +407,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
@@ -409,7 +430,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -420,7 +444,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -449,7 +475,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -470,7 +498,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
@@ -491,18 +521,23 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/DefinitionsSchemasPost200ApplicationJsonResponse"
+                            "$ref": "#/definitions/DefinitionsSchemasPost200TextPlainResponse"
                         }
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -523,7 +558,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -556,7 +594,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -584,7 +624,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -605,7 +647,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
@@ -626,7 +670,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -637,7 +684,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -687,7 +736,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -716,7 +767,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
@@ -737,7 +790,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -748,7 +804,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -778,7 +836,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -808,7 +868,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -838,7 +900,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -859,7 +923,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
@@ -880,18 +946,23 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/VerificationDefinitionContract"
                         }
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -912,7 +983,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             },
             "post": {
@@ -932,7 +1005,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -943,7 +1019,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -1095,7 +1173,10 @@
                     }
                 ],
                 "consumes": [
-                    "application/json"
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
                 ],
                 "responses": {
                     "200": {
@@ -1106,7 +1187,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         },
@@ -1127,7 +1210,9 @@
                     }
                 },
                 "produces": [
-                    "application/json"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ]
             }
         }
@@ -1169,6 +1254,28 @@
                 }
             }
         },
+        "ConnectionState": {
+            "enum": [
+                "Invited",
+                "Negotiating",
+                "Connected"
+            ],
+            "type": "string"
+        },
+        "AgentEndpoint": {
+            "type": "object",
+            "properties": {
+                "did": {
+                    "type": "string"
+                },
+                "verkey": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                }
+            }
+        },
         "ConnectionContract": {
             "type": "object",
             "properties": {
@@ -1194,12 +1301,7 @@
                     "type": "string"
                 },
                 "state": {
-                    "enum": [
-                        "Invited",
-                        "Negotiating",
-                        "Connected"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/ConnectionState"
                 },
                 "invitation": {
                     "type": "string"
@@ -1216,20 +1318,6 @@
                 }
             }
         },
-        "AgentEndpoint": {
-            "type": "object",
-            "properties": {
-                "did": {
-                    "type": "string"
-                },
-                "verkey": {
-                    "type": "string"
-                },
-                "uri": {
-                    "type": "string"
-                }
-            }
-        },
         "ConnectionInvitationParameters": {
             "description": "Connection invitation parameters",
             "type": "object",
@@ -1242,8 +1330,17 @@
                     "description": "If set to 'true', the invitation can be used by multiple parties and will always have the status set to 'Invited'.\r\nWhen a party accepts this invitation, a new connection record with a unique identifier will be created.\r\n            \r\nDefault value is 'false'.",
                     "type": "boolean"
                 }
-            },
-            "example": "{}"
+            }
+        },
+        "CredentialState": {
+            "enum": [
+                "Offered",
+                "Requested",
+                "Issued",
+                "Rejected",
+                "Revoked"
+            ],
+            "type": "string"
         },
         "CredentialContract": {
             "type": "object",
@@ -1252,14 +1349,7 @@
                     "type": "string"
                 },
                 "state": {
-                    "enum": [
-                        "Offered",
-                        "Requested",
-                        "Issued",
-                        "Rejected",
-                        "Revoked"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/CredentialState"
                 },
                 "connectionId": {
                     "type": "string"
@@ -1281,8 +1371,7 @@
         "CredentialOfferParameters": {
             "description": "Send offer.",
             "required": [
-                "definitionId",
-                "connectionId"
+                "definitionId"
             ],
             "type": "object",
             "properties": {
@@ -1291,11 +1380,11 @@
                     "type": "string"
                 },
                 "connectionId": {
-                    "description": "Gets or sets their did.",
+                    "description": "Connection identifier to send this credential to.\r\nIf ommited, the request will be treated as connectionless\r\nissuance and will generate a URL.",
                     "type": "string"
                 },
                 "credentialValues": {
-                    "description": "Credential attribute values.\r\nMust match all credential definition attribute names.",
+                    "description": "Credential attribute values. If using connectionless issuance, these attributes must be specified.\r\nMust match all credential definition attribute names.",
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
@@ -1313,7 +1402,6 @@
                     "type": "string"
                 },
                 "attributes": {
-                    "uniqueItems": false,
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -1337,9 +1425,9 @@
         "CredentialDefinitionFromSchemaParameters": {
             "description": "Represents a request object to create new credential definition for an agency",
             "required": [
+                "attrNames",
                 "name",
-                "version",
-                "attrNames"
+                "version"
             ],
             "type": "object",
             "properties": {
@@ -1353,7 +1441,6 @@
                 },
                 "attrNames": {
                     "description": "Schema attribute names.",
-                    "uniqueItems": false,
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -1386,9 +1473,9 @@
         "SchemaParameters": {
             "description": "Schema.",
             "required": [
+                "attrNames",
                 "name",
-                "version",
-                "attrNames"
+                "version"
             ],
             "type": "object",
             "properties": {
@@ -1402,7 +1489,6 @@
                 },
                 "attrNames": {
                     "description": "Gets or sets the attribute names.",
-                    "uniqueItems": false,
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -1420,7 +1506,6 @@
                     "type": "string"
                 },
                 "attributeNames": {
-                    "uniqueItems": false,
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -1431,17 +1516,79 @@
                 }
             }
         },
-        "VerificationDefinitionContract": {
-            "description": "",
+        "AttributeFilter": {
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "Gets or sets the identifier.",
+                "schema_id": {
                     "type": "string"
                 },
-                "data": {
-                    "$ref": "#/definitions/ProofRequest",
-                    "description": "Gets or sets the proof request."
+                "schema_issuer_did": {
+                    "type": "string"
+                },
+                "schema_name": {
+                    "type": "string"
+                },
+                "schema_version": {
+                    "type": "string"
+                },
+                "issuer_did": {
+                    "type": "string"
+                },
+                "cred_def_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "RevocationInterval": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "to": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "ProofAttributeInfo": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "restrictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeFilter"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            }
+        },
+        "ProofPredicateInfo": {
+            "type": "object",
+            "properties": {
+                "p_type": {
+                    "type": "string"
+                },
+                "p_value": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "restrictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeFilter"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
                 }
             }
         },
@@ -1472,92 +1619,18 @@
                 "non_revoked": {
                     "$ref": "#/definitions/RevocationInterval"
                 }
-            },
-            "example": "{\r\n  \"name\": \"proof-of-address-verification\",\r\n  \"version\": \"1.0\",\r\n  \"requested_attributes\": {\r\n    \"address-requirement\": {\r\n      \"name\": \"address\"\r\n    },\r\n    \"city-requirement\": {\r\n      \"name\": \"city\",\r\n      \"restrictions\": [\r\n        {\r\n          \"issuer_did\": \"<postOfficeDid>\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}"
-        },
-        "ProofAttributeInfo": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "restrictions": {
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/AttributeFilter"
-                    }
-                },
-                "non_revoked": {
-                    "$ref": "#/definitions/RevocationInterval"
-                }
             }
         },
-        "ProofPredicateInfo": {
-            "type": "object",
-            "properties": {
-                "p_type": {
-                    "type": "string"
-                },
-                "p_value": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "restrictions": {
-                    "uniqueItems": false,
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/AttributeFilter"
-                    }
-                },
-                "non_revoked": {
-                    "$ref": "#/definitions/RevocationInterval"
-                }
-            }
-        },
-        "RevocationInterval": {
-            "type": "object",
-            "properties": {
-                "from": {
-                    "format": "int32",
-                    "type": "integer"
-                },
-                "to": {
-                    "format": "int32",
-                    "type": "integer"
-                }
-            }
-        },
-        "AttributeFilter": {
-            "type": "object",
-            "properties": {
-                "schema_id": {
-                    "type": "string"
-                },
-                "schema_issuer_did": {
-                    "type": "string"
-                },
-                "schema_name": {
-                    "type": "string"
-                },
-                "schema_version": {
-                    "type": "string"
-                },
-                "issuer_did": {
-                    "type": "string"
-                },
-                "cred_def_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "IdContract": {
+        "VerificationDefinitionContract": {
+            "description": "",
             "type": "object",
             "properties": {
                 "id": {
+                    "description": "Gets or sets the identifier.",
                     "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/ProofRequest"
                 }
             }
         },
@@ -1572,6 +1645,13 @@
                 }
             }
         },
+        "MessageDirection": {
+            "enum": [
+                "Incoming",
+                "Outgoing"
+            ],
+            "type": "string"
+        },
         "BasicMessageRecord": {
             "type": "object",
             "properties": {
@@ -1580,11 +1660,7 @@
                     "type": "string"
                 },
                 "direction": {
-                    "enum": [
-                        "Incoming",
-                        "Outgoing"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/MessageDirection"
                 },
                 "text": {
                     "type": "string"
@@ -1608,39 +1684,17 @@
                     "type": "string"
                 },
                 "direction": {
-                    "enum": [
-                        "Incoming",
-                        "Outgoing"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/MessageDirection"
                 }
             }
         },
-        "TenantContract": {
-            "description": "Tenant info.",
-            "type": "object",
-            "properties": {
-                "name": {
-                    "description": "Gets or sets the name.",
-                    "type": "string"
-                },
-                "imageUrl": {
-                    "description": "Gets or sets the image URI.",
-                    "type": "string"
-                },
-                "network": {
-                    "$ref": "#/definitions/NetworkContract",
-                    "description": "Gets or sets the network."
-                },
-                "tenantId": {
-                    "description": "Gets or sets the tenant identifier.",
-                    "type": "string"
-                },
-                "extendedInformation": {
-                    "$ref": "#/definitions/TenantExtendedInformationContract",
-                    "description": "Extended tenant information"
-                }
-            }
+        "EndorserType": {
+            "enum": [
+                "Shared",
+                "Dedicated",
+                "Delegated"
+            ],
+            "type": "string"
         },
         "TenantExtendedInformationContract": {
             "description": "Extended tenant information",
@@ -1675,13 +1729,31 @@
                     "type": "string"
                 },
                 "transactionEndorsement": {
-                    "description": "Transaction endorsement type",
-                    "enum": [
-                        "Shared",
-                        "Dedicated",
-                        "Delegated"
-                    ],
+                    "$ref": "#/definitions/EndorserType"
+                }
+            }
+        },
+        "TenantContract": {
+            "description": "Tenant info.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Gets or sets the name.",
                     "type": "string"
+                },
+                "imageUrl": {
+                    "description": "Gets or sets the image URI.",
+                    "type": "string"
+                },
+                "network": {
+                    "$ref": "#/definitions/NetworkContract"
+                },
+                "tenantId": {
+                    "description": "Gets or sets the tenant identifier.",
+                    "type": "string"
+                },
+                "extendedInformation": {
+                    "$ref": "#/definitions/TenantExtendedInformationContract"
                 }
             }
         },
@@ -1709,13 +1781,7 @@
                     "type": "string"
                 },
                 "endorser_type": {
-                    "description": "(Required) Set the endorer type for this organization",
-                    "enum": [
-                        "Shared",
-                        "Dedicated",
-                        "Delegated"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/EndorserType"
                 }
             }
         },
@@ -1743,16 +1809,39 @@
                     "type": "boolean"
                 },
                 "txnEndorsement": {
-                    "description": "Configured transacation endorsement type",
-                    "enum": [
-                        "Shared",
-                        "Dedicated",
-                        "Delegated"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/EndorserType"
                 },
                 "issuerCanEndorse": {
                     "description": "Indicates if the user has Endorser status",
+                    "type": "boolean"
+                }
+            }
+        },
+        "ProofState": {
+            "enum": [
+                "Requested",
+                "Accepted",
+                "Rejected"
+            ],
+            "type": "string"
+        },
+        "ProofAttributeContract": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "revealed": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "selfAttested": {
+                    "type": "boolean"
+                },
+                "conditional": {
                     "type": "boolean"
                 }
             }
@@ -1767,12 +1856,7 @@
                     "type": "string"
                 },
                 "state": {
-                    "enum": [
-                        "Requested",
-                        "Accepted",
-                        "Rejected"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/ProofState"
                 },
                 "createdAtUtc": {
                     "format": "date-time",
@@ -1788,6 +1872,12 @@
                 "verifiedAtUtc": {
                     "format": "date-time",
                     "type": "string"
+                },
+                "proof": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeContract"
+                    }
                 }
             }
         },
@@ -1805,6 +1895,14 @@
                 }
             }
         },
+        "IdContract": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
         "VerificationResult": {
             "description": "Verification result",
             "type": "object",
@@ -1812,8 +1910,22 @@
                 "valid": {
                     "description": "True if verification passed, otherwise False",
                     "type": "boolean"
+                },
+                "proof": {
+                    "description": "Verification Proof Details",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeContract"
+                    }
                 }
             }
+        },
+        "WebhookType": {
+            "enum": [
+                "Notification",
+                "DelegatedEndorser"
+            ],
+            "type": "string"
         },
         "WebhookContract": {
             "description": "Webhook Contract.",
@@ -1824,12 +1936,7 @@
                     "type": "string"
                 },
                 "type": {
-                    "description": "Gets or sets the type of webhook",
-                    "enum": [
-                        "Notification",
-                        "DelegatedEndorser"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/WebhookType"
                 },
                 "enabled": {
                     "description": "Gets or set if this webhook is enabled",
@@ -1848,91 +1955,84 @@
                     "type": "string"
                 },
                 "type": {
-                    "enum": [
-                        "Notification",
-                        "DelegatedEndorser"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/WebhookType"
                 }
             }
         },
         "CommonUploadPost200ApplicationJsonResponse": {
+            "format": "uri",
             "type": "string"
         },
         "NetworkContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/NetworkContract"
             }
         },
         "ConnectionContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/ConnectionContract"
             }
         },
         "CredentialContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/CredentialContract"
             }
         },
-        "Values": {
+        "Body": {
             "type": "object",
             "additionalProperties": {
                 "type": "string"
             }
         },
         "CredentialDefinitionContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/CredentialDefinitionContract"
             }
         },
+        "DefinitionsSchemasPost200TextPlainResponse": {
+            "type": "string"
+        },
+        "DefinitionsSchemasPost200ApplicationJsonResponse": {
+            "type": "string"
+        },
+        "DefinitionsSchemasPost200TextJsonResponse": {
+            "type": "string"
+        },
         "SchemaRecordArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/SchemaRecord"
             }
         },
-        "DefinitionsSchemasPost200ApplicationJsonResponse": {
-            "type": "string"
-        },
         "VerificationDefinitionContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/VerificationDefinitionContract"
             }
         },
         "BasicMessageRecordArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/BasicMessageRecord"
             }
         },
         "TenantContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/TenantContract"
             }
         },
         "VerificationContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/VerificationContract"
             }
         },
         "WebhookContractArray": {
-            "uniqueItems": false,
             "type": "array",
             "items": {
                 "$ref": "#/definitions/WebhookContract"
