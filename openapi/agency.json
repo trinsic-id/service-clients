@@ -1,5 +1,10 @@
 {
     "swagger": "2.0",
+    "host": "api.streetcred.id",
+    "basePath": "/agency/v1",
+    "schemes": [
+        "https"
+    ],
     "info": {
       "title": "Streetcred ID Credentials API",
       "description": "An API to issue, manage, and verify self-sovereign identity credentials",
