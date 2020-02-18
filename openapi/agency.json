@@ -1,2169 +1,2052 @@
 {
     "swagger": "2.0",
+    "info": {
+        "title": "Streetcred ID Credentials API",
+        "version": "v1",
+        "description": "An API to issue, manage, and verify self-sovereign identity credentials",
+        "termsOfService": "https://streetcred.id/terms-of-service/",
+        "contact": {
+        "name": "Streetcred Engineering Team",
+        "url": "https://streetcred.id/contact-us",
+        "email": "support@streetcred.id"
+    },
     "host": "api.streetcred.id",
     "basePath": "/agency/v1",
     "schemes": [
         "https"
     ],
-    "info": {
-      "title": "Streetcred ID Credentials API",
-      "description": "An API to issue, manage, and verify self-sovereign identity credentials",
-      "termsOfService": "https://streetcred.id/terms-of-service/",
-      "contact": {
-        "name": "Streetcred Engineering Team",
-        "url": "https://streetcred.id/contact-us",
-        "email": "support@streetcred.id"
-      },
-      "version": "v1"
-    },
-    "paths": {
-      "/common/upload": {
-        "post": {
-          "tags": [
-            "Common"
-          ],
-          "summary": "Upload image",
-          "description": "Upload an image and return a URL with the static remote location",
-          "operationId": "UploadImage",
-          "consumes": [
-            "multipart/form-data"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "formData",
-              "name": "uploadedFiles",
-              "required": true,
-              "type": "file"
-            },
-            {
-              "in": "formData",
-              "name": "filename",
-              "type": "string"
-            },
-            {
-              "in": "formData",
-              "name": "contentType",
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "format": "uri",
-                "type": "string"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/common/networks": {
-        "get": {
-          "tags": [
-            "Common"
-          ],
-          "summary": "List available ledger networks",
-          "description": "Returns a list of available ledger networks. Some networks are available based on your subscription.",
-          "operationId": "ListNetworks",
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/NetworkContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/common/networks/{networkId}/txnAuthorAgreement": {
-        "get": {
-          "tags": [
-            "Common"
-          ],
-          "summary": "Return the latest transaction author agreement and acceptance methods if one \r\nis set on the network with the specified {networkId}",
-          "operationId": "GetTransactionAuthorAgreement",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "networkId",
-              "description": "Network identifier",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/NetworkTxnAgreementContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
+    "securityDefinitions": {
+        "accessToken": {
+            "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         },
-        "put": {
-          "tags": [
-            "Common"
-          ],
-          "summary": "Accept the latest transaction author agreement on the specified network.",
-          "operationId": "AcceptTransactionAuthorAgreement",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "networkId",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
+        "subscriptionKey": {
+            "type": "apiKey",
+            "name": "X-Streetcred-Subscription-Key",
+            "in": "header"
         }
-      },
-      "/connections": {
-        "get": {
-          "tags": [
-            "Connections"
-          ],
-          "summary": "List all connections",
-          "description": "Retrieve a list of all connections. Optionally, list only connections in a specified state.",
-          "operationId": "ListConnections",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "state",
-              "type": "string",
-              "enum": [
+    },
+    "security": [
+        {
+            "accessToken": []
+        },
+        {
+            "subscriptionKey": []
+        }
+    ],
+    "paths": {
+        "/common/upload": {
+            "post": {
+                "description": "Upload an image and return a URL with the static remote location",
+                "operationId": "UploadImage",
+                "summary": "Upload image",
+                "tags": [
+                    "Common"
+                ],
+                "parameters": [
+                    {
+                        "name": "uploadedFiles",
+                        "in": "formData",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "filename",
+                        "in": "formData",
+                        "type": "string"
+                    },
+                    {
+                        "name": "contentType",
+                        "in": "formData",
+                        "type": "string"
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CommonUploadPost200ApplicationJsonResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/common/networks": {
+            "get": {
+                "description": "Returns a list of available ledger networks. Some networks are available based on your subscription.",
+                "operationId": "ListNetworks",
+                "summary": "List available ledger networks",
+                "tags": [
+                    "Common"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/NetworkContractArray"
+                        }
+                    }
+                }
+            }
+        },
+        "/connections": {
+            "get": {
+                "description": "Retrieve a list of all connections. Optionally, list only connections in a specified state.",
+                "operationId": "ListConnections",
+                "summary": "List all connections",
+                "tags": [
+                    "Connections"
+                ],
+                "parameters": [
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "Invited",
+                            "Negotiating",
+                            "Connected"
+                        ]
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/connections\">documentation</a> on how to present the invitation data to mobile clients using a QR code.</i>",
+                "operationId": "CreateConnection",
+                "summary": "Create a new connection",
+                "tags": [
+                    "Connections"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionInvitationParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionInvitationParameters"
+                        },
+                        "description": "Connection invitation parameters"
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/connections/{connectionId}": {
+            "get": {
+                "description": "Get a connection by connectionId",
+                "operationId": "GetConnection",
+                "summary": "Get a connection by connectionId",
+                "tags": [
+                    "Connections"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "The connection identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ConnectionContract"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a connection record",
+                "operationId": "DeleteConnection",
+                "summary": "Delete a connection record",
+                "tags": [
+                    "Connections"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "Connection identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/credentials": {
+            "get": {
+                "description": "Lists the credentials.",
+                "operationId": "ListCredentials",
+                "summary": "Lists the credentials.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "query",
+                        "type": "string"
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "Offered",
+                            "Requested",
+                            "Issued",
+                            "Rejected",
+                            "Revoked"
+                        ]
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
+                "operationId": "CreateCredential",
+                "summary": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialOfferParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialOfferParameters"
+                        },
+                        "description": "The definition and connection to which this offer will be sent."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/credentials/{credentialId}": {
+            "get": {
+                "description": "Gets the credentials.",
+                "operationId": "GetCredential",
+                "summary": "Gets the credentials.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialId",
+                        "in": "path",
+                        "description": "The credential identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialContract"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Issues the credential.",
+                "operationId": "IssueCredential",
+                "summary": "Issues the credential.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialId",
+                        "in": "path",
+                        "description": "The credential identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Body"
+                        },
+                        "description": "If the values offered were incorrect, changes to the values may be made here. You must update all of the values, and they must be follow the same structure of the schema.\r\n            To keep the values the same as those included in the credential offer, leave the body blank"
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Revoke credential that was issued previously. Process of revocation will update the revocation\r\nregistry locally and on the ledger. Issued credentials can still participate in proof workflows\r\nand be considered valid, but only if the verifying ignores the revocation trail.",
+                "operationId": "RevokeCredential",
+                "summary": "Revokes a credential.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialId",
+                        "in": "path",
+                        "description": "Credential identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/definitions/credentials": {
+            "get": {
+                "description": "List all credential definitions by this issuer.",
+                "operationId": "ListCredentialDefinitions",
+                "summary": "List all credential definitions by this issuer.",
+                "tags": [
+                    "Definitions"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new credential definition and schema with the given parameters.",
+                "operationId": "CreateCredentialDefinition",
+                "summary": "Create new credential definition and schema with the given parameters.",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialDefinitionFromSchemaParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionFromSchemaParameters"
+                        },
+                        "description": "Definition."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/definitions/credentials/{definitionId}": {
+            "get": {
+                "description": "Get the credential definition with the specified identifier.",
+                "operationId": "GetCredentialDefinition",
+                "summary": "Get the credential definition with the specified identifier.",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "definitionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/definitions/schemas": {
+            "get": {
+                "description": "List the schemas registered or used by this issuer.",
+                "operationId": "ListSchemas",
+                "summary": "List the schemas registered or used by this issuer.",
+                "tags": [
+                    "Definitions"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/SchemaRecordArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer. This does not create credential definition.",
+                "operationId": "CreateSchema",
+                "summary": "Create new schema",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "schemaParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/SchemaParameters"
+                        },
+                        "description": "Schema details"
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/DefinitionsSchemasPost200TextJsonResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenants": {
+            "get": {
+                "description": "Get a collection of available tenants for the current authorization context.",
+                "operationId": "ListTenants",
+                "summary": "List available tenants",
+                "tags": [
+                    "Tenants"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new tenant and setup a unique agency endpoint. The agency will be set as an issuer",
+                "operationId": "CreateTenant",
+                "summary": "Create new tenant",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TenantParameters"
+                        },
+                        "description": "Configuration options for creating new tenant."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenants/{tenantId}": {
+            "get": {
+                "description": "Returns the agent configuration",
+                "operationId": "GetTenant",
+                "summary": "Returns the agent configuration",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantContract"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
+                "operationId": "DeleteTenant",
+                "summary": "Delete a tenant.",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/verifications": {
+            "get": {
+                "description": "Lists the verifications for connection.",
+                "operationId": "ListVerificationsForConnection",
+                "summary": "Lists the verifications for connection.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "query",
+                        "description": "The connection identifier.",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates the specified create verification.",
+                "operationId": "CreateVerification",
+                "summary": "Creates the specified create verification.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationParameters"
+                        },
+                        "description": "The create verification."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/IdContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/verifications/{verificationId}": {
+            "get": {
+                "description": "Get the verification with the given identifier",
+                "operationId": "GetVerification",
+                "summary": "Get the verification with the given identifier",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "description": "The verification identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/definitions/verifications/{definitionId}": {
+            "get": {
+                "description": "Gets the specified verification definition.",
+                "operationId": "GetVerificationDefinition",
+                "summary": "Gets the specified verification definition.",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "definitionId",
+                        "in": "path",
+                        "description": "The verification identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationDefinitionContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/definitions/verifications": {
+            "get": {
+                "description": "List all verification definitions.",
+                "operationId": "ListVerificationDefinitions",
+                "summary": "List all verification definitions.",
+                "tags": [
+                    "Definitions"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationDefinitionContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates new verification definition.",
+                "operationId": "CreateVerificationDefinition",
+                "summary": "Creates new verification definition.",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "proofRequest",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ProofRequest"
+                        },
+                        "description": "The proof request."
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationDefinitionContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/webhooks": {
+            "get": {
+                "description": "List all webhooks",
+                "operationId": "ListWebhooks",
+                "summary": "List all webhooks",
+                "tags": [
+                    "Webhooks"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/WebhookContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new webhook",
+                "operationId": "CreateWebhook",
+                "summary": "Create new webhook",
+                "tags": [
+                    "Webhooks"
+                ],
+                "parameters": [
+                    {
+                        "name": "webhookParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/WebhookParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/WebhookContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/webhooks/{webhookId}": {
+            "delete": {
+                "description": "Remove registered webhook",
+                "operationId": "RemoveWebhook",
+                "summary": "Remove registered webhook",
+                "tags": [
+                    "Webhooks"
+                ],
+                "parameters": [
+                    {
+                        "name": "webhookId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/messages": {
+            "post": {
+                "operationId": "SendMessage",
+                "summary": "SendMessage",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "basicMessageParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/BasicMessageParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/messages/connection/{connectionId}": {
+            "get": {
+                "operationId": "ListMessages",
+                "summary": "ListMessages",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/BasicMessageRecordArray"
+                        }
+                    }
+                }
+            }
+        },
+        "/messages/{messageId}": {
+            "get": {
+                "operationId": "GetMessage",
+                "summary": "GetMessage",
+                "tags": [
+                    "Messaging"
+                ],
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/BasicMessageContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/webhooks/{webhookId}/enable": {
+            "put": {
+                "description": "Enables a webhook",
+                "operationId": "EnableWebhook",
+                "summary": "Enables a webhook",
+                "tags": [
+                    "Webhooks"
+                ],
+                "parameters": [
+                    {
+                        "name": "webhookId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/webhooks/{webhookId}/disable": {
+            "put": {
+                "description": "Disables a webhook",
+                "operationId": "DisableWebhook",
+                "summary": "Disables a webhook",
+                "tags": [
+                    "Webhooks"
+                ],
+                "parameters": [
+                    {
+                        "name": "webhookId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/verifications/{verificationId}/verify": {
+            "get": {
+                "description": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
+                "operationId": "VerifyVerification",
+                "summary": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "description": "Verification identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/common/networks/{networkId}/txnAuthorAgreement": {
+            "get": {
+                "description": "Return the latest transaction author agreement and acceptance methods if one \r\nis set on the network with the specified {networkId}",
+                "operationId": "GetTransactionAuthorAgreement",
+                "summary": "Return the latest transaction author agreement and acceptance methods if one \r\nis set on the network with the specified {networkId}",
+                "tags": [
+                    "Common"
+                ],
+                "parameters": [
+                    {
+                        "name": "networkId",
+                        "in": "path",
+                        "description": "Network identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/NetworkTxnAgreementContract"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Accept the latest transaction author agreement on the specified network.",
+                "operationId": "AcceptTransactionAuthorAgreement",
+                "summary": "Accept the latest transaction author agreement on the specified network.",
+                "tags": [
+                    "Common"
+                ],
+                "parameters": [
+                    {
+                        "name": "networkId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/definitions/credentials/{schemaId}": {
+            "post": {
+                "description": "Create credential definition from existing schema identifier.",
+                "operationId": "CreateCredentialDefinitionForSchemaId",
+                "summary": "Create credential definition from existing schema identifier.",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "schemaId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "credentialDefinitionParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialDefinitionContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenants/issuerStatus": {
+            "get": {
+                "description": "If the tenant is configured with Dedicated endorsement, this\r\naction will check if the issuer DID has the required ENDORSER role \r\non the configured ledger network.\r\nAdditionally, check the acceptance of the transaction\r\nauthor agreement and return the text and version if acceptance\r\nis required.",
+                "operationId": "GetIssuerStatus",
+                "summary": "Get the issuer status for the current tenant.",
+                "tags": [
+                    "Tenants"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/IssuerStatusContract"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "NetworkContract": {
+            "type": "object",
+            "properties": {
+                "network_id": {
+                    "type": "string"
+                },
+                "network_name": {
+                    "type": "string"
+                },
+                "pool_protocol_version": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "NetworkTxnAgreementContract": {
+            "description": "Transaction author agreement",
+            "type": "object",
+            "properties": {
+                "text": {
+                    "description": "Acceptance agreement text",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Agreement version",
+                    "type": "string"
+                },
+                "acceptanceMethods": {
+                    "description": "List of agreement acceptance methods",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "ConnectionState": {
+            "enum": [
                 "Invited",
                 "Negotiating",
                 "Connected"
-              ]
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/ConnectionContract"
+            ],
+            "type": "string"
+        },
+        "AgentEndpoint": {
+            "type": "object",
+            "properties": {
+                "did": {
+                    "type": "string"
+                },
+                "verkey": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
                 }
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "post": {
-          "tags": [
-            "Connections"
-          ],
-          "summary": "Create a new connection",
-          "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/connections\">documentation</a> on how to present the invitation data to mobile clients using a QR code.</i>",
-          "operationId": "CreateConnection",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Connection invitation parameters",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/ConnectionInvitationParameters"
-              }
+        "ConnectionContract": {
+            "type": "object",
+            "properties": {
+                "connectionId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "myDid": {
+                    "type": "string"
+                },
+                "theirDid": {
+                    "type": "string"
+                },
+                "myKey": {
+                    "type": "string"
+                },
+                "theirKey": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ConnectionState"
+                },
+                "invitation": {
+                    "type": "string"
+                },
+                "invitationUrl": {
+                    "type": "string"
+                },
+                "endpoint": {
+                    "$ref": "#/definitions/AgentEndpoint"
+                },
+                "createdAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/ConnectionContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/connections/{connectionId}": {
-        "get": {
-          "tags": [
-            "Connections"
-          ],
-          "summary": "Get a connection by connectionId",
-          "operationId": "GetConnection",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "connectionId",
-              "description": "The connection identifier.",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/ConnectionContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "delete": {
-          "tags": [
-            "Connections"
-          ],
-          "summary": "Delete a connection record",
-          "operationId": "DeleteConnection",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "connectionId",
-              "description": "Connection identifier",
-              "required": true,
-              "type": "string"
+        "ConnectionInvitationParameters": {
+            "description": "Connection invitation parameters",
+            "type": "object",
+            "properties": {
+                "connection_id": {
+                    "description": "Unique connection identifier. If not specified, a random one will be generated.",
+                    "type": "string"
+                },
+                "multi_party": {
+                    "description": "If set to 'true', the invitation can be used by multiple parties and will always have the status set to 'Invited'.\r\nWhen a party accepts this invitation, a new connection record with a unique identifier will be created.\r\n            \r\nDefault value is 'false'.",
+                    "type": "boolean"
+                }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/credentials": {
-        "get": {
-          "tags": [
-            "Credentials"
-          ],
-          "summary": "Lists the credentials.",
-          "operationId": "ListCredentials",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "connectionId",
-              "type": "string"
-            },
-            {
-              "in": "query",
-              "name": "state",
-              "type": "string",
-              "enum": [
+        },
+        "CredentialState": {
+            "enum": [
                 "Offered",
                 "Requested",
                 "Issued",
                 "Rejected",
                 "Revoked"
-              ]
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/CredentialContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
+            ],
+            "type": "string"
         },
-        "post": {
-          "tags": [
-            "Credentials"
-          ],
-          "summary": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
-          "description": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
-          "operationId": "CreateCredential",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "The definition and connection to which this offer will be sent.",
-              "schema": {
-                "$ref": "#/definitions/CredentialOfferParameters"
-              }
+        "CredentialContract": {
+            "type": "object",
+            "properties": {
+                "credentialId": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/CredentialState"
+                },
+                "connectionId": {
+                    "type": "string"
+                },
+                "definitionId": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
+        },
+        "CredentialOfferParameters": {
+            "description": "Send offer.",
+            "required": [
+                "definitionId"
+            ],
+            "type": "object",
+            "properties": {
+                "definitionId": {
+                    "description": "Gets or sets the credential definition identifier.",
+                    "type": "string"
+                },
+                "connectionId": {
+                    "description": "Connection identifier to send this credential to.\r\nIf ommited, the request will be treated as connectionless\r\nissuance and will generate a URL.",
+                    "type": "string"
+                },
+                "automaticIssuance": {
+                    "description": "If true, the credential will automatically be issued once the individual accepts the offer. If \r\nfalse, when an individual accepts the offer the credential will be in state 'Requested' and must be manually issued using the \r\nPUT /credentials/{credentialId} endpoint. This is set to false by default",
+                    "type": "boolean"
+                },
+                "credentialValues": {
+                    "description": "Credential attribute values. If using connectionless issuance, these attributes must be specified.\r\nMust match all credential definition attribute names.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "CredentialDefinitionContract": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "supportsRevocation": {
+                    "type": "boolean"
+                },
+                "maxCredentialCount": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "definitionId": {
+                    "type": "string"
+                }
+            }
+        },
+        "CredentialDefinitionFromSchemaParameters": {
+            "description": "Represents a request object to create new credential definition for an agency",
+            "required": [
+                "attrNames",
+                "name",
+                "version"
+            ],
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Name of the schema.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Schema version.",
+                    "type": "string"
+                },
+                "attrNames": {
+                    "description": "Schema attribute names.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "supportRevocation": {
+                    "description": "Support credential revocation",
+                    "type": "boolean"
+                },
+                "tag": {
+                    "description": "Unique tag to differentiate definitions of the same schema",
+                    "type": "string"
+                }
+            }
+        },
+        "CredentialDefinitionParameters": {
+            "description": "Credential definition parameters",
+            "type": "object",
+            "properties": {
+                "supportRevocation": {
+                    "description": "Support credential revocation",
+                    "type": "boolean"
+                },
+                "tag": {
+                    "description": "Unique tag to differentiate definitions of the same schema",
+                    "type": "string"
+                }
+            }
+        },
+        "SchemaParameters": {
+            "description": "Schema.",
+            "required": [
+                "attrNames",
+                "name",
+                "version"
+            ],
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Gets or sets the name.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Gets or sets the version.",
+                    "type": "string"
+                },
+                "attrNames": {
+                    "description": "Gets or sets the attribute names.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "SchemaRecord": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "attributeNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "AttributeFilter": {
+            "type": "object",
+            "properties": {
+                "schema_id": {
+                    "type": "string"
+                },
+                "schema_issuer_did": {
+                    "type": "string"
+                },
+                "schema_name": {
+                    "type": "string"
+                },
+                "schema_version": {
+                    "type": "string"
+                },
+                "issuer_did": {
+                    "type": "string"
+                },
+                "cred_def_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "RevocationInterval": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "to": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "ProofAttributeInfo": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "restrictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeFilter"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            }
+        },
+        "ProofPredicateInfo": {
+            "type": "object",
+            "properties": {
+                "p_type": {
+                    "type": "string"
+                },
+                "p_value": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "restrictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AttributeFilter"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            }
+        },
+        "ProofRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string"
+                },
+                "requested_attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeInfo"
+                    }
+                },
+                "requested_predicates": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofPredicateInfo"
+                    }
+                },
+                "non_revoked": {
+                    "$ref": "#/definitions/RevocationInterval"
+                }
+            }
+        },
+        "VerificationDefinitionContract": {
+            "description": "",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Gets or sets the identifier.",
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/ProofRequest"
+                }
+            }
+        },
+        "BasicMessageParameters": {
+            "type": "object",
+            "properties": {
+                "connectionId": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "MessageDirection": {
+            "enum": [
+                "Incoming",
+                "Outgoing"
+            ],
+            "type": "string"
+        },
+        "BasicMessageRecord": {
+            "type": "object",
+            "properties": {
+                "sentTime": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "direction": {
+                    "$ref": "#/definitions/MessageDirection"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "BasicMessageContract": {
+            "type": "object",
+            "properties": {
+                "connectionId": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "direction": {
+                    "$ref": "#/definitions/MessageDirection"
+                }
+            }
+        },
+        "EndorserType": {
+            "enum": [
+                "Shared",
+                "Dedicated",
+                "Delegated"
+            ],
+            "type": "string"
+        },
+        "TenantExtendedInformationContract": {
+            "description": "Extended tenant information",
+            "type": "object",
+            "properties": {
+                "issuerDid": {
+                    "description": "Issuer DID",
+                    "type": "string"
+                },
+                "issuerKey": {
+                    "description": "Issuer Public Key",
+                    "type": "string"
+                },
+                "issuerKeyGenerationSeed": {
+                    "description": "Isuser key generation seed used for deterministic key creation (32 characters)",
+                    "type": "string"
+                },
+                "agentDid": {
+                    "description": "Agent DID",
+                    "type": "string"
+                },
+                "agentKey": {
+                    "description": "Agent Public Key",
+                    "type": "string"
+                },
+                "agentKeyGenerationSeed": {
+                    "description": "Agent key generation seed used for deterministic key creation (32 characters)",
+                    "type": "string"
+                },
+                "agentServiceEndpoint": {
+                    "description": "Agent service endpoint URL",
+                    "type": "string"
+                },
+                "transactionEndorsement": {
+                    "$ref": "#/definitions/EndorserType"
+                }
+            }
+        },
+        "TenantContract": {
+            "description": "Tenant info.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Gets or sets the name.",
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "description": "Gets or sets the image URI.",
+                    "type": "string"
+                },
+                "network": {
+                    "$ref": "#/definitions/NetworkContract"
+                },
+                "tenantId": {
+                    "description": "Gets or sets the tenant identifier.",
+                    "type": "string"
+                },
+                "extendedInformation": {
+                    "$ref": "#/definitions/TenantExtendedInformationContract"
+                }
+            }
+        },
+        "TenantParameters": {
+            "description": "Configuration options for creating new tenant",
+            "required": [
+                "name"
+            ],
+            "type": "object",
+            "properties": {
+                "issuer_seed": {
+                    "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the tenant.",
+                    "type": "string"
+                },
+                "image_url": {
+                    "description": "(Optional) Location of image URL used as profile for this tenant",
+                    "type": "string"
+                },
+                "network_id": {
+                    "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
+                    "type": "string"
+                },
+                "endorser_type": {
+                    "$ref": "#/definitions/EndorserType"
+                }
+            }
+        },
+        "IssuerStatusContract": {
+            "description": "Issuer Status contract",
+            "type": "object",
+            "properties": {
+                "acceptanceText": {
+                    "description": "Transaction Author Agreement Text",
+                    "type": "string"
+                },
+                "acceptanceVersion": {
+                    "description": "Transaction Author Agreement Version",
+                    "type": "string"
+                },
+                "acceptanceDigest": {
+                    "type": "string"
+                },
+                "acceptanceTime": {
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "requireAcceptance": {
+                    "description": "Indicates if user needs to accept the \r\nlatest agreement on the network",
+                    "type": "boolean"
+                },
+                "txnEndorsement": {
+                    "$ref": "#/definitions/EndorserType"
+                },
+                "issuerCanEndorse": {
+                    "description": "Indicates if the user has Endorser status",
+                    "type": "boolean"
+                }
+            }
+        },
+        "ProofState": {
+            "enum": [
+                "Requested",
+                "Accepted",
+                "Rejected"
+            ],
+            "type": "string"
+        },
+        "ProofAttributeContract": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "revealed": {
+                    "type": "boolean",
+                    "readOnly": true
+                },
+                "selfAttested": {
+                    "type": "boolean"
+                },
+                "conditional": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "VerificationContract": {
+            "type": "object",
+            "properties": {
+                "connectionId": {
+                    "type": "string"
+                },
+                "verificationId": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ProofState"
+                },
+                "createdAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "updatedAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "isValid": {
+                    "type": "boolean"
+                },
+                "verifiedAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "proof": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeContract"
+                    }
+                }
+            }
+        },
+        "VerificationParameters": {
+            "description": "Create verification",
+            "type": "object",
+            "properties": {
+                "verificationDefinitionId": {
+                    "description": "Verification definition identifier.",
+                    "type": "string"
+                },
+                "connectionId": {
+                    "description": "Connection identifier.",
+                    "type": "string"
+                }
+            }
+        },
+        "IdContract": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "VerificationResult": {
+            "description": "Verification result",
+            "type": "object",
+            "properties": {
+                "valid": {
+                    "description": "True if verification passed, otherwise False",
+                    "type": "boolean"
+                },
+                "proof": {
+                    "description": "Verification Proof Details",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeContract"
+                    }
+                }
+            }
+        },
+        "WebhookType": {
+            "enum": [
+                "Notification",
+                "DelegatedEndorser"
+            ],
+            "type": "string"
+        },
+        "WebhookContract": {
+            "description": "Webhook Contract.",
+            "type": "object",
+            "properties": {
+                "url": {
+                    "description": "Gets or sets the webhook endpoing url",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/WebhookType"
+                },
+                "enabled": {
+                    "description": "Gets or set if this webhook is enabled",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "The webhook identifier",
+                    "type": "string"
+                }
+            }
+        },
+        "WebhookParameters": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/WebhookType"
+                }
+            }
+        },
+        "CommonUploadPost200ApplicationJsonResponse": {
+            "format": "uri",
+            "type": "string"
+        },
+        "NetworkContractArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/NetworkContract"
+            }
+        },
+        "ConnectionContractArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ConnectionContract"
+            }
+        },
+        "CredentialContractArray": {
+            "type": "array",
+            "items": {
                 "$ref": "#/definitions/CredentialContract"
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/credentials/{credentialId}": {
-        "get": {
-          "tags": [
-            "Credentials"
-          ],
-          "summary": "Gets the credentials.",
-          "operationId": "GetCredential",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "credentialId",
-              "description": "The credential identifier.",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/CredentialContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "put": {
-          "tags": [
-            "Credentials"
-          ],
-          "summary": "Issues the credential.",
-          "operationId": "IssueCredential",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "credentialId",
-              "description": "The credential identifier.",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "in": "body",
-              "name": "body",
-              "description": "If the values offered were incorrect, changes to the values may be made here. You must update all of the values, and they must be follow the same structure of the schema.\r\n            To keep the values the same as those included in the credential offer, leave the body blank",
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "string"
-                }
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        },
-        "delete": {
-          "tags": [
-            "Credentials"
-          ],
-          "summary": "Revokes a credential.",
-          "description": "Revoke credential that was issued previously. Process of revocation will update the revocation\r\nregistry locally and on the ledger. Issued credentials can still participate in proof workflows\r\nand be considered valid, but only if the verifying ignores the revocation trail.",
-          "operationId": "RevokeCredential",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "credentialId",
-              "description": "Credential identifier.",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/definitions/credentials": {
-        "get": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "List all credential definitions by this issuer.",
-          "operationId": "ListCredentialDefinitions",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/CredentialDefinitionContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        },
-        "post": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "Create new credential definition and schema with the given parameters.",
-          "operationId": "CreateCredentialDefinition",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Definition.",
-              "schema": {
-                "$ref": "#/definitions/CredentialDefinitionFromSchemaParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/CredentialDefinitionContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/definitions/credentials/{definitionId}": {
-        "get": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "Get the credential definition with the specified identifier.",
-          "operationId": "GetCredentialDefinition",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "definitionId",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/CredentialDefinitionContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/definitions/credentials/{schemaId}": {
-        "post": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "Create credential definition from existing schema identifier.",
-          "operationId": "CreateCredentialDefinitionForSchemaId",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "schemaId",
-              "description": "",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "in": "body",
-              "name": "body",
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/CredentialDefinitionParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/CredentialDefinitionContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/definitions/schemas": {
-        "post": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "Create new schema",
-          "description": "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer. This does not create credential definition.",
-          "operationId": "CreateSchema",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Schema details",
-              "schema": {
-                "$ref": "#/definitions/SchemaParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
+        "Body": {
+            "type": "object",
+            "additionalProperties": {
                 "type": "string"
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "get": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "List the schemas registered or used by this issuer.",
-          "operationId": "ListSchemas",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/SchemaRecord"
-                }
-              }
+        "CredentialDefinitionContractArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/CredentialDefinitionContract"
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
+        },
+        "DefinitionsSchemasPost200TextPlainResponse": {
+            "type": "string"
+        },
+        "DefinitionsSchemasPost200ApplicationJsonResponse": {
+            "type": "string"
+        },
+        "DefinitionsSchemasPost200TextJsonResponse": {
+            "type": "string"
+        },
+        "SchemaRecordArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/SchemaRecord"
             }
-          ]
-        }
-      },
-      "/definitions/verifications/{definitionId}": {
-        "get": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "Gets the specified verification definition.",
-          "operationId": "GetVerificationDefinition",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "definitionId",
-              "description": "The verification identifier.",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
+        },
+        "VerificationDefinitionContractArray": {
+            "type": "array",
+            "items": {
                 "$ref": "#/definitions/VerificationDefinitionContract"
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/definitions/verifications": {
-        "get": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "List all verification definitions.",
-          "operationId": "ListVerificationDefinitions",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/VerificationDefinitionContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "post": {
-          "tags": [
-            "Definitions"
-          ],
-          "summary": "Creates new verification definition.",
-          "operationId": "CreateVerificationDefinition",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "The proof request.",
-              "schema": {
-                "$ref": "#/definitions/ProofRequest"
-              }
+        "BasicMessageRecordArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/BasicMessageRecord"
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/VerificationDefinitionContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/messages": {
-        "post": {
-          "tags": [
-            "Messaging"
-          ],
-          "operationId": "SendMessage",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "schema": {
-                "$ref": "#/definitions/BasicMessageParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/messages/connection/{connectionId}": {
-        "get": {
-          "tags": [
-            "Messaging"
-          ],
-          "operationId": "ListMessages",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "connectionId",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/BasicMessageRecord"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/messages/{messageId}": {
-        "get": {
-          "tags": [
-            "Messaging"
-          ],
-          "operationId": "GetMessage",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "messageId",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/BasicMessageContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/tenants": {
-        "get": {
-          "tags": [
-            "Tenants"
-          ],
-          "summary": "List available tenants",
-          "description": "Get a collection of available tenants for the current authorization context.",
-          "operationId": "ListTenants",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/TenantContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "post": {
-          "tags": [
-            "Tenants"
-          ],
-          "summary": "Create new tenant",
-          "description": "Create new tenant and setup a unique agency endpoint. The agency will be set as an issuer",
-          "operationId": "CreateTenant",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Configuration options for creating new tenant.",
-              "schema": {
-                "$ref": "#/definitions/TenantParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
+        "TenantContractArray": {
+            "type": "array",
+            "items": {
                 "$ref": "#/definitions/TenantContract"
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/tenants/{tenantId}": {
-        "get": {
-          "tags": [
-            "Tenants"
-          ],
-          "summary": "Returns the agent configuration",
-          "operationId": "GetTenant",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "tenantId",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/TenantContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "delete": {
-          "tags": [
-            "Tenants"
-          ],
-          "summary": "Delete a tenant.",
-          "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\n            All definitions, connections and credentials issued will be deleted.\r\n            This action cannot be reverted.",
-          "operationId": "DeleteTenant",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "tenantId",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/tenants/issuerStatus": {
-        "get": {
-          "tags": [
-            "Tenants"
-          ],
-          "summary": "Get the issuer status for the current tenant.",
-          "description": "If the tenant is configured with Dedicated endorsement, this\r\naction will check if the issuer DID has the required ENDORSER role \r\non the configured ledger network.\r\nAdditionally, check the acceptance of the transaction\r\nauthor agreement and return the text and version if acceptance\r\nis required.",
-          "operationId": "GetIssuerStatus",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/IssuerStatusContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/verifications": {
-        "get": {
-          "tags": [
-            "Verifications"
-          ],
-          "summary": "Lists the verifications for connection.",
-          "operationId": "ListVerificationsForConnection",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "query",
-              "name": "connectionId",
-              "description": "The connection identifier.",
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/VerificationContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        },
-        "post": {
-          "tags": [
-            "Verifications"
-          ],
-          "summary": "Creates the specified create verification.",
-          "operationId": "CreateVerification",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "The create verification.",
-              "schema": {
-                "$ref": "#/definitions/VerificationParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/IdContract"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/verifications/{verificationId}": {
-        "get": {
-          "tags": [
-            "Verifications"
-          ],
-          "summary": "Get the verification with the given identifier",
-          "operationId": "GetVerification",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "verificationId",
-              "description": "The verification identifier.",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
+        "VerificationContractArray": {
+            "type": "array",
+            "items": {
                 "$ref": "#/definitions/VerificationContract"
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/verifications/{verificationId}/verify": {
-        "get": {
-          "tags": [
-            "Verifications"
-          ],
-          "summary": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
-          "operationId": "VerifyVerification",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "verificationId",
-              "description": "Verification identifier",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "$ref": "#/definitions/VerificationResult"
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/webhooks": {
-        "get": {
-          "tags": [
-            "Webhooks"
-          ],
-          "summary": "List all webhooks",
-          "operationId": "ListWebhooks",
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/WebhookContract"
-                }
-              }
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         },
-        "post": {
-          "tags": [
-            "Webhooks"
-          ],
-          "summary": "Create new webhook",
-          "operationId": "CreateWebhook",
-          "consumes": [
-            "application/json-patch+json",
-            "application/json",
-            "text/json",
-            "application/*+json"
-          ],
-          "produces": [
-            "text/plain",
-            "application/json",
-            "text/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/WebhookParameters"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success",
-              "schema": {
+        "WebhookContractArray": {
+            "type": "array",
+            "items": {
                 "$ref": "#/definitions/WebhookContract"
-              }
             }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
         }
-      },
-      "/webhooks/{webhookId}": {
-        "delete": {
-          "tags": [
-            "Webhooks"
-          ],
-          "summary": "Remove registered webhook",
-          "operationId": "RemoveWebhook",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "webhookId",
-              "description": "",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/webhooks/{webhookId}/enable": {
-        "put": {
-          "tags": [
-            "Webhooks"
-          ],
-          "summary": "Enables a webhook",
-          "operationId": "EnableWebhook",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "webhookId",
-              "description": "",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      },
-      "/webhooks/{webhookId}/disable": {
-        "put": {
-          "tags": [
-            "Webhooks"
-          ],
-          "summary": "Disables a webhook",
-          "operationId": "DisableWebhook",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "webhookId",
-              "description": "",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
-          },
-          "security": [
-            {
-              "accessToken": [ ]
-            }
-          ]
-        }
-      }
     },
-    "definitions": {
-      "NetworkContract": {
-        "type": "object",
-        "properties": {
-          "network_id": {
-            "type": "string"
-          },
-          "network_name": {
-            "type": "string"
-          },
-          "pool_protocol_version": {
-            "format": "int32",
-            "type": "integer"
-          }
-        }
-      },
-      "NetworkTxnAgreementContract": {
-        "description": "Transaction author agreement",
-        "type": "object",
-        "properties": {
-          "text": {
-            "description": "Acceptance agreement text",
-            "type": "string"
-          },
-          "version": {
-            "description": "Agreement version",
-            "type": "string"
-          },
-          "acceptanceMethods": {
-            "description": "List of agreement acceptance methods",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "ConnectionState": {
-        "enum": [
-          "Invited",
-          "Negotiating",
-          "Connected"
-        ],
-        "type": "string"
-      },
-      "AgentEndpoint": {
-        "type": "object",
-        "properties": {
-          "did": {
-            "type": "string"
-          },
-          "verkey": {
-            "type": "string"
-          },
-          "uri": {
-            "type": "string"
-          }
-        }
-      },
-      "ConnectionContract": {
-        "type": "object",
-        "properties": {
-          "connectionId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "imageUrl": {
-            "type": "string"
-          },
-          "myDid": {
-            "type": "string"
-          },
-          "theirDid": {
-            "type": "string"
-          },
-          "myKey": {
-            "type": "string"
-          },
-          "theirKey": {
-            "type": "string"
-          },
-          "state": {
-            "$ref": "#/definitions/ConnectionState"
-          },
-          "invitation": {
-            "type": "string"
-          },
-          "invitationUrl": {
-            "type": "string"
-          },
-          "endpoint": {
-            "$ref": "#/definitions/AgentEndpoint"
-          },
-          "createdAtUtc": {
-            "format": "date-time",
-            "type": "string"
-          }
-        }
-      },
-      "ConnectionInvitationParameters": {
-        "description": "Connection invitation parameters",
-        "type": "object",
-        "properties": {
-          "connection_id": {
-            "description": "Unique connection identifier. If not specified, a random one will be generated.",
-            "type": "string"
-          },
-          "multi_party": {
-            "description": "If set to 'true', the invitation can be used by multiple parties and will always have the status set to 'Invited'.\r\nWhen a party accepts this invitation, a new connection record with a unique identifier will be created.\r\n            \r\nDefault value is 'false'.",
-            "type": "boolean"
-          }
-        }
-      },
-      "CredentialState": {
-        "enum": [
-          "Offered",
-          "Requested",
-          "Issued",
-          "Rejected",
-          "Revoked"
-        ],
-        "type": "string"
-      },
-      "CredentialContract": {
-        "type": "object",
-        "properties": {
-          "credentialId": {
-            "type": "string"
-          },
-          "state": {
-            "$ref": "#/definitions/CredentialState"
-          },
-          "connectionId": {
-            "type": "string"
-          },
-          "definitionId": {
-            "type": "string"
-          },
-          "schemaId": {
-            "type": "string"
-          },
-          "values": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "CredentialOfferParameters": {
-        "description": "Send offer.",
-        "required": [
-          "definitionId"
-        ],
-        "type": "object",
-        "properties": {
-          "definitionId": {
-            "description": "Gets or sets the credential definition identifier.",
-            "type": "string"
-          },
-          "connectionId": {
-            "description": "Connection identifier to send this credential to.\r\nIf ommited, the request will be treated as connectionless\r\nissuance and will generate a URL.",
-            "type": "string"
-          },
-          "automaticIssuance": {
-            "description": "If true, the credential will automatically be issued once the individual accepts the offer. If \r\nfalse, when an individual accepts the offer the credential will be in state 'Requested' and must be manually issued using the \r\nPUT /credentials/{credentialId} endpoint. This is set to false by default",
-            "type": "boolean"
-          },
-          "credentialValues": {
-            "description": "Credential attribute values. If using connectionless issuance, these attributes must be specified.\r\nMust match all credential definition attribute names.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "CredentialDefinitionContract": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "attributes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "supportsRevocation": {
-            "type": "boolean"
-          },
-          "maxCredentialCount": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "schemaId": {
-            "type": "string"
-          },
-          "definitionId": {
-            "type": "string"
-          }
-        }
-      },
-      "CredentialDefinitionFromSchemaParameters": {
-        "description": "Represents a request object to create new credential definition for an agency",
-        "required": [
-          "attrNames",
-          "name",
-          "version"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Name of the schema.",
-            "type": "string"
-          },
-          "version": {
-            "description": "Schema version.",
-            "type": "string"
-          },
-          "attrNames": {
-            "description": "Schema attribute names.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "supportRevocation": {
-            "description": "Support credential revocation",
-            "type": "boolean"
-          },
-          "tag": {
-            "description": "Unique tag to differentiate definitions of the same schema",
-            "type": "string"
-          }
-        }
-      },
-      "CredentialDefinitionParameters": {
-        "description": "Credential definition parameters",
-        "type": "object",
-        "properties": {
-          "supportRevocation": {
-            "description": "Support credential revocation",
-            "type": "boolean"
-          },
-          "tag": {
-            "description": "Unique tag to differentiate definitions of the same schema",
-            "type": "string"
-          }
-        }
-      },
-      "SchemaParameters": {
-        "description": "Schema.",
-        "required": [
-          "attrNames",
-          "name",
-          "version"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Gets or sets the name.",
-            "type": "string"
-          },
-          "version": {
-            "description": "Gets or sets the version.",
-            "type": "string"
-          },
-          "attrNames": {
-            "description": "Gets or sets the attribute names.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "SchemaRecord": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "attributeNames": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "id": {
-            "type": "string"
-          }
-        }
-      },
-      "AttributeFilter": {
-        "type": "object",
-        "properties": {
-          "schema_id": {
-            "type": "string"
-          },
-          "schema_issuer_did": {
-            "type": "string"
-          },
-          "schema_name": {
-            "type": "string"
-          },
-          "schema_version": {
-            "type": "string"
-          },
-          "issuer_did": {
-            "type": "string"
-          },
-          "cred_def_id": {
-            "type": "string"
-          }
-        }
-      },
-      "RevocationInterval": {
-        "type": "object",
-        "properties": {
-          "from": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "to": {
-            "format": "int32",
-            "type": "integer"
-          }
-        }
-      },
-      "ProofAttributeInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "restrictions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/AttributeFilter"
-            }
-          },
-          "non_revoked": {
-            "$ref": "#/definitions/RevocationInterval"
-          }
-        }
-      },
-      "ProofPredicateInfo": {
-        "type": "object",
-        "properties": {
-          "p_type": {
-            "type": "string"
-          },
-          "p_value": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "restrictions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/AttributeFilter"
-            }
-          },
-          "non_revoked": {
-            "$ref": "#/definitions/RevocationInterval"
-          }
-        }
-      },
-      "ProofRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "nonce": {
-            "type": "string"
-          },
-          "requested_attributes": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/definitions/ProofAttributeInfo"
-            }
-          },
-          "requested_predicates": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/definitions/ProofPredicateInfo"
-            }
-          },
-          "non_revoked": {
-            "$ref": "#/definitions/RevocationInterval"
-          }
-        }
-      },
-      "VerificationDefinitionContract": {
-        "description": "",
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "Gets or sets the identifier.",
-            "type": "string"
-          },
-          "data": {
-            "$ref": "#/definitions/ProofRequest"
-          }
-        }
-      },
-      "BasicMessageParameters": {
-        "type": "object",
-        "properties": {
-          "connectionId": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          }
-        }
-      },
-      "MessageDirection": {
-        "enum": [
-          "Incoming",
-          "Outgoing"
-        ],
-        "type": "string"
-      },
-      "BasicMessageRecord": {
-        "type": "object",
-        "properties": {
-          "sentTime": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "direction": {
-            "$ref": "#/definitions/MessageDirection"
-          },
-          "text": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
-        }
-      },
-      "BasicMessageContract": {
-        "type": "object",
-        "properties": {
-          "connectionId": {
-            "type": "string"
-          },
-          "timestamp": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          },
-          "direction": {
-            "$ref": "#/definitions/MessageDirection"
-          }
-        }
-      },
-      "EndorserType": {
-        "enum": [
-          "Shared",
-          "Dedicated",
-          "Delegated"
-        ],
-        "type": "string"
-      },
-      "TenantExtendedInformationContract": {
-        "description": "Extended tenant information",
-        "type": "object",
-        "properties": {
-          "issuerDid": {
-            "description": "Issuer DID",
-            "type": "string"
-          },
-          "issuerKey": {
-            "description": "Issuer Public Key",
-            "type": "string"
-          },
-          "issuerKeyGenerationSeed": {
-            "description": "Isuser key generation seed used for deterministic key creation (32 characters)",
-            "type": "string"
-          },
-          "agentDid": {
-            "description": "Agent DID",
-            "type": "string"
-          },
-          "agentKey": {
-            "description": "Agent Public Key",
-            "type": "string"
-          },
-          "agentKeyGenerationSeed": {
-            "description": "Agent key generation seed used for deterministic key creation (32 characters)",
-            "type": "string"
-          },
-          "agentServiceEndpoint": {
-            "description": "Agent service endpoint URL",
-            "type": "string"
-          },
-          "transactionEndorsement": {
-            "$ref": "#/definitions/EndorserType"
-          }
-        }
-      },
-      "TenantContract": {
-        "description": "Tenant info.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Gets or sets the name.",
-            "type": "string"
-          },
-          "imageUrl": {
-            "description": "Gets or sets the image URI.",
-            "type": "string"
-          },
-          "network": {
-            "$ref": "#/definitions/NetworkContract"
-          },
-          "tenantId": {
-            "description": "Gets or sets the tenant identifier.",
-            "type": "string"
-          },
-          "extendedInformation": {
-            "$ref": "#/definitions/TenantExtendedInformationContract"
-          }
-        }
-      },
-      "TenantParameters": {
-        "description": "Configuration options for creating new tenant",
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "issuer_seed": {
-            "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the tenant.",
-            "type": "string"
-          },
-          "image_url": {
-            "description": "(Optional) Location of image URL used as profile for this tenant",
-            "type": "string"
-          },
-          "network_id": {
-            "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
-            "type": "string"
-          },
-          "endorser_type": {
-            "$ref": "#/definitions/EndorserType"
-          }
-        }
-      },
-      "IssuerStatusContract": {
-        "description": "Issuer Status contract",
-        "type": "object",
-        "properties": {
-          "acceptanceText": {
-            "description": "Transaction Author Agreement Text",
-            "type": "string"
-          },
-          "acceptanceVersion": {
-            "description": "Transaction Author Agreement Version",
-            "type": "string"
-          },
-          "acceptanceDigest": {
-            "type": "string"
-          },
-          "acceptanceTime": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "requireAcceptance": {
-            "description": "Indicates if user needs to accept the \r\nlatest agreement on the network",
-            "type": "boolean"
-          },
-          "txnEndorsement": {
-            "$ref": "#/definitions/EndorserType"
-          },
-          "issuerCanEndorse": {
-            "description": "Indicates if the user has Endorser status",
-            "type": "boolean"
-          }
-        }
-      },
-      "ProofState": {
-        "enum": [
-          "Requested",
-          "Accepted",
-          "Rejected"
-        ],
-        "type": "string"
-      },
-      "ProofAttributeContract": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          },
-          "revealed": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "selfAttested": {
-            "type": "boolean"
-          },
-          "conditional": {
-            "type": "boolean"
-          }
-        }
-      },
-      "VerificationContract": {
-        "type": "object",
-        "properties": {
-          "connectionId": {
-            "type": "string"
-          },
-          "verificationId": {
-            "type": "string"
-          },
-          "state": {
-            "$ref": "#/definitions/ProofState"
-          },
-          "createdAtUtc": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updatedAtUtc": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "isValid": {
-            "type": "boolean"
-          },
-          "verifiedAtUtc": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "proof": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/definitions/ProofAttributeContract"
-            }
-          }
-        }
-      },
-      "VerificationParameters": {
-        "description": "Create verification",
-        "type": "object",
-        "properties": {
-          "verificationDefinitionId": {
-            "description": "Verification definition identifier.",
-            "type": "string"
-          },
-          "connectionId": {
-            "description": "Connection identifier.",
-            "type": "string"
-          }
-        }
-      },
-      "IdContract": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        }
-      },
-      "VerificationResult": {
-        "description": "Verification result",
-        "type": "object",
-        "properties": {
-          "valid": {
-            "description": "True if verification passed, otherwise False",
-            "type": "boolean"
-          },
-          "proof": {
-            "description": "Verification Proof Details",
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/definitions/ProofAttributeContract"
-            }
-          }
-        }
-      },
-      "WebhookType": {
-        "enum": [
-          "Notification",
-          "DelegatedEndorser"
-        ],
-        "type": "string"
-      },
-      "WebhookContract": {
-        "description": "Webhook Contract.",
-        "type": "object",
-        "properties": {
-          "url": {
-            "description": "Gets or sets the webhook endpoing url",
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/definitions/WebhookType"
-          },
-          "enabled": {
-            "description": "Gets or set if this webhook is enabled",
-            "type": "boolean"
-          },
-          "id": {
-            "description": "The webhook identifier",
-            "type": "string"
-          }
-        }
-      },
-      "WebhookParameters": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/definitions/WebhookType"
-          }
-        }
-      }
-    },
-    "securityDefinitions": {
-      "accessToken": {
-          "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
-          "type": "apiKey",
-          "name": "Authorization",
-          "in": "header"
-      },
-      "subscriptionKey": {
-          "type": "apiKey",
-          "name": "X-Streetcred-Subscription-Key",
-          "in": "header"
-      }
-    }
-  }
+    "tags": []
+}
