@@ -40,10 +40,6 @@ jobs:
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
- 
-  - task: CmdLine@2
-    inputs:
       script: 'autorest --input-file=openapi/custodian.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
 
   - task: NuGetToolInstaller@1
