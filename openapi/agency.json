@@ -6,9 +6,10 @@
         "description": "An API to issue, manage, and verify self-sovereign identity credentials",
         "termsOfService": "https://streetcred.id/terms-of-service/",
         "contact": {
-        "name": "Streetcred Engineering Team",
-        "url": "https://streetcred.id/contact-us",
-        "email": "support@streetcred.id"
+            "name": "Streetcred Engineering Team",
+            "url": "https://streetcred.id/contact-us",
+            "email": "support@streetcred.id"
+        }
     },
     "host": "api.streetcred.id",
     "basePath": "/agency/v1",
