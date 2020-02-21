@@ -1131,7 +1131,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/common/networks/{tenantId}/txnAuthorAgreement": {
             "put": {
                 "description": "Accept the latest transaction author agreement on the specified network.",
                 "operationId": "AcceptTransactionAuthorAgreement",
@@ -1141,7 +1143,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "networkId",
+                        "name": "tenantId",
                         "in": "path",
                         "required": true,
                         "type": "string"
@@ -1275,7 +1277,10 @@
                     "type": "string"
                 },
                 "verkey": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "uri": {
                     "type": "string"
@@ -1568,6 +1573,12 @@
                 "name": {
                     "type": "string"
                 },
+                "names": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "restrictions": {
                     "type": "array",
                     "items": {
@@ -1586,10 +1597,17 @@
                     "type": "string"
                 },
                 "p_value": {
-                    "type": "string"
+                    "format": "int32",
+                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
+                },
+                "names": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "restrictions": {
                     "type": "array",
@@ -1938,22 +1956,18 @@
             "type": "string"
         },
         "WebhookContract": {
-            "description": "Webhook Contract.",
             "type": "object",
             "properties": {
                 "url": {
-                    "description": "Gets or sets the webhook endpoing url",
                     "type": "string"
                 },
                 "type": {
                     "$ref": "#/definitions/WebhookType"
                 },
                 "enabled": {
-                    "description": "Gets or set if this webhook is enabled",
                     "type": "boolean"
                 },
                 "id": {
-                    "description": "The webhook identifier",
                     "type": "string"
                 }
             }
