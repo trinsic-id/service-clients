@@ -153,7 +153,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -286,7 +285,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -362,7 +360,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -436,7 +433,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -527,7 +523,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -587,7 +582,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -707,7 +701,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -831,7 +824,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -890,7 +882,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -951,7 +942,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -1181,7 +1171,6 @@
                     }
                 ],
                 "consumes": [
-                    "application/json-patch+json",
                     "application/json",
                     "text/json",
                     "application/*+json"
@@ -1229,13 +1218,16 @@
         "NetworkContract": {
             "type": "object",
             "properties": {
-                "network_id": {
+                "networkId": {
                     "type": "string"
                 },
-                "network_name": {
+                "networkName": {
                     "type": "string"
                 },
-                "pool_protocol_version": {
+                "genesisTransactions": {
+                    "type": "string"
+                },
+                "poolProtocolVersion": {
                     "format": "int32",
                     "type": "integer"
                 }
@@ -1274,16 +1266,19 @@
             "type": "object",
             "properties": {
                 "did": {
-                    "type": "string"
+                    "type": "string",
+                    "readOnly": true
                 },
                 "verkey": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "readOnly": true
                 },
                 "uri": {
-                    "type": "string"
+                    "type": "string",
+                    "readOnly": true
                 }
             }
         },
@@ -1326,6 +1321,9 @@
                 "createdAtUtc": {
                     "format": "date-time",
                     "type": "string"
+                },
+                "multiParty": {
+                    "type": "boolean"
                 }
             }
         },
@@ -1333,11 +1331,11 @@
             "description": "Connection invitation parameters",
             "type": "object",
             "properties": {
-                "connection_id": {
+                "connectionId": {
                     "description": "Unique connection identifier. If not specified, a random one will be generated.",
                     "type": "string"
                 },
-                "multi_party": {
+                "multiParty": {
                     "description": "If set to 'true', the invitation can be used by multiple parties and will always have the status set to 'Invited'.\r\nWhen a party accepts this invitation, a new connection record with a unique identifier will be created.\r\n            \r\nDefault value is 'false'.",
                     "type": "boolean"
                 }
@@ -1398,7 +1396,7 @@
                     "description": "If true, the credential will automatically be issued once the individual accepts the offer. If \r\nfalse, when an individual accepts the offer the credential will be in state 'Requested' and must be manually issued using the \r\nPUT /credentials/{credentialId} endpoint. This is set to false by default",
                     "type": "boolean"
                 },
-                "credentialValues": {
+                "attributeValues": {
                     "description": "Credential attribute values. If using connectionless issuance, these attributes must be specified.\r\nMust match all credential definition attribute names.",
                     "type": "object",
                     "additionalProperties": {
@@ -1440,7 +1438,7 @@
         "CredentialDefinitionFromSchemaParameters": {
             "description": "Represents a request object to create new credential definition for an agency",
             "required": [
-                "attrNames",
+                "attributes",
                 "name",
                 "version"
             ],
@@ -1454,7 +1452,7 @@
                     "description": "Schema version.",
                     "type": "string"
                 },
-                "attrNames": {
+                "attributes": {
                     "description": "Schema attribute names.",
                     "type": "array",
                     "items": {
@@ -1488,7 +1486,7 @@
         "SchemaParameters": {
             "description": "Schema.",
             "required": [
-                "attrNames",
+                "attributeNames",
                 "name",
                 "version"
             ],
@@ -1502,7 +1500,7 @@
                     "description": "Gets or sets the version.",
                     "type": "string"
                 },
-                "attrNames": {
+                "attributeNames": {
                     "description": "Gets or sets the attribute names.",
                     "type": "array",
                     "items": {
@@ -1514,6 +1512,10 @@
         "SchemaRecord": {
             "type": "object",
             "properties": {
+                "typeName": {
+                    "type": "string",
+                    "readOnly": true
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1528,28 +1530,38 @@
                 },
                 "id": {
                     "type": "string"
+                },
+                "createdAtUtc": {
+                    "format": "date-time",
+                    "type": "string",
+                    "readOnly": true
+                },
+                "updatedAtUtc": {
+                    "format": "date-time",
+                    "type": "string",
+                    "readOnly": true
                 }
             }
         },
         "AttributeFilter": {
             "type": "object",
             "properties": {
-                "schema_id": {
+                "schemaId": {
                     "type": "string"
                 },
-                "schema_issuer_did": {
+                "schemaIssuerDid": {
                     "type": "string"
                 },
-                "schema_name": {
+                "schemaName": {
                     "type": "string"
                 },
-                "schema_version": {
+                "schemaVersion": {
                     "type": "string"
                 },
-                "issuer_did": {
+                "issuerDid": {
                     "type": "string"
                 },
-                "cred_def_id": {
+                "credentialDefinitionId": {
                     "type": "string"
                 }
             }
@@ -1585,7 +1597,7 @@
                         "$ref": "#/definitions/AttributeFilter"
                     }
                 },
-                "non_revoked": {
+                "nonRevoked": {
                     "$ref": "#/definitions/RevocationInterval"
                 }
             }
@@ -1593,10 +1605,10 @@
         "ProofPredicateInfo": {
             "type": "object",
             "properties": {
-                "p_type": {
+                "predicateType": {
                     "type": "string"
                 },
-                "p_value": {
+                "predicateValue": {
                     "format": "int32",
                     "type": "integer"
                 },
@@ -1615,7 +1627,7 @@
                         "$ref": "#/definitions/AttributeFilter"
                     }
                 },
-                "non_revoked": {
+                "nonRevoked": {
                     "$ref": "#/definitions/RevocationInterval"
                 }
             }
@@ -1632,19 +1644,19 @@
                 "nonce": {
                     "type": "string"
                 },
-                "requested_attributes": {
+                "requestedAttributes": {
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/ProofAttributeInfo"
                     }
                 },
-                "requested_predicates": {
+                "requestedPredicates": {
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/ProofPredicateInfo"
                     }
                 },
-                "non_revoked": {
+                "nonRevoked": {
                     "$ref": "#/definitions/RevocationInterval"
                 }
             }
@@ -1657,7 +1669,8 @@
                     "description": "Gets or sets the identifier.",
                     "type": "string"
                 },
-                "data": {
+                "proofRequest": {
+                    "description": "Gets or sets the proof request.",
                     "$ref": "#/definitions/ProofRequest"
                 }
             }
@@ -1683,6 +1696,13 @@
         "BasicMessageRecord": {
             "type": "object",
             "properties": {
+                "typeName": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "connectionId": {
+                    "type": "string"
+                },
                 "sentTime": {
                     "format": "date-time",
                     "type": "string"
@@ -1695,6 +1715,16 @@
                 },
                 "id": {
                     "type": "string"
+                },
+                "createdAtUtc": {
+                    "format": "date-time",
+                    "type": "string",
+                    "readOnly": true
+                },
+                "updatedAtUtc": {
+                    "format": "date-time",
+                    "type": "string",
+                    "readOnly": true
                 }
             }
         },
@@ -1757,6 +1787,7 @@
                     "type": "string"
                 },
                 "transactionEndorsement": {
+                    "description": "Transaction endorsement type",
                     "$ref": "#/definitions/EndorserType"
                 }
             }
@@ -1767,20 +1798,24 @@
             "properties": {
                 "name": {
                     "description": "Gets or sets the name.",
-                    "type": "string"
+                    "type": "string",
+                    "readOnly": true
                 },
                 "imageUrl": {
                     "description": "Gets or sets the image URI.",
                     "type": "string"
                 },
                 "network": {
+                    "description": "Gets or sets the network.",
                     "$ref": "#/definitions/NetworkContract"
                 },
                 "tenantId": {
                     "description": "Gets or sets the tenant identifier.",
-                    "type": "string"
+                    "type": "string",
+                    "readOnly": true
                 },
                 "extendedInformation": {
+                    "description": "Extended tenant information",
                     "$ref": "#/definitions/TenantExtendedInformationContract"
                 }
             }
@@ -1792,7 +1827,7 @@
             ],
             "type": "object",
             "properties": {
-                "issuer_seed": {
+                "issuerSeed": {
                     "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
                     "type": "string"
                 },
@@ -1800,15 +1835,16 @@
                     "description": "The name of the tenant.",
                     "type": "string"
                 },
-                "image_url": {
+                "imageUrl": {
                     "description": "(Optional) Location of image URL used as profile for this tenant",
                     "type": "string"
                 },
-                "network_id": {
+                "networkId": {
                     "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
                     "type": "string"
                 },
-                "endorser_type": {
+                "endorserType": {
+                    "description": "(Required) Set the endorer type for this organization",
                     "$ref": "#/definitions/EndorserType"
                 }
             }
@@ -1836,7 +1872,8 @@
                     "description": "Indicates if user needs to accept the \r\nlatest agreement on the network",
                     "type": "boolean"
                 },
-                "txnEndorsement": {
+                "transactionEndorsement": {
+                    "description": "Configured transacation endorsement type",
                     "$ref": "#/definitions/EndorserType"
                 },
                 "issuerCanEndorse": {
