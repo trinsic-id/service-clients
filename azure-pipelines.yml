@@ -32,7 +32,7 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: 'install -g autorest'
+      customCommand: 'install -g autorest@2.0.4413'
 
   - task: CmdLine@2
     inputs:
@@ -71,7 +71,7 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: 'install -g autorest'
+      customCommand: 'install -g autorest@2.0.4413'
       
   - task: Npm@1
     inputs:
