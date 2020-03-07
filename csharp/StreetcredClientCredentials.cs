@@ -31,7 +31,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             request.Headers.Add("Authorization", $"Bearer {Options.AccessToken}");
             request.Headers.Add("X-Streetcred-Subscription-Key", Options.SubscriptionKey);
-            request.Headers.Add("X-Scrd-Api-Key", Options.SubscriptionKey);
             return base.ProcessHttpRequestAsync(request, cancellationToken);
         }
     }

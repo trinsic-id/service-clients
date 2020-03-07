@@ -136,7 +136,7 @@
                 }
             },
             "post": {
-                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/connections\">documentation</a> on how to present the invitation data to mobile clients using a QR code.</i>",
+                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/connections#creating-new-connection-invitation\">documentation</a> on how to present the invitation data to mobile clients using a QR code.</i>",
                 "operationId": "CreateConnection",
                 "summary": "Create a new connection",
                 "tags": [
@@ -174,7 +174,7 @@
         },
         "/connections/{connectionId}": {
             "get": {
-                "description": "Get a connection by connectionId",
+                "description": "Get the details of a connection (including invitation details).\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/connections#retrieving-connections-data\">documentation</a> on how to get connection by sending the connectionId.</i>",
                 "operationId": "GetConnection",
                 "summary": "Get a connection by connectionId",
                 "tags": [
@@ -268,7 +268,7 @@
                 }
             },
             "post": {
-                "description": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
+                "description": "This will send a credential offer of the specified definitionId to the specified connectionId.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#1-send-a-credential-offer\">documentation</a> on how to send credential offer.</i>",
                 "operationId": "CreateCredential",
                 "summary": "Sends credential offer of the specified DefinitionId to the specified ConnectionId",
                 "tags": [
@@ -336,7 +336,7 @@
                 }
             },
             "put": {
-                "description": "Issues the credential.",
+                "description": "This simply needs the credential identifier.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#3-issue-credential\">documentation</a> on how to issue a credential.</i>",
                 "operationId": "IssueCredential",
                 "summary": "Issues the credential.",
                 "tags": [
@@ -371,7 +371,7 @@
                 }
             },
             "delete": {
-                "description": "Revoke credential that was issued previously. Process of revocation will update the revocation\r\nregistry locally and on the ledger. Issued credentials can still participate in proof workflows\r\nand be considered valid, but only if the verifying ignores the revocation trail.",
+                "description": " Revoke credential that was issued previously. Process of revocation will update the revocation\r\n registry locally and on the ledger. Issued credentials can still participate in proof workflows\r\n and be considered valid, but only if the verifying ignores the revocation trail.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#revoke-a-credential\">documentation</a> on how to issue a credential.</i>",
                 "operationId": "RevokeCredential",
                 "summary": "Revokes a credential.",
                 "tags": [
@@ -416,7 +416,7 @@
                 }
             },
             "post": {
-                "description": "Create new credential definition and schema with the given parameters.",
+                "description": " A credential definition is created and saved on your cloud agent.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#create-credential-definitions\">documentation</a> on how to create new credential definition.</i>",
                 "operationId": "CreateCredentialDefinition",
                 "summary": "Create new credential definition and schema with the given parameters.",
                 "tags": [
@@ -506,7 +506,7 @@
                 }
             },
             "post": {
-                "description": "Register schema with the current agency tenant and write the schema\r\nto the ledger using the tenant as issuer. This does not create credential definition.",
+                "description": " Register schema with the current agency tenant and write the schema\r\n to the ledger using the tenant as issuer. This does not create credential definition.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#create-schemas\">documentation</a> on how to create new schema.</i>",
                 "operationId": "CreateSchema",
                 "summary": "Create new schema",
                 "tags": [
@@ -655,7 +655,7 @@
         },
         "/verifications": {
             "get": {
-                "description": "Lists the verifications for connection.",
+                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#list-all-verifications-for-a-connection\">documentation</a> on how to list verification credentials by connection id.</i>",
                 "operationId": "ListVerificationsForConnection",
                 "summary": "Lists the verifications for connection.",
                 "tags": [
@@ -684,7 +684,7 @@
                 }
             },
             "post": {
-                "description": "Creates the specified create verification.",
+                "description": "This endpoint can be used to send a verification definition to a connection, which will create a verification ID to track the response from the connection.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#create-a-verification\">documentation</a> on how to create verification credentials.</i>\r\n            \r\nIf the parameter {connectionId} is not specified, this endpoint will create a connectionless\r\nverification. A URL will be generated that can be shared with anonymous user.",
                 "operationId": "CreateVerification",
                 "summary": "Creates the specified create verification.",
                 "tags": [
@@ -714,7 +714,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/IdContract"
+                            "$ref": "#/definitions/VerificationContract"
                         }
                     }
                 }
@@ -722,7 +722,7 @@
         },
         "/verifications/{verificationId}": {
             "get": {
-                "description": "Get the verification with the given identifier",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#get-verification-by-identifier\">documentation</a> on how to list verification credentials by verification id.</i>",
                 "operationId": "GetVerification",
                 "summary": "Get the verification with the given identifier",
                 "tags": [
@@ -750,13 +750,34 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "Delete Verification by Id",
+                "operationId": "DeleteVerification",
+                "summary": "Delete Verification by Id",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
             }
         },
         "/definitions/verifications/{definitionId}": {
             "get": {
-                "description": "Gets the specified verification definition.",
                 "operationId": "GetVerificationDefinition",
-                "summary": "Gets the specified verification definition.",
+                "summary": "GetVerificationDefinition",
                 "tags": [
                     "Definitions"
                 ],
@@ -764,7 +785,6 @@
                     {
                         "name": "definitionId",
                         "in": "path",
-                        "description": "The verification identifier.",
                         "required": true,
                         "type": "string"
                     }
@@ -786,7 +806,7 @@
         },
         "/definitions/verifications": {
             "get": {
-                "description": "List all verification definitions.",
+                "description": " This will list all of the verification definitions that you have created with your organization.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#list-all-verification-definitions\">documentation</a> on how to list verification definitions.</i>",
                 "operationId": "ListVerificationDefinitions",
                 "summary": "List all verification definitions.",
                 "tags": [
@@ -807,7 +827,7 @@
                 }
             },
             "post": {
-                "description": "Creates new verification definition.",
+                "description": " A verification definition is created and saved on your cloud agent. You can discover your definition based on the ID that is returned or the name.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#create-a-verification-definition\">documentation</a> on how to create new verification definition.</i>",
                 "operationId": "CreateVerificationDefinition",
                 "summary": "Creates new verification definition.",
                 "tags": [
@@ -845,7 +865,7 @@
         },
         "/webhooks": {
             "get": {
-                "description": "List all webhooks",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/webhooks#list-registered-webhooks\">documentation</a> on how to list webhooks.</i>",
                 "operationId": "ListWebhooks",
                 "summary": "List all webhooks",
                 "tags": [
@@ -866,7 +886,7 @@
                 }
             },
             "post": {
-                "description": "Create new webhook",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/webhooks#create-a-notification-webhook\">documentation</a> on how to create a webhook.</i>",
                 "operationId": "CreateWebhook",
                 "summary": "Create new webhook",
                 "tags": [
@@ -903,7 +923,7 @@
         },
         "/webhooks/{webhookId}": {
             "delete": {
-                "description": "Remove registered webhook",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/webhooks#remove-a-webhook\">documentation</a> on how to remove a webhook.</i>",
                 "operationId": "RemoveWebhook",
                 "summary": "Remove registered webhook",
                 "tags": [
@@ -1015,7 +1035,7 @@
         },
         "/webhooks/{webhookId}/enable": {
             "put": {
-                "description": "Enables a webhook",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/webhooks#enable-or-disable-a-webhook\">documentation</a> on how to enable a webhook.</i>",
                 "operationId": "EnableWebhook",
                 "summary": "Enables a webhook",
                 "tags": [
@@ -1039,7 +1059,7 @@
         },
         "/webhooks/{webhookId}/disable": {
             "put": {
-                "description": "Disables a webhook",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/webhooks#enable-or-disable-a-webhook\">documentation</a> on how to disable a webhook.</i>",
                 "operationId": "DisableWebhook",
                 "summary": "Disables a webhook",
                 "tags": [
@@ -1057,38 +1077,6 @@
                 "responses": {
                     "200": {
                         "description": "Success"
-                    }
-                }
-            }
-        },
-        "/verifications/{verificationId}/verify": {
-            "get": {
-                "description": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
-                "operationId": "VerifyVerification",
-                "summary": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
-                "tags": [
-                    "Verifications"
-                ],
-                "parameters": [
-                    {
-                        "name": "verificationId",
-                        "in": "path",
-                        "description": "Verification identifier",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/VerificationResult"
-                        }
                     }
                 }
             }
@@ -1148,7 +1136,7 @@
         },
         "/definitions/credentials/{schemaId}": {
             "post": {
-                "description": "Create credential definition from existing schema identifier.",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#from-schema\">documentation</a> on how to create new credential definition from schema id.</i>",
                 "operationId": "CreateCredentialDefinitionForSchemaId",
                 "summary": "Create credential definition from existing schema identifier.",
                 "tags": [
@@ -1209,6 +1197,68 @@
                         "schema": {
                             "$ref": "#/definitions/IssuerStatusContract"
                         }
+                    }
+                }
+            }
+        },
+        "/definitions/credentials/{credentialDefinitionId}": {
+            "delete": {
+                "description": "Delete credential definition",
+                "operationId": "DeleteCredentialDefinition",
+                "summary": "Delete credential definition",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialDefinitionId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/definitions/verifications/{verificationDefinitionId}": {
+            "delete": {
+                "description": "Delete Verification Definition by Id",
+                "operationId": "DeleteVerificationDefinition",
+                "summary": "Delete Verification Definition by Id",
+                "tags": [
+                    "Definitions"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationDefinitionId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "operationId": "healthcheck",
+                "summary": "Healthcheck",
+                "produces": [
+                    "text/plain"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Health check endpoint"
                     }
                 }
             }
@@ -1338,6 +1388,10 @@
                 "multiParty": {
                     "description": "If set to 'true', the invitation can be used by multiple parties and will always have the status set to 'Invited'.\r\nWhen a party accepts this invitation, a new connection record with a unique identifier will be created.\r\n            \r\nDefault value is 'false'.",
                     "type": "boolean"
+                },
+                "name": {
+                    "description": "Name that can be used as organization name\r\n            \r\nDefault value is 'null'.",
+                    "type": "string"
                 }
             }
         },
@@ -1367,6 +1421,12 @@
                     "type": "string"
                 },
                 "schemaId": {
+                    "type": "string"
+                },
+                "offerData": {
+                    "type": "string"
+                },
+                "offerUrl": {
                     "type": "string"
                 },
                 "values": {
@@ -1670,7 +1730,6 @@
                     "type": "string"
                 },
                 "proofRequest": {
-                    "description": "Gets or sets the proof request.",
                     "$ref": "#/definitions/ProofRequest"
                 }
             }
@@ -1787,7 +1846,6 @@
                     "type": "string"
                 },
                 "transactionEndorsement": {
-                    "description": "Transaction endorsement type",
                     "$ref": "#/definitions/EndorserType"
                 }
             }
@@ -1806,7 +1864,6 @@
                     "type": "string"
                 },
                 "network": {
-                    "description": "Gets or sets the network.",
                     "$ref": "#/definitions/NetworkContract"
                 },
                 "tenantId": {
@@ -1815,7 +1872,6 @@
                     "readOnly": true
                 },
                 "extendedInformation": {
-                    "description": "Extended tenant information",
                     "$ref": "#/definitions/TenantExtendedInformationContract"
                 }
             }
@@ -1844,7 +1900,6 @@
                     "type": "string"
                 },
                 "endorserType": {
-                    "description": "(Required) Set the endorer type for this organization",
                     "$ref": "#/definitions/EndorserType"
                 }
             }
@@ -1873,7 +1928,6 @@
                     "type": "boolean"
                 },
                 "transactionEndorsement": {
-                    "description": "Configured transacation endorsement type",
                     "$ref": "#/definitions/EndorserType"
                 },
                 "issuerCanEndorse": {
@@ -1943,11 +1997,20 @@
                     "additionalProperties": {
                         "$ref": "#/definitions/ProofAttributeContract"
                     }
+                },
+                "verificationRequestData": {
+                    "type": "string"
+                },
+                "verificationRequestUrl": {
+                    "type": "string"
                 }
             }
         },
         "VerificationParameters": {
             "description": "Create verification",
+            "required": [
+                "verificationDefinitionId"
+            ],
             "type": "object",
             "properties": {
                 "verificationDefinitionId": {
@@ -1957,31 +2020,6 @@
                 "connectionId": {
                     "description": "Connection identifier.",
                     "type": "string"
-                }
-            }
-        },
-        "IdContract": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                }
-            }
-        },
-        "VerificationResult": {
-            "description": "Verification result",
-            "type": "object",
-            "properties": {
-                "valid": {
-                    "description": "True if verification passed, otherwise False",
-                    "type": "boolean"
-                },
-                "proof": {
-                    "description": "Verification Proof Details",
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/ProofAttributeContract"
-                    }
                 }
             }
         },
