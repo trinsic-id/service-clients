@@ -1,5 +1,5 @@
 {
-  "name": "@streetcred.id/service-clients",
+  "name": "@streetcred.id/agency-service-client",
   "version": "1.0.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

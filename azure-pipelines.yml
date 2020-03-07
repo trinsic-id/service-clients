@@ -76,32 +76,65 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      workingDir: 'typescript'
+      workingDir: 'typescript/agency'
       customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildId)'
-  
+
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript/agency --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
 
   - task: Npm@1
     inputs:
       command: 'install'
-      workingDir: 'typescript'
+      workingDir: 'typescript/agency'
 
   - task: Npm@1
     inputs:
       command: 'custom'
-      workingDir: 'typescript'
+      workingDir: 'typescript/agency'
       customCommand: 'run build'
       
   - task: CopyFiles@2
     inputs:
-      SourceFolder: 'typescript'
+      SourceFolder: 'typescript/agency'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'npm'
+      ArtifactName: 'npm-agency'
+      publishLocation: 'Container'
+
+  - task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'typescript/custodian'
+    customCommand: 'version $(majorMinorPackageVersion).$(Build.BuildId)'
+
+  - task: CmdLine@2
+    inputs:
+      script: "autorest --typescript --input-file=openapi/custodian.json --add-credentials --output-folder=package/typescript/custodian --override-client-name=CustodianClient"
+
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: 'typescript/custodian'
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: 'typescript/custodian'
+      customCommand: 'run build'
+      
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'typescript/custodian'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'npm-custodian'
       publishLocation: 'Container'
