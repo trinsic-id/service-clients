@@ -116,8 +116,7 @@ jobs:
 
   - task: CmdLine@2
     inputs:
-      script: "autorest --typescript --input-file=openapi/custodian.json --add-credentials --output-folder=package/typescript/custodian --override-client-name=CustodianClient"
-
+      script: 'autorest --typescript --input-file=openapi/custodian.json --add-credentials --output-folder=package/typescript/custodian --override-client-name=CustodianClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
   - task: Npm@1
     inputs:
       command: 'install'
