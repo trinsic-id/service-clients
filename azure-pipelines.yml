@@ -81,7 +81,11 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/agency.json --typescript --output-folder=typescript --add-credentials --override-client-name=AgencyServiceClient --source-code-folder-path=src/agency --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/custodian.json --typescript --output-folder=typescript --add-credentials --override-client-name=CustodianServiceClient --source-code-folder-path=src/custodian --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
 
   - task: Npm@1
     inputs:
