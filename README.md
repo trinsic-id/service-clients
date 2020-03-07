@@ -1,5 +1,9 @@
 # Service Clients repository for Streetcred SSI platform
 
+These service clients can be used in your web application with the Streetcred ID API.
+
+For more information and API Documentation, go to the [Streetcred ID API Documentation](https://docs.streetcred.id/docs/getting-started).
+
 ## Available Packages
 
 ### Nuget

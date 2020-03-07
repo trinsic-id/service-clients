@@ -18,7 +18,8 @@ variables:
   majorMinorPackageVersion: 1.1
 
 jobs:
-- job: Nuget_Production
+
+- job: Nuget
   pool:
     vmImage: 'windows-latest'
 
@@ -26,32 +27,20 @@ jobs:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
-      version: '2.2.401'
-      
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-        npm install --global --production npm-windows-upgrade
-        npm-windows-upgrade --npm-version latest
+      version: '3.1.100'
 
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: 'install -g autorest'
-
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
-
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/cloud.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
+      customCommand: 'install -g autorest@2.0.4413'
 
   - task: CmdLine@2
     inputs:
       script: 'autorest --input-file=openapi/custodian.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
+  
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
   - task: NuGetToolInstaller@1
 
@@ -60,62 +49,18 @@ jobs:
       command: 'custom'
       projects: 'csharp/**/*.csproj'
       custom: 'pack'
-      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/production'
+      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/production'
-      ArtifactName: 'nuget-production'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'nuget'
       publishLocation: 'Container'
 
-- job: Nuget_Staging
-  pool:
-    vmImage: 'windows-latest'
-
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '2.2.401'
-      
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-        npm install --global --production npm-windows-upgrade
-        npm-windows-upgrade --npm-version latest
-
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'install -g autorest'
-
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/agency-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
-
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/cloud-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CloudServiceClient'
- 
-  - task: CmdLine@2
-    inputs:
-      script: 'autorest --input-file=openapi/custodian-staging.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
-
-  - task: NuGetToolInstaller@1
-
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: 'custom'
-      projects: 'csharp/**/*.csproj'
-      custom: 'pack'
-      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId)-staging /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/staging'
-
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/staging'
-      ArtifactName: 'nuget-staging'
+      PathtoPublish: 'csharp'
+      ArtifactName: 'nuget-sources'
       publishLocation: 'Container'
 
 - job: Npm
@@ -126,7 +71,7 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      customCommand: 'install -g autorest'
+      customCommand: 'install -g autorest@2.0.4413'
       
   - task: Npm@1
     inputs:

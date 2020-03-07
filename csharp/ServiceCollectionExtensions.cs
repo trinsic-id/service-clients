@@ -11,8 +11,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<StreetcredClientCredentials>();
             services.AddSingleton<IAgencyServiceClient, AgencyServiceClient>(provider =>
                 new AgencyServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
-            services.AddSingleton<ICloudServiceClient, CloudServiceClient>(provider =>
-                new CloudServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
             services.AddSingleton<ICustodianServiceClient, CustodianServiceClient>(provider =>
                 new CustodianServiceClient(provider.GetRequiredService<StreetcredClientCredentials>()));
             return services;
