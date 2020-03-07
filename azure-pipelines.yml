@@ -19,49 +19,49 @@ variables:
 
 jobs:
 
-# - job: Nuget
-#   pool:
-#     vmImage: 'windows-latest'
+- job: Nuget
+  pool:
+    vmImage: 'windows-latest'
 
-#   steps:
-#   - task: UseDotNet@2
-#     inputs:
-#       packageType: 'sdk'
-#       version: '3.1.100'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.1.100'
 
-#   - task: Npm@1
-#     inputs:
-#       command: 'custom'
-#       customCommand: 'install -g autorest@2.0.4413'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      customCommand: 'install -g autorest@2.0.4413'
 
-#   - task: CmdLine@2
-#     inputs:
-#       script: 'autorest --input-file=openapi/custodian.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/custodian.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient'
   
-#   - task: CmdLine@2
-#     inputs:
-#       script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
-#   - task: NuGetToolInstaller@1
+  - task: NuGetToolInstaller@1
 
-#   - task: DotNetCoreCLI@2
-#     inputs:
-#       command: 'custom'
-#       projects: 'csharp/**/*.csproj'
-#       custom: 'pack'
-#       arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'custom'
+      projects: 'csharp/**/*.csproj'
+      custom: 'pack'
+      arguments: '/p:PackageVersion=$(majorMinorPackageVersion).$(Build.BuildId) /p:Configuration=$(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-#   - task: PublishBuildArtifacts@1
-#     inputs:
-#       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#       ArtifactName: 'nuget'
-#       publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'nuget'
+      publishLocation: 'Container'
 
-#   - task: PublishBuildArtifacts@1
-#     inputs:
-#       PathtoPublish: 'csharp'
-#       ArtifactName: 'nuget-sources'
-#       publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'csharp'
+      ArtifactName: 'nuget-sources'
+      publishLocation: 'Container'
 
 - job: Npm
   pool:
