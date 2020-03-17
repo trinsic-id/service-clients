@@ -1249,16 +1249,54 @@
                 }
             }
         },
-        "/health": {
+        "/verifications/{verificationId}/verify": {
             "get": {
-                "operationId": "healthcheck",
-                "summary": "Healthcheck",
+                "description": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
+                "operationId": "VerifyVerification",
+                "summary": "Execute verification on this record. This is an expensive action and is executed\r\nby veryfing the proof againt the ledger data.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "description": "Verification identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "produces": [
-                    "text/plain"
+                    "text/plain",
+                    "application/json",
+                    "text/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Health check endpoint"
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "operationId": "get-health",
+                "summary": "/health - GET",
+                "tags": [
+                    "Api Health"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/HealthGet200ApplicationJsonResponse"
+                        }
                     }
                 }
             }
@@ -1456,8 +1494,7 @@
                     "description": "If true, the credential will automatically be issued once the individual accepts the offer. If \r\nfalse, when an individual accepts the offer the credential will be in state 'Requested' and must be manually issued using the \r\nPUT /credentials/{credentialId} endpoint. This is set to false by default",
                     "type": "boolean"
                 },
-                "attributeValues": {
-                    "description": "Credential attribute values. If using connectionless issuance, these attributes must be specified.\r\nMust match all credential definition attribute names.",
+                "credentialValues": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
@@ -2023,6 +2060,23 @@
                 }
             }
         },
+        "VerificationResult": {
+            "description": "Verification result",
+            "type": "object",
+            "properties": {
+                "valid": {
+                    "description": "True if verification passed, otherwise False",
+                    "type": "boolean"
+                },
+                "proof": {
+                    "description": "Verification Proof Details",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ProofAttributeContract"
+                    }
+                }
+            }
+        },
         "WebhookType": {
             "enum": [
                 "Notification",
@@ -2136,6 +2190,9 @@
             "items": {
                 "$ref": "#/definitions/WebhookContract"
             }
+        },
+        "HealthGet200ApplicationJsonResponse": {
+            "type": "string"
         }
     },
     "tags": []
