@@ -322,6 +322,49 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "get": {
+                "description": "Retrieve the credential details for the given {credentialId}",
+                "operationId": "GetCredential",
+                "summary": "Retrieve the credential details for the given {credentialId}",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "walletId",
+                        "in": "path",
+                        "description": "The wallet identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "credentialId",
+                        "in": "path",
+                        "description": "The credential identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CredentialContract"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
             }
         },
         "/api/{walletId}/verifications/connection/{connectionId}": {
@@ -636,7 +679,6 @@
         },
         "/health": {
             "get": {
-                "description": "Healthcheck",
                 "operationId": "healthcheck",
                 "summary": "Healthcheck",
                 "tags": [
@@ -647,7 +689,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "",
+                        "examples": {
+                            "text/plain": "Healthy"
+                        }
                     }
                 }
             }
@@ -755,6 +800,12 @@
                 "schemaId": {
                     "type": "string"
                 },
+                "offerData": {
+                    "type": "string"
+                },
+                "offerUrl": {
+                    "type": "string"
+                },
                 "values": {
                     "type": "object",
                     "additionalProperties": {
@@ -824,6 +875,12 @@
                     "additionalProperties": {
                         "$ref": "#/definitions/ProofAttributeContract"
                     }
+                },
+                "verificationRequestData": {
+                    "type": "string"
+                },
+                "verificationRequestUrl": {
+                    "type": "string"
                 }
             }
         },
