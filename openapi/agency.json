@@ -251,6 +251,11 @@
                             "Rejected",
                             "Revoked"
                         ]
+                    },
+                    {
+                        "name": "definitionId",
+                        "in": "query",
+                        "type": "string"
                     }
                 ],
                 "produces": [
@@ -666,6 +671,11 @@
                         "name": "connectionId",
                         "in": "query",
                         "description": "The connection identifier.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "definitionId",
+                        "in": "query",
                         "type": "string"
                     }
                 ],
@@ -1467,6 +1477,14 @@
                 "offerUrl": {
                     "type": "string"
                 },
+                "issuedAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "acceptedAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
                 "values": {
                     "type": "object",
                     "additionalProperties": {
@@ -1640,6 +1658,17 @@
                 }
             }
         },
+        "AttributeValue": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
         "AttributeFilter": {
             "type": "object",
             "properties": {
@@ -1660,6 +1689,9 @@
                 },
                 "credentialDefinitionId": {
                     "type": "string"
+                },
+                "attributeValue": {
+                    "$ref": "#/definitions/AttributeValue"
                 }
             }
         },
@@ -2009,6 +2041,9 @@
                     "type": "string"
                 },
                 "verificationId": {
+                    "type": "string"
+                },
+                "definitionId": {
                     "type": "string"
                 },
                 "state": {
