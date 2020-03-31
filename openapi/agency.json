@@ -122,9 +122,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -158,9 +156,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -190,9 +186,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -259,9 +253,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -295,9 +287,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -327,9 +317,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -378,7 +366,7 @@
             "delete": {
                 "description": " Revoke credential that was issued previously. Process of revocation will update the revocation\r\n registry locally and on the ledger. Issued credentials can still participate in proof workflows\r\n and be considered valid, but only if the verifying ignores the revocation trail.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#revoke-a-credential\">documentation</a> on how to issue a credential.</i>",
                 "operationId": "RevokeCredential",
-                "summary": "Revokes a credential.",
+                "summary": "Revokes an isused credential. If the credential definition doesn't support revocation, the credential record\r\nis removed.",
                 "tags": [
                     "Credentials"
                 ],
@@ -407,9 +395,7 @@
                     "Definitions"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -443,9 +429,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -474,9 +458,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -497,9 +479,7 @@
                     "Definitions"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -533,15 +513,13 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/DefinitionsSchemasPost200TextJsonResponse"
+                            "$ref": "#/definitions/DefinitionsSchemasPost200ApplicationJsonResponse"
                         }
                     }
                 }
@@ -556,9 +534,7 @@
                     "Tenants"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -592,9 +568,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -623,9 +597,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -800,9 +772,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -823,9 +793,7 @@
                     "Definitions"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -859,9 +827,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -882,9 +848,7 @@
                     "Webhooks"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -917,9 +881,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -999,9 +961,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -1029,9 +989,7 @@
                     }
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -1174,9 +1132,7 @@
                     "application/*+json"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -1197,9 +1153,7 @@
                     "Tenants"
                 ],
                 "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -1307,6 +1261,137 @@
                         "schema": {
                             "$ref": "#/definitions/HealthGet200ApplicationJsonResponse"
                         }
+                    }
+                }
+            }
+        },
+        "/verifications/policies": {
+            "get": {
+                "description": "Lists the verification policies.",
+                "operationId": "ListVerificationPolicies",
+                "summary": "Lists the verification policies.",
+                "tags": [
+                    "Verification Policies"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates the verification policy.",
+                "operationId": "CreateVerificationPolicy",
+                "summary": "Creates the verification policy.",
+                "tags": [
+                    "Verification Policies"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationPolicyParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyParameters"
+                        },
+                        "description": "The verification policy parameters."
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/verifications/policies/{policyId}": {
+            "get": {
+                "description": "Gets the verification policy.",
+                "operationId": "GetVerificationPolicy",
+                "summary": "Gets the verification policy.",
+                "tags": [
+                    "Verification Policies"
+                ],
+                "parameters": [
+                    {
+                        "name": "policyId",
+                        "in": "path",
+                        "description": "The verification policy identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyContract"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes the verification policy.",
+                "operationId": "DeleteVerificationPolicy",
+                "summary": "Deletes the verification policy.",
+                "tags": [
+                    "Verification Policies"
+                ],
+                "parameters": [
+                    {
+                        "name": "policyId",
+                        "in": "path",
+                        "description": "The policy identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/credentials/purge/{definitionId}": {
+            "delete": {
+                "description": "Removes all credential records with status 'Revoked' for the given credential definition.\r\nIf 'definitionId' is null, it will remove all revoked records for all credential definitions.",
+                "operationId": "PurgeCredentials",
+                "summary": "Removes all credential records with status 'Revoked' for the given credential definition.\r\nIf 'definitionId' is null, it will remove all revoked records for all credential definitions.",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "definitionId",
+                        "in": "path",
+                        "description": "The definition identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 }
             }
@@ -1517,6 +1602,151 @@
                     "additionalProperties": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "VerificationPolicyRestrictionAttribute": {
+            "type": "object",
+            "properties": {
+                "attributeName": {
+                    "type": "string"
+                },
+                "attributeValue": {
+                    "type": "string"
+                }
+            }
+        },
+        "VerificationPolicyRestriction": {
+            "type": "object",
+            "properties": {
+                "schemaId": {
+                    "type": "string"
+                },
+                "schemaIssuerDid": {
+                    "type": "string"
+                },
+                "schemaName": {
+                    "type": "string"
+                },
+                "schemaVersion": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "value": {
+                    "$ref": "#/definitions/VerificationPolicyRestrictionAttribute"
+                }
+            }
+        },
+        "VerificationPolicyAttributeContract": {
+            "type": "object",
+            "properties": {
+                "policyName": {
+                    "type": "string"
+                },
+                "attributeNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "restrictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VerificationPolicyRestriction"
+                    }
+                }
+            }
+        },
+        "VerificationPolicyPredicateContract": {
+            "type": "object",
+            "properties": {
+                "policyName": {
+                    "type": "string"
+                },
+                "attributeName": {
+                    "type": "string"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "predicateValue": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "restrictions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VerificationPolicyRestriction"
+                    }
+                }
+            }
+        },
+        "VerificationPolicyRevocationReqirement": {
+            "type": "object",
+            "properties": {
+                "validAt": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            }
+        },
+        "VerificationPolicyContract": {
+            "type": "object",
+            "properties": {
+                "policyId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VerificationPolicyAttributeContract"
+                    }
+                },
+                "predicates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VerificationPolicyPredicateContract"
+                    }
+                },
+                "revocationRequirement": {
+                    "$ref": "#/definitions/VerificationPolicyRevocationReqirement"
+                }
+            }
+        },
+        "VerificationPolicyParameters": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VerificationPolicyAttributeContract"
+                    }
+                },
+                "predicates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VerificationPolicyPredicateContract"
+                    }
+                },
+                "revocationRequirement": {
+                    "$ref": "#/definitions/VerificationPolicyRevocationReqirement"
                 }
             }
         },
@@ -2175,19 +2405,19 @@
                 "type": "string"
             }
         },
+        "VerificationPolicyContractArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/VerificationPolicyContract"
+            }
+        },
         "CredentialDefinitionContractArray": {
             "type": "array",
             "items": {
                 "$ref": "#/definitions/CredentialDefinitionContract"
             }
         },
-        "DefinitionsSchemasPost200TextPlainResponse": {
-            "type": "string"
-        },
         "DefinitionsSchemasPost200ApplicationJsonResponse": {
-            "type": "string"
-        },
-        "DefinitionsSchemasPost200TextJsonResponse": {
             "type": "string"
         },
         "SchemaRecordArray": {
