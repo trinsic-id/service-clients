@@ -607,10 +607,10 @@
                         "type": "string"
                     },
                     {
-                        "name": "verificationPolicyParametersArray",
+                        "name": "verificationPolicyCredentialParametersArray",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/VerificationPolicyParametersArray"
+                            "$ref": "#/definitions/VerificationPolicyCredentialParametersArray"
                         }
                     }
                 ],
@@ -665,7 +665,7 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/VerificationPoliciesContract"
+                            "$ref": "#/definitions/VerificationPolicyCredentialContractArray"
                         }
                     },
                     "401": {
@@ -673,26 +673,6 @@
                     },
                     "403": {
                         "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/health": {
-            "get": {
-                "operationId": "healthcheck",
-                "summary": "Healthcheck",
-                "tags": [
-                    "Diagnostics"
-                ],
-                "produces": [
-                    "text/plain"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "examples": {
-                            "text/plain": "Healthy"
-                        }
                     }
                 }
             }
@@ -806,6 +786,14 @@
                 "offerUrl": {
                     "type": "string"
                 },
+                "issuedAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "acceptedAtUtc": {
+                    "format": "date-time",
+                    "type": "string"
+                },
                 "values": {
                     "type": "object",
                     "additionalProperties": {
@@ -852,6 +840,9 @@
                 "verificationId": {
                     "type": "string"
                 },
+                "definitionId": {
+                    "type": "string"
+                },
                 "state": {
                     "$ref": "#/definitions/ProofState"
                 },
@@ -884,95 +875,36 @@
                 }
             }
         },
-        "VerificationPolicyParameters": {
-            "description": "Verification policy parameters specify which credential to be used\r\nwhen submitting the verification for that policy.",
+        "VerificationPolicyCredentialParameters": {
             "type": "object",
             "properties": {
                 "policyName": {
-                    "description": "Name of the policy used in the verification",
                     "type": "string"
                 },
                 "credentialId": {
-                    "description": "The credential identifier to be used with this policy",
                     "type": "string"
                 },
                 "hidden": {
-                    "description": "Specifies if this value will be hidden. If hidden,\r\nthe value is not disclosed, only a cryptographic proof of ownership.",
                     "type": "boolean"
                 }
             }
         },
-        "VerificationPolicyRestriction": {
-            "description": "Verification policy restriction used to add constraints to submitted credentials.\r\nThe restriction can be added based on:\r\n<pre>\r\n - credentialDefinitionId\r\n - schemaId\r\n - schemaName\r\n - schemaIssuerDid\r\n - schemaVersion\r\n - issuerDid\r\n</pre>",
-            "type": "object",
-            "properties": {
-                "schemaId": {
-                    "type": "string"
-                },
-                "schemaIssuerDid": {
-                    "type": "string"
-                },
-                "schemaName": {
-                    "type": "string"
-                },
-                "schemaVersion": {
-                    "type": "string"
-                },
-                "issuerDid": {
-                    "type": "string"
-                },
-                "credentialDefinitionId": {
-                    "type": "string"
-                }
-            }
-        },
-        "VerificationPolicyContract": {
-            "description": "Specifies a verification policy",
+        "VerificationPolicyCredentialContract": {
             "type": "object",
             "properties": {
                 "policyName": {
-                    "description": "The name of the policy",
                     "type": "string"
                 },
                 "attributeNames": {
-                    "description": "Attribute names requested for submission by this policy",
                     "type": "array",
                     "items": {
                         "type": "string"
                     }
                 },
                 "availableCredentials": {
-                    "description": "Available credentials that satisfy the policy. This collection\r\ntakes into consideration any restrictions that are specified",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/CredentialContract"
-                    }
-                },
-                "restrictions": {
-                    "description": "Restrictions specified for this policy\r\n<remarks>\r\nWhen specifying multiple restrictions they will be grouped with an OR operator\r\n</remarks>",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/VerificationPolicyRestriction"
-                    }
-                }
-            }
-        },
-        "VerificationPoliciesContract": {
-            "description": "Represents a request for verification by an issuer. A verification may have multiple policies\r\nand requirements for submitting proofs of data ownership.",
-            "type": "object",
-            "properties": {
-                "attributes": {
-                    "description": "Set of policies that require disclosing attribute values",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/VerificationPolicyContract"
-                    }
-                },
-                "predicates": {
-                    "description": "Set of policies that require data specify a certain condition (predicates).\r\nE.g. 'Age' > 18",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/VerificationPolicyContract"
                     }
                 }
             }
@@ -1023,10 +955,16 @@
                 "$ref": "#/definitions/VerificationContract"
             }
         },
-        "VerificationPolicyParametersArray": {
+        "VerificationPolicyCredentialParametersArray": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/VerificationPolicyParameters"
+                "$ref": "#/definitions/VerificationPolicyCredentialParameters"
+            }
+        },
+        "VerificationPolicyCredentialContractArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/VerificationPolicyCredentialContract"
             }
         },
         "CustodianWalletContractArray": {
