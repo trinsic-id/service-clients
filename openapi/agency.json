@@ -632,7 +632,7 @@
         },
         "/verifications": {
             "get": {
-                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation. \r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#list-all-verifications-for-a-connection\">documentation</a> on how to list verification credentials by connection id.</i>",
+                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation.\r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#list-all-verifications-for-a-connection\">documentation</a> on how to list verification credentials by connection id.</i>",
                 "operationId": "ListVerificationsForConnection",
                 "summary": "Lists the verifications for connection.",
                 "tags": [
@@ -648,6 +648,7 @@
                     {
                         "name": "definitionId",
                         "in": "query",
+                        "description": "The definition identifier.",
                         "type": "string"
                     }
                 ],
@@ -699,7 +700,8 @@
                             "$ref": "#/definitions/VerificationContract"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/verifications/{verificationId}": {
@@ -781,7 +783,8 @@
                             "$ref": "#/definitions/VerificationDefinitionContract"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/definitions/verifications": {
@@ -802,7 +805,8 @@
                             "$ref": "#/definitions/VerificationDefinitionContractArray"
                         }
                     }
-                }
+                },
+                "deprecated": true
             },
             "post": {
                 "description": " A verification definition is created and saved on your cloud agent. You can discover your definition based on the ID that is returned or the name.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#create-a-verification-definition\">documentation</a> on how to create new verification definition.</i>",
@@ -836,7 +840,8 @@
                             "$ref": "#/definitions/VerificationDefinitionContract"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/webhooks": {
@@ -1210,7 +1215,8 @@
                     "200": {
                         "description": "Success"
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/verifications/{verificationId}/verify": {
@@ -1242,30 +1248,11 @@
                             "$ref": "#/definitions/VerificationResult"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
-        "/health": {
-            "get": {
-                "operationId": "get-health",
-                "summary": "/health - GET",
-                "tags": [
-                    "Api Health"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/HealthGet200ApplicationJsonResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/verifications/policies": {
+        "/verificationPolicies": {
             "get": {
                 "description": "Lists the verification policies.",
                 "operationId": "ListVerificationPolicies",
@@ -1320,7 +1307,7 @@
                 }
             }
         },
-        "/verifications/policies/{policyId}": {
+        "/verificationPolicies/{policyId}": {
             "get": {
                 "description": "Gets the verification policy.",
                 "operationId": "GetVerificationPolicy",
@@ -1374,9 +1361,9 @@
         },
         "/credentials/purge/{definitionId}": {
             "delete": {
-                "description": "Removes all credential records with status 'Revoked' for the given credential definition.\r\nIf 'definitionId' is null, it will remove all revoked records for all credential definitions.",
+                "description": "If 'definitionId' is null, it will remove all revoked records for all credential definitions",
                 "operationId": "PurgeCredentials",
-                "summary": "Removes all credential records with status 'Revoked' for the given credential definition.\r\nIf 'definitionId' is null, it will remove all revoked records for all credential definitions.",
+                "summary": "Removes all credential records with status 'Revoked' for the given credential definition",
                 "tags": [
                     "Credentials"
                 ],
@@ -1388,6 +1375,129 @@
                         "required": true,
                         "type": "string"
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/verifications/policy/{policyId}/connections/{connectionId}": {
+            "post": {
+                "description": "Send a verification to the specified connection from existing policy",
+                "operationId": "SendVerificationFromPolicy",
+                "summary": "Send a verification to the specified connection from existing policy",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "The connection identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "policyId",
+                        "in": "path",
+                        "description": "The policy identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/verifications/policy/{policyId}": {
+            "post": {
+                "description": "Connectionless transport uses URLs that can be shared with the user over any \r\nexisting transport (email, SMS, web).",
+                "operationId": "CreateVerificationFromPolicy",
+                "summary": "Create a verification from existing policy used for connectionless transport.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "policyId",
+                        "in": "path",
+                        "description": "The policy identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/verifications/policy": {
+            "post": {
+                "description": "Connectionless transport uses URLs that can be shared with the user over any\r\nexisting transport (email, SMS, web).",
+                "operationId": "CreateVerificationFromParameters",
+                "summary": "Create a verification from parameters used for connectionless transport.",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "verificationPolicyParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyParameters"
+                        },
+                        "description": "The policy parameters."
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "operationId": "Health",
+                "summary": "Health",
+                "tags": [
+                    "Diagnostics"
                 ],
                 "responses": {
                     "200": {
@@ -1663,6 +1773,12 @@
             }
         },
         "VerificationPolicyPredicateContract": {
+            "required": [
+                "attributeName",
+                "policyName",
+                "predicateType",
+                "predicateValue"
+            ],
             "type": "object",
             "properties": {
                 "policyName": {
@@ -1671,7 +1787,7 @@
                 "attributeName": {
                     "type": "string"
                 },
-                "operator": {
+                "predicateType": {
                     "type": "string"
                 },
                 "predicateValue": {
@@ -2455,9 +2571,6 @@
             "items": {
                 "$ref": "#/definitions/WebhookContract"
             }
-        },
-        "HealthGet200ApplicationJsonResponse": {
-            "type": "string"
         }
     },
     "tags": []
