@@ -1384,7 +1384,7 @@
             }
         },
         "/verifications/policy/{policyId}/connections/{connectionId}": {
-            "post": {
+            "put": {
                 "description": "Send a verification to the specified connection from existing policy",
                 "operationId": "SendVerificationFromPolicy",
                 "summary": "Send a verification to the specified connection from existing policy",
@@ -1423,7 +1423,7 @@
             }
         },
         "/verifications/policy/{policyId}": {
-            "post": {
+            "put": {
                 "description": "Connectionless transport uses URLs that can be shared with the user over any \r\nexisting transport (email, SMS, web).",
                 "operationId": "CreateVerificationFromPolicy",
                 "summary": "Create a verification from existing policy used for connectionless transport.",
