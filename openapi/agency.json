@@ -1505,6 +1505,51 @@
                     }
                 }
             }
+        },
+        "/verifications/policy/connections/{connectionId}": {
+            "post": {
+                "description": "Send a verification to the speicified connection from parameters",
+                "operationId": "SendVerificationFromParameters",
+                "summary": "Send a verification to the speicified connection from parameters",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "The connection identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "verificationPolicyParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyParameters"
+                        },
+                        "description": "The policy parameters."
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
