@@ -414,9 +414,9 @@
         },
         "/api/wallets": {
             "get": {
-                "description": "Lists the wallets",
+                "description": "Lists all custodian wallets",
                 "operationId": "ListWallets",
-                "summary": "Lists the wallets",
+                "summary": "Lists all custodian wallets",
                 "tags": [
                     "Wallet"
                 ],
@@ -441,9 +441,9 @@
                 }
             },
             "post": {
-                "description": "Create new wallet",
+                "description": "Create new user wallet",
                 "operationId": "CreateWallet",
-                "summary": "Create new wallet",
+                "summary": "Create new user wallet",
                 "tags": [
                     "Wallet"
                 ],
@@ -482,9 +482,9 @@
                 }
             },
             "delete": {
-                "description": "Deletes the wallet",
+                "description": "This will delete all connections, credentials and verification records for this user wallet.",
                 "operationId": "DeleteWallet",
-                "summary": "Deletes the wallet",
+                "summary": "Deletes the custodian wallet permanently.",
                 "tags": [
                     "Wallet"
                 ],
@@ -622,6 +622,49 @@
                 "responses": {
                     "200": {
                         "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "get": {
+                "description": "Retrieve a verification with the given identifier.",
+                "operationId": "GetVerification",
+                "summary": "Retrieve a verification with the given identifier.",
+                "tags": [
+                    "Verification"
+                ],
+                "parameters": [
+                    {
+                        "name": "walletId",
+                        "in": "path",
+                        "description": "The wallet identifier.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "description": "The verification identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
                     },
                     "401": {
                         "description": "Unauthorized"
@@ -818,6 +861,12 @@
                 },
                 "value": {
                     "type": "string"
+                },
+                "attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "revealed": {
                     "type": "boolean",

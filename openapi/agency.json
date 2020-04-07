@@ -2413,6 +2413,12 @@
                 "value": {
                     "type": "string"
                 },
+                "attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
                 "revealed": {
                     "type": "boolean",
                     "readOnly": true
