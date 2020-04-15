@@ -1,4 +1,16 @@
-import { ServiceClientCredentials, WebResource } from "@azure/ms-rest-js";
+import { ServiceClientCredentials, WebResource, ServiceClientOptions } from "@azure/ms-rest-js";
+import { AgencyServiceClientOptions } from "./agency/models"
+import { CustodianServiceClientOptions } from "./custodian/models"
+
+export class StreetcredAgencyClientOptions implements AgencyServiceClientOptions {
+    noRetryPolicy?: boolean;
+    baseUri?: string;
+}
+
+export class StreetcredCustodianClientOptions implements CustodianServiceClientOptions {
+    noRetryPolicy?: boolean
+    baseUri?: string;
+}
 
 export class StreetcredClientCredentials implements ServiceClientCredentials {
     accessToken: string

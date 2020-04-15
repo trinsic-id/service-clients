@@ -19,6 +19,6 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@azure/ms-rest-js": "^1.0.1"
+    "@azure/ms-rest-js": "^2.0.5"
   }
 }
