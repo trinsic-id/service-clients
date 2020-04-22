@@ -366,7 +366,7 @@
             "delete": {
                 "description": " Revoke credential that was issued previously. Process of revocation will update the revocation\r\n registry locally and on the ledger. Issued credentials can still participate in proof workflows\r\n and be considered valid, but only if the verifying ignores the revocation trail.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/credentials#revoke-a-credential\">documentation</a> on how to issue a credential.</i>",
                 "operationId": "RevokeCredential",
-                "summary": "Revokes an isused credential. If the credential definition doesn't support revocation, the credential record\r\nis removed.",
+                "summary": "Revokes an isused credential",
                 "tags": [
                     "Credentials"
                 ],
@@ -1359,30 +1359,6 @@
                 }
             }
         },
-        "/credentials/purge/{definitionId}": {
-            "delete": {
-                "description": "If 'definitionId' is null, it will remove all revoked records for all credential definitions",
-                "operationId": "PurgeCredentials",
-                "summary": "Removes all credential records with status 'Revoked' for the given credential definition",
-                "tags": [
-                    "Credentials"
-                ],
-                "parameters": [
-                    {
-                        "name": "definitionId",
-                        "in": "path",
-                        "description": "The definition identifier.",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
         "/verifications/policy/{policyId}/connections/{connectionId}": {
             "put": {
                 "description": "Send a verification to the specified connection from existing policy",
@@ -1547,6 +1523,30 @@
                         "schema": {
                             "$ref": "#/definitions/VerificationContract"
                         }
+                    }
+                }
+            }
+        },
+        "/credentials/delete/{credentialId}": {
+            "delete": {
+                "description": "This endpoint doesn't revoke the credential.",
+                "operationId": "DeleteCredential",
+                "summary": "Delete the credential record permanently",
+                "tags": [
+                    "Credentials"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentialId",
+                        "in": "path",
+                        "description": "The credential identifier.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 }
             }
@@ -1798,6 +1798,9 @@
             }
         },
         "VerificationPolicyAttributeContract": {
+            "required": [
+                "policyName"
+            ],
             "type": "object",
             "properties": {
                 "policyName": {
@@ -1857,6 +1860,10 @@
             }
         },
         "VerificationPolicyContract": {
+            "required": [
+                "name",
+                "version"
+            ],
             "type": "object",
             "properties": {
                 "policyId": {
@@ -1886,6 +1893,10 @@
             }
         },
         "VerificationPolicyParameters": {
+            "required": [
+                "name",
+                "version"
+            ],
             "type": "object",
             "properties": {
                 "name": {
@@ -2466,6 +2477,9 @@
                     "additionalProperties": {
                         "$ref": "#/definitions/ProofAttributeContract"
                     }
+                },
+                "policy": {
+                    "$ref": "#/definitions/VerificationPolicyParameters"
                 },
                 "verificationRequestData": {
                     "type": "string"
