@@ -16,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.Configure(configure);
             services.AddSingleton<StreetcredClientCredentials>();
+            services.AddSingleton<StreetcredManagementCredentials>();
             services.AddSingleton<IAgencyServiceClient, AgencyServiceClient>(provider =>
             {
                 var options = provider.GetRequiredService<IOptions<ServiceClientOptions>>().Value;
@@ -29,6 +30,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 var custodianClient = new CustodianServiceClient(provider.GetRequiredService<StreetcredClientCredentials>());
                 custodianClient.BaseUri = options.CustodianBaseUri == null ? custodianClient.BaseUri : new Uri(options.CustodianBaseUri);
                 return custodianClient;
+            });
+            services.AddSingleton<IManagementServiceClient, ManagementServiceClient>(provider =>
+            {
+                var options = provider.GetRequiredService<IOptions<ServiceClientOptions>>().Value;
+                var managementClient = new ManagementServiceClient(provider.GetRequiredService<StreetcredManagementCredentials>());
+                managementClient.BaseUri = options.ManagementBaseUri == null ? managementClient.BaseUri : new Uri(options.ManagementBaseUri);
+                return managementClient;
             });
             return services;
         }

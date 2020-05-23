@@ -1,5 +1,6 @@
 import { AgencyServiceClient, AgencyServiceModels, AgencyServiceMappers } from "./agency/agencyServiceClient"
 import { CustodianServiceClient, CustodianServiceModels, CustodianServiceMappers } from "./custodian/custodianServiceClient"
+import { ManagementServiceClient, ManagementServiceModels, ManagementServiceMappers } from "./management/managementServiceClient"
 import { StreetcredClientCredentials, StreetcredAgencyClientOptions, StreetcredCustodianClientOptions } from "./streetcredClientCredentials"
 
 export {
