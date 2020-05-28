@@ -42,6 +42,10 @@ jobs:
     inputs:
       script: 'autorest --input-file=openapi/agency.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient'
 
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/management.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=ManagementServiceClient'
+
   - task: NuGetToolInstaller@1
 
   - task: DotNetCoreCLI@2
@@ -86,7 +90,11 @@ jobs:
   - task: CmdLine@2
     inputs:
       script: 'autorest --input-file=openapi/custodian.json --typescript --output-folder=typescript --add-credentials --override-client-name=CustodianServiceClient --source-code-folder-path=src/custodian --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
-
+     
+  - task: CmdLine@2
+    inputs:
+      script: 'autorest --input-file=openapi/management.json --typescript --output-folder=typescript --add-credentials --override-client-name=ManagementServiceClient --source-code-folder-path=src/management --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+  
   - task: Npm@1
     inputs:
       command: 'install'

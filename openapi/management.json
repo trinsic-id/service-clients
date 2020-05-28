@@ -1,0 +1,322 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Streetcred ID Management API",
+        "description": "An API to manage organizations, cloud wallets and networks",
+        "termsOfService": "https://streetcred.id/terms-of-service/",
+        "contact": {
+            "name": "Streetcred Engineering Team",
+            "url": "https://streetcred.id/contact-us",
+            "email": "support@streetcred.id"
+        },
+        "version": "v1"
+    },
+    "host": "api.streetcred.id",
+    "basePath": "/management/v1",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "accountSecret": {
+            "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "security": [
+        {
+            "accountSecret": []
+        }
+    ],
+    "paths": {
+        "/tenants": {
+            "get": {
+                "operationId": "ListTenants",
+                "summary": "ListTenants",
+                "tags": [
+                    "Tenants"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantContractArray"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "CreateTenant",
+                "summary": "CreateTenant",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TenantParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantContract"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeleteAllTenants",
+                "summary": "DeleteAllTenants",
+                "tags": [
+                    "Tenants"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/tenants/{tenantId}": {
+            "get": {
+                "operationId": "GetTenant",
+                "summary": "GetTenant",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantContract"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeleteTenant",
+                "summary": "DeleteTenant",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/tenants/{tenantId}/keys": {
+            "get": {
+                "operationId": "GetTenantKeys",
+                "summary": "GetTenantKeys",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantKeysContract"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "ChangeTenantKeys",
+                "summary": "ChangeTenantKeys",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TenantKeysContract"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "NetworkContract": {
+            "type": "object",
+            "properties": {
+                "networkId": {
+                    "type": "string"
+                },
+                "networkName": {
+                    "type": "string"
+                },
+                "genesisTransactions": {
+                    "type": "string"
+                },
+                "poolProtocolVersion": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "EndorserType": {
+            "format": "int32",
+            "enum": [
+                0,
+                1,
+                2
+            ],
+            "type": "integer"
+        },
+        "TenantExtendedInformationContract": {
+            "type": "object",
+            "properties": {
+                "issuerDid": {
+                    "type": "string"
+                },
+                "issuerKey": {
+                    "type": "string"
+                },
+                "issuerKeyGenerationSeed": {
+                    "type": "string"
+                },
+                "agentDid": {
+                    "type": "string"
+                },
+                "agentKey": {
+                    "type": "string"
+                },
+                "agentKeyGenerationSeed": {
+                    "type": "string"
+                },
+                "agentServiceEndpoint": {
+                    "type": "string"
+                },
+                "transactionEndorsement": {
+                    "$ref": "#/definitions/EndorserType"
+                }
+            }
+        },
+        "TenantContract": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "network": {
+                    "$ref": "#/definitions/NetworkContract"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "readOnly": true
+                },
+                "extendedInformation": {
+                    "$ref": "#/definitions/TenantExtendedInformationContract"
+                }
+            }
+        },
+        "TenantParameters": {
+            "type": "object",
+            "properties": {
+                "issuerSeed": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "networkId": {
+                    "type": "string"
+                },
+                "endorserType": {
+                    "$ref": "#/definitions/EndorserType"
+                }
+            }
+        },
+        "TenantKeysContract": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "subscriptionKey": {
+                    "type": "string"
+                }
+            }
+        },
+        "TenantContractArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/TenantContract"
+            }
+        }
+    },
+    "tags": []
+}
