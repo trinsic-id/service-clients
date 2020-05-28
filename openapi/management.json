@@ -22,26 +22,18 @@
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
-        },
-        "subscriptionKey": {
-            "type": "apiKey",
-            "name": "X-Streetcred-Subscription-Key",
-            "in": "header"
         }
     },
     "security": [
         {
             "accountSecret": []
-        },
-        {
-            "subscriptionKey": []
         }
     ],
     "paths": {
         "/tenants": {
             "get": {
-                "operationId": "get-tenants",
-                "summary": "/tenants - GET",
+                "operationId": "ListTenants",
+                "summary": "ListTenants",
                 "tags": [
                     "Tenants"
                 ],
@@ -58,8 +50,8 @@
                 }
             },
             "post": {
-                "operationId": "post-tenants",
-                "summary": "/tenants - POST",
+                "operationId": "CreateTenant",
+                "summary": "CreateTenant",
                 "tags": [
                     "Tenants"
                 ],
@@ -90,8 +82,8 @@
                 }
             },
             "delete": {
-                "operationId": "delete-tenants",
-                "summary": "/tenants - DELETE",
+                "operationId": "DeleteAllTenants",
+                "summary": "DeleteAllTenants",
                 "tags": [
                     "Tenants"
                 ],
@@ -104,8 +96,8 @@
         },
         "/tenants/{tenantId}": {
             "get": {
-                "operationId": "get-tenants-tenantid",
-                "summary": "/tenants/{tenantId} - GET",
+                "operationId": "GetTenant",
+                "summary": "GetTenant",
                 "tags": [
                     "Tenants"
                 ],
@@ -130,8 +122,8 @@
                 }
             },
             "delete": {
-                "operationId": "delete-tenants-tenantid",
-                "summary": "/tenants/{tenantId} - DELETE",
+                "operationId": "DeleteTenant",
+                "summary": "DeleteTenant",
                 "tags": [
                     "Tenants"
                 ],
@@ -152,8 +144,8 @@
         },
         "/tenants/{tenantId}/keys": {
             "get": {
-                "operationId": "get-tenants-tenantid-keys",
-                "summary": "/tenants/{tenantId}/keys - GET",
+                "operationId": "GetTenantKeys",
+                "summary": "GetTenantKeys",
                 "tags": [
                     "Tenants"
                 ],
@@ -180,8 +172,8 @@
                 }
             },
             "patch": {
-                "operationId": "patch-tenants-tenantid-keys",
-                "summary": "/tenants/{tenantId}/keys - PATCH",
+                "operationId": "ChangeTenantKeys",
+                "summary": "ChangeTenantKeys",
                 "tags": [
                     "Tenants"
                 ],
