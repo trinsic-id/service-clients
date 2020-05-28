@@ -36,16 +36,13 @@ export class StreetcredClientCredentials implements ServiceClientCredentials {
 
 export class StreetcredManagementCredentials implements ServiceClientCredentials {
     accountSecret: string
-    subscriptionKey: string;
 
-    constructor(accountSecret: string, subscriptionKey: string) {
+    constructor(accountSecret: string) {
         this.accountSecret = accountSecret;
-        this.subscriptionKey = subscriptionKey;
     }
 
     signRequest(webResource: WebResource): Promise<WebResource> {
         webResource.headers.set("Authorization", `Bearer ${this.accountSecret}`);
-        webResource.headers.set("X-Streetcred-Subscription-Key", this.subscriptionKey);
         return Promise.resolve(webResource);
     }
 }

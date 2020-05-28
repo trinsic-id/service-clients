@@ -30,7 +30,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public override Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.Headers.Add("Authorization", $"Bearer {Options.AccountSecret}");
-            request.Headers.Add("X-Streetcred-Subscription-Key", Options.SubscriptionKey);
             return base.ProcessHttpRequestAsync(request, cancellationToken);
         }
     }
