@@ -281,18 +281,26 @@
             }
         },
         "TenantParameters": {
+            "description": "Configuration options for creating new tenant",
+            "required": [
+                "name"
+            ],
             "type": "object",
             "properties": {
                 "issuerSeed": {
+                    "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
                     "type": "string"
                 },
                 "name": {
+                    "description": "The name of the tenant.",
                     "type": "string"
                 },
                 "imageUrl": {
+                    "description": "(Optional) Location of image URL used as profile for this tenant",
                     "type": "string"
                 },
                 "networkId": {
+                    "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
                     "type": "string"
                 },
                 "endorserType": {
