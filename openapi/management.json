@@ -140,6 +140,38 @@
                         "description": "Success"
                     }
                 }
+            },
+            "put": {
+                "operationId": "UpdateTenant",
+                "summary": "UpdateTenant",
+                "tags": [
+                    "Tenants"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tenantUpdateParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TenantUpdateParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
             }
         },
         "/tenants/{tenantId}/keys": {
@@ -221,13 +253,12 @@
             }
         },
         "EndorserType": {
-            "format": "int32",
             "enum": [
-                0,
-                1,
-                2
+                "Shared",
+                "Dedicated",
+                "Delegated"
             ],
-            "type": "integer"
+            "type": "string"
         },
         "TenantExtendedInformationContract": {
             "type": "object",
@@ -305,6 +336,17 @@
                 },
                 "endorserType": {
                     "$ref": "#/definitions/EndorserType"
+                }
+            }
+        },
+        "TenantUpdateParameters": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
                 }
             }
         },
