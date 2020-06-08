@@ -231,9 +231,48 @@
                     }
                 }
             }
+        },
+        "/assets": {
+            "post": {
+                "operationId": "AddAsset",
+                "summary": "AddAsset",
+                "tags": [
+                    "Assets"
+                ],
+                "parameters": [
+                    {
+                        "name": "uploadedFiles",
+                        "in": "formData",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/AssetContract"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "AssetContract": {
+            "type": "object",
+            "properties": {
+                "publicUri": {
+                    "type": "string"
+                }
+            }
+        },
         "NetworkContract": {
             "type": "object",
             "properties": {
