@@ -245,6 +245,16 @@
                         "in": "formData",
                         "required": true,
                         "type": "file"
+                    },
+                    {
+                        "in": "query",
+                        "name": "filename",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "contentType",
+                        "type": "string"
                     }
                 ],
                 "consumes": [
