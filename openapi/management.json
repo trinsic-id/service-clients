@@ -5,9 +5,9 @@
         "description": "An API to manage organizations, cloud wallets and networks",
         "termsOfService": "https://trinsic.id/terms/",
         "contact": {
-            "name": "Streetcred Engineering Team",
-            "url": "https://streetcred.id/contact-us",
-            "email": "support@streetcred.id"
+            "name": "Trinsic Engineering Team",
+            "url": "https://trinsic.id/contact-us",
+            "email": "support@trinsic.id"
         },
         "version": "v1"
     },
