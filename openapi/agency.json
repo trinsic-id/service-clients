@@ -6,7 +6,7 @@
         "description": "An API to issue, manage, and verify self-sovereign identity credentials",
         "termsOfService": "https://trinsic.id/terms/",
         "contact": {
-            "name": "Streetcred Engineering Team",
+            "name": "Trinsic Engineering Team",
             "url": "https://trinsic.id/contact-us",
             "email": "support@trinsic.id"
         }
