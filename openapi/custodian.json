@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Streetcred ID Wallet API",
+        "title": "Trinsic Wallet API",
         "description": "A powerful API to manage self-sovereign identity for users",
         "termsOfService": "https://streetcred.id/terms-of-service/",
         "contact": {
