@@ -1,9 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Streetcred ID Management API",
+        "title": "Trinsic Management API",
         "description": "An API to manage organizations, cloud wallets and networks",
-        "termsOfService": "https://streetcred.id/terms-of-service/",
+        "termsOfService": "https://trinsic.id/terms/",
         "contact": {
             "name": "Streetcred Engineering Team",
             "url": "https://streetcred.id/contact-us",
