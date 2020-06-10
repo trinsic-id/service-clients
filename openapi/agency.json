@@ -7,8 +7,8 @@
         "termsOfService": "https://trinsic.id/terms/",
         "contact": {
             "name": "Streetcred Engineering Team",
-            "url": "https://streetcred.id/contact-us",
-            "email": "support@streetcred.id"
+            "url": "https://trinsic.id/contact-us",
+            "email": "support@trinsic.id"
         }
     },
     "host": "api.streetcred.id",
