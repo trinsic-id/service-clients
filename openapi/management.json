@@ -1,421 +1,421 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Trinsic Management API",
-        "description": "An API to manage organizations, cloud wallets and networks",
-        "termsOfService": "https://trinsic.id/terms/",
-        "contact": {
-            "name": "Trinsic Engineering Team",
-            "url": "https://trinsic.id/contact-us",
-            "email": "support@trinsic.id"
-        },
-        "version": "v1"
+  "swagger": "2.0",
+  "info": {
+    "title": "Trinsic ID Provider API",
+    "description": "An API to manage organizations, cloud wallets and networks",
+    "termsOfService": "https://trinsic.id/terms-of-service/",
+    "contact": {
+      "name": "Trinsic Engineering Team",
+      "url": "https://trinsic.id/contact-us",
+      "email": "support@trinsic.id"
     },
-    "host": "api.streetcred.id",
-    "basePath": "/management/v1",
-    "schemes": [
-        "https"
-    ],
-    "securityDefinitions": {
-        "accountSecret": {
-            "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        }
-    },
-    "security": [
-        {
-            "accountSecret": []
-        }
-    ],
-    "paths": {
-        "/tenants": {
-            "get": {
-                "operationId": "ListTenants",
-                "summary": "ListTenants",
-                "tags": [
-                    "Tenants"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/TenantContractArray"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "operationId": "CreateTenant",
-                "summary": "CreateTenant",
-                "tags": [
-                    "Tenants"
-                ],
-                "parameters": [
-                    {
-                        "name": "tenantParameters",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/TenantParameters"
-                        }
-                    }
-                ],
-                "consumes": [
-                    "application/json",
-                    "text/json",
-                    "application/*+json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/TenantContract"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "DeleteAllTenants",
-                "summary": "DeleteAllTenants",
-                "tags": [
-                    "Tenants"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/tenants/{tenantId}": {
-            "get": {
-                "operationId": "GetTenant",
-                "summary": "GetTenant",
-                "tags": [
-                    "Tenants"
-                ],
-                "parameters": [
-                    {
-                        "name": "tenantId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/TenantContract"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "DeleteTenant",
-                "summary": "DeleteTenant",
-                "tags": [
-                    "Tenants"
-                ],
-                "parameters": [
-                    {
-                        "name": "tenantId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            },
-            "put": {
-                "operationId": "UpdateTenant",
-                "summary": "UpdateTenant",
-                "tags": [
-                    "Tenants"
-                ],
-                "parameters": [
-                    {
-                        "name": "tenantId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "tenantUpdateParameters",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/TenantUpdateParameters"
-                        }
-                    }
-                ],
-                "consumes": [
-                    "application/json",
-                    "text/json",
-                    "application/*+json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/tenants/{tenantId}/keys": {
-            "get": {
-                "operationId": "GetTenantKeys",
-                "summary": "GetTenantKeys",
-                "tags": [
-                    "Tenants"
-                ],
-                "parameters": [
-                    {
-                        "name": "tenantId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/TenantKeysContract"
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "operationId": "ChangeTenantKeys",
-                "summary": "ChangeTenantKeys",
-                "tags": [
-                    "Tenants"
-                ],
-                "parameters": [
-                    {
-                        "name": "tenantId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "produces": [
-                    "text/plain",
-                    "application/json",
-                    "text/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/TenantKeysContract"
-                        }
-                    }
-                }
-            }
-        },
-        "/assets": {
-            "post": {
-                "operationId": "AddAsset",
-                "summary": "AddAsset",
-                "tags": [
-                    "Assets"
-                ],
-                "parameters": [
-                    {
-                        "name": "uploadedFiles",
-                        "in": "formData",
-                        "required": true,
-                        "type": "file"
-                    },
-                    {
-                        "in": "query",
-                        "name": "filename",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "contentType",
-                        "type": "string"
-                    }
-                ],
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/AssetContract"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "AssetContract": {
-            "type": "object",
-            "properties": {
-                "publicUri": {
-                    "type": "string"
-                }
-            }
-        },
-        "NetworkContract": {
-            "type": "object",
-            "properties": {
-                "networkId": {
-                    "type": "string"
-                },
-                "networkName": {
-                    "type": "string"
-                },
-                "genesisTransactions": {
-                    "type": "string"
-                },
-                "poolProtocolVersion": {
-                    "format": "int32",
-                    "type": "integer"
-                }
-            }
-        },
-        "EndorserType": {
-            "enum": [
-                "Shared",
-                "Dedicated",
-                "Delegated"
-            ],
+    "version": "v1"
+  },
+  "host": "api.streetcred.id",
+  "basePath": "/provider/v1",
+  "schemes": [
+      "https"
+  ],
+  "paths": {
+    "/assets": {
+      "post": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Upload a new asset",
+        "description": "Upload a new asset to be used as an image for a tenant tile.",
+        "operationId": "AddAsset",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filename",
+            "description": "Filename to be uploaded",
             "type": "string"
-        },
-        "TenantExtendedInformationContract": {
-            "type": "object",
-            "properties": {
-                "issuerDid": {
-                    "type": "string"
-                },
-                "issuerKey": {
-                    "type": "string"
-                },
-                "issuerKeyGenerationSeed": {
-                    "type": "string"
-                },
-                "agentDid": {
-                    "type": "string"
-                },
-                "agentKey": {
-                    "type": "string"
-                },
-                "agentKeyGenerationSeed": {
-                    "type": "string"
-                },
-                "agentServiceEndpoint": {
-                    "type": "string"
-                },
-                "transactionEndorsement": {
-                    "$ref": "#/definitions/EndorserType"
-                }
+          },
+          {
+            "in": "query",
+            "name": "contentType",
+            "description": "Content type of files to be uploaded",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "uploadedFiles",
+            "description": "Asset files to be uploaded",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AssetContract"
             }
-        },
-        "TenantContract": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "readOnly": true
-                },
-                "imageUrl": {
-                    "type": "string"
-                },
-                "network": {
-                    "$ref": "#/definitions/NetworkContract"
-                },
-                "tenantId": {
-                    "type": "string",
-                    "readOnly": true
-                },
-                "extendedInformation": {
-                    "$ref": "#/definitions/TenantExtendedInformationContract"
-                }
-            }
-        },
-        "TenantParameters": {
-            "description": "Configuration options for creating new tenant",
-            "required": [
-                "name"
-            ],
-            "type": "object",
-            "properties": {
-                "issuerSeed": {
-                    "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The name of the tenant.",
-                    "type": "string"
-                },
-                "imageUrl": {
-                    "description": "(Optional) Location of image URL used as profile for this tenant",
-                    "type": "string"
-                },
-                "networkId": {
-                    "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
-                    "type": "string"
-                },
-                "endorserType": {
-                    "$ref": "#/definitions/EndorserType"
-                }
-            }
-        },
-        "TenantUpdateParameters": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "imageUrl": {
-                    "type": "string"
-                }
-            }
-        },
-        "TenantKeysContract": {
-            "type": "object",
-            "properties": {
-                "accessToken": {
-                    "type": "string"
-                },
-                "subscriptionKey": {
-                    "type": "string"
-                }
-            }
-        },
-        "TenantContractArray": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/TenantContract"
-            }
+          }
         }
+      }
     },
-    "tags": []
+    "/tenants": {
+      "get": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "List all available tenants",
+        "description": "Get a collection of available tenants for the current authorization context.",
+        "operationId": "ListTenants",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TenantContract"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Create a new tenant",
+        "description": "Create new tenant and setup a unique agency endpoint.\r\nThe agency will be set as an issuer.",
+        "operationId": "CreateTenant",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Configuration options for creating new tenant.",
+            "schema": {
+              "$ref": "#/definitions/TenantParameters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContract"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Delete all tenants",
+        "description": "This endpoint is only visible in Debug mode.\r\nIt is used to quickly clean tenant registrations.",
+        "operationId": "DeleteAllTenants",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/tenants/{tenantId}": {
+      "get": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Get the specified tenant",
+        "description": "Returns the tenant associate with the provided tenantId.",
+        "operationId": "GetTenant",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContract"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Updates the tenant",
+        "description": "Updates the tenant with the specified new configuration.",
+        "operationId": "UpdateTenant",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "description": "The tenant identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The tenant parameters.",
+            "schema": {
+              "$ref": "#/definitions/TenantUpdateParameters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Delete a tenant",
+        "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\nAll definitions, connections and credentials issued will be deleted.\r\nThis action cannot be reverted.",
+        "operationId": "DeleteTenant",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/tenants/{tenantId}/keys": {
+      "get": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Get tenant keys",
+        "description": "Get the authorization keys for a tenant in the current authorization context",
+        "operationId": "GetTenantKeys",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantKeysContract"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AssetContract": {
+      "type": "object",
+      "properties": {
+        "publicUri": {
+          "type": "string"
+        }
+      }
+    },
+    "NetworkContract": {
+      "type": "object",
+      "properties": {
+        "networkId": {
+          "type": "string"
+        },
+        "networkName": {
+          "type": "string"
+        },
+        "genesisTransactions": {
+          "type": "string"
+        },
+        "poolProtocolVersion": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "EndorserType": {
+      "description": "Endorser type",
+      "enum": [
+        "Shared",
+        "Dedicated",
+        "Delegated"
+      ],
+      "type": "string"
+    },
+    "TenantExtendedInformationContract": {
+      "description": "Extended tenant information",
+      "type": "object",
+      "properties": {
+        "issuerDid": {
+          "description": "Issuer DID",
+          "type": "string"
+        },
+        "issuerKey": {
+          "description": "Issuer Public Key",
+          "type": "string"
+        },
+        "issuerKeyGenerationSeed": {
+          "description": "Isuser key generation seed used for deterministic key creation (32 characters)",
+          "type": "string"
+        },
+        "agentDid": {
+          "description": "Agent DID",
+          "type": "string"
+        },
+        "agentKey": {
+          "description": "Agent Public Key",
+          "type": "string"
+        },
+        "agentKeyGenerationSeed": {
+          "description": "Agent key generation seed used for deterministic key creation (32 characters)",
+          "type": "string"
+        },
+        "agentServiceEndpoint": {
+          "description": "Agent service endpoint URL",
+          "type": "string"
+        },
+        "transactionEndorsement": {
+          "$ref": "#/definitions/EndorserType"
+        }
+      }
+    },
+    "TenantContract": {
+      "description": "The Tenant",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Gets or sets the name of the Tenant.",
+          "type": "string",
+          "readOnly": true
+        },
+        "imageUrl": {
+          "description": "Gets or sets the image URL.",
+          "type": "string"
+        },
+        "network": {
+          "$ref": "#/definitions/NetworkContract"
+        },
+        "tenantId": {
+          "description": "Gets or sets the tenant identifier.",
+          "type": "string",
+          "readOnly": true
+        },
+        "extendedInformation": {
+          "$ref": "#/definitions/TenantExtendedInformationContract"
+        }
+      }
+    },
+    "TenantParameters": {
+      "description": "Configuration options for creating new tenant",
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "description": "(Optional) Unique tenant identifier. If not provided, a ranom one will be generated",
+          "type": "string"
+        },
+        "issuerSeed": {
+          "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
+          "type": "string"
+        },
+        "networkId": {
+          "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
+          "type": "string"
+        },
+        "endorserType": {
+          "$ref": "#/definitions/EndorserType"
+        },
+        "name": {
+          "description": "(Required) The name of the tenant.",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "(Optional) Location of image URL used as profile for this tenant",
+          "type": "string"
+        }
+      }
+    },
+    "TenantUpdateParameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "(Required) The name of the tenant.",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "(Optional) Location of image URL used as profile for this tenant",
+          "type": "string"
+        }
+      }
+    },
+    "TenantKeysContract": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "description": "JWT Access Token that authorizes API calls for the organization",
+          "type": "string"
+        },
+        "subscriptionKey": {
+          "description": "Identifies and authenticates your subscription. This is the same across all Trinsic's organizations and APIs",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\""
+    }
+  },
+  "security": [
+    {
+      "oauth2": [ ]
+    }
+  ]
 }
