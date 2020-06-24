@@ -2,7 +2,7 @@
 
 These service clients can be used in your web application with the Trinsic ID API.
 
-For more information and API Documentation, go to the [Trinsic ID API Documentation](https://docs.trinsic.id/docs/getting-started).
+For more information and API Documentation, go to the [Trinsic ID Documentation](https://docs.trinsic.id/).
 
 ## Available Packages
 
@@ -19,7 +19,7 @@ dotnet add package Trinsic.ServiceClients
 The package contains type definitions for typescript.
 
 ```cmd
-npm install @streetcred.id/service-clients
+npm install @trinsic/service-clients
 ```
 
 ### Pip
@@ -28,6 +28,6 @@ Coming soon...
 
 ## Samples
 
-Check the [samples repository](https://github.com/streetcred-id/samples) for client setup and usage
+Check the [samples repository](https://github.com/trinsic-id/samples) for client setup and usage
 
 Please open an issue in this repo for any questions or issues running these packages.

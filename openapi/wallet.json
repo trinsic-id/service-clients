@@ -11,7 +11,7 @@
         },
         "version": "v1"
     },
-    "host": "api.streetcred.id",
+    "host": "api.trinsic.id",
     "basePath": "/wallet/v1",
     "schemes": [
         "https"
@@ -25,7 +25,7 @@
         },
         "subscriptionKey": {
             "type": "apiKey",
-            "name": "X-Streetcred-Subscription-Key",
+            "name": "X-Trinsic-Subscription-Key",
             "in": "header"
         }
     },
@@ -87,7 +87,7 @@
         },
         "/api/{walletId}/connections/{connectionId}": {
             "get": {
-                "description": "Related: <a href=\"https://docs.streetcred.id/docs/connections\"> Guide to Connections </a>",
+                "description": "Related: <a href=\"https://docs.trinsic.id/docs/connections\"> Guide to Connections </a>",
                 "operationId": "GetConnection",
                 "summary": "Get connection by ID",
                 "tags": [
@@ -289,7 +289,7 @@
         },
         "/api/{walletId}/credentials/{credentialId}": {
             "post": {
-                "description": "Learn more about credentials in <a href=\"https://docs.streetcred.id/docs/credentials\"> our credentials documentation </a>",
+                "description": "Learn more about credentials in <a href=\"https://docs.trinsic.id/docs/credentials\"> our credentials documentation </a>",
                 "operationId": "AcceptCredentialOffer",
                 "summary": "Accepts a credential offer",
                 "tags": [
