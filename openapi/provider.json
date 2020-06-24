@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Trinsic Management API",
+        "title": "Trinsic Provider API",
         "description": "An API to manage organizations, cloud wallets and networks",
         "termsOfService": "https://trinsic.id/terms/",
         "contact": {
@@ -12,7 +12,7 @@
         "version": "v1"
     },
     "host": "api.streetcred.id",
-    "basePath": "/management/v1",
+    "basePath": "/provider/v1",
     "schemes": [
         "https"
     ],
