@@ -767,6 +767,63 @@
                 }
             }
         },
+        "/api/{walletId}/verifications/propose/{connectionId}": {
+            "put": {
+                "description": "Creates proposal from policy",
+                "operationId": "ProposeVerification",
+                "summary": "Creates proposal from policy",
+                "tags": [
+                    "Verification"
+                ],
+                "parameters": [
+                    {
+                        "name": "walletId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "verificationPolicyParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/api/{walletId}/verifications/fromData/autoSelect": {
             "put": {
                 "description": "Verification data can be in the form of a URL or base64 data",
@@ -933,6 +990,7 @@
         },
         "ProofState": {
             "enum": [
+                "Proposed",
                 "Requested",
                 "Accepted",
                 "Rejected"
@@ -1095,6 +1153,79 @@
                 }
             }
         },
+        "ProposedAttribute": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "mimeType": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "referent": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProposedPredicate": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "threshold": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "referent": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProofProposal": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "proposedAttributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProposedAttribute"
+                    }
+                },
+                "proposedPredicates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProposedPredicate"
+                    }
+                }
+            }
+        },
         "VerificationContract": {
             "type": "object",
             "properties": {
@@ -1133,6 +1264,9 @@
                 },
                 "policy": {
                     "$ref": "#/definitions/VerificationPolicyParameters"
+                },
+                "proposal": {
+                    "$ref": "#/definitions/ProofProposal"
                 },
                 "verificationRequestData": {
                     "type": "string"
