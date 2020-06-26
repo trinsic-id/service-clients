@@ -632,7 +632,7 @@
         },
         "/verifications": {
             "get": {
-                "description": "Initiate a new connection by creating an invitation. The newly created connection record\r\nwill be in state 'Invited' until the other party has accepted the invitation.\r\nThe response body includes details about the newly creation connection\r\n<br /><i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#list-all-verifications-for-a-connection\">documentation</a> on how to list verification credentials by connection id.</i>",
+                "description": "<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#list-all-verifications-for-a-connection\">documentation</a> on how to list verification credentials by connection id.</i>",
                 "operationId": "ListVerificationsForConnection",
                 "summary": "Lists the verifications for connection.",
                 "tags": [
@@ -760,8 +760,9 @@
         },
         "/definitions/verifications/{definitionId}": {
             "get": {
+                "description": " Use the verification definition ID to get a specific verification definition.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#get-the-specified-verification-definition\">documentation</a> on how to get verification definition by definition Id.</i>",
                 "operationId": "GetVerificationDefinition",
-                "summary": "GetVerificationDefinition",
+                "summary": "Gets the specified verification definition.",
                 "tags": [
                     "Definitions"
                 ],
@@ -769,6 +770,7 @@
                     {
                         "name": "definitionId",
                         "in": "path",
+                        "description": "The verification identifier.",
                         "required": true,
                         "type": "string"
                     }
@@ -1484,9 +1486,9 @@
         },
         "/verifications/policy/connections/{connectionId}": {
             "post": {
-                "description": "Send a verification to the speicified connection from parameters",
+                "description": "Send a verification to the specified connection from parameters",
                 "operationId": "SendVerificationFromParameters",
-                "summary": "Send a verification to the speicified connection from parameters",
+                "summary": "Send a verification to the specified connection from parameters",
                 "tags": [
                     "Verifications"
                 ],
@@ -1547,6 +1549,43 @@
                 "responses": {
                     "200": {
                         "description": "Success"
+                    }
+                }
+            }
+        },
+        "/verifications/proposal/{verificationId}/connections/{connectionId}": {
+            "put": {
+                "description": "Creates and send a verification from an existing proposal",
+                "operationId": "SendVerificationFromProposal",
+                "summary": "Creates and send a verification from an existing proposal",
+                "tags": [
+                    "Verifications"
+                ],
+                "parameters": [
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "verificationId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
+                        }
                     }
                 }
             }
@@ -1939,10 +1978,6 @@
                 },
                 "supportsRevocation": {
                     "type": "boolean"
-                },
-                "maxCredentialCount": {
-                    "format": "int32",
-                    "type": "integer"
                 },
                 "schemaId": {
                     "type": "string"
@@ -2409,6 +2444,7 @@
         },
         "ProofState": {
             "enum": [
+                "Proposed",
                 "Requested",
                 "Accepted",
                 "Rejected"
@@ -2439,6 +2475,79 @@
                 },
                 "conditional": {
                     "type": "boolean"
+                }
+            }
+        },
+        "ProposedAttribute": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "mimeType": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "referent": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProposedPredicate": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "threshold": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "referent": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProofProposal": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "proposedAttributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProposedAttribute"
+                    }
+                },
+                "proposedPredicates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProposedPredicate"
+                    }
                 }
             }
         },
@@ -2480,6 +2589,9 @@
                 },
                 "policy": {
                     "$ref": "#/definitions/VerificationPolicyParameters"
+                },
+                "proposal": {
+                    "$ref": "#/definitions/ProofProposal"
                 },
                 "verificationRequestData": {
                     "type": "string"
@@ -2526,7 +2638,8 @@
         "WebhookType": {
             "enum": [
                 "Notification",
-                "DelegatedEndorser"
+                "DelegatedEndorser",
+                "Zapier"
             ],
             "type": "string"
         },
