@@ -700,7 +700,8 @@
                             "$ref": "#/definitions/VerificationContract"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/verifications/{verificationId}": {
@@ -784,7 +785,8 @@
                             "$ref": "#/definitions/VerificationDefinitionContract"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/definitions/verifications": {
@@ -805,7 +807,8 @@
                             "$ref": "#/definitions/VerificationDefinitionContractArray"
                         }
                     }
-                }
+                },
+                "deprecated": true
             },
             "post": {
                 "description": " A verification definition is created and saved on your cloud agent. You can discover your definition based on the ID that is returned or the name.\r\n<i>Please check the <a href=\"https://docs.streetcred.id/docs/verifications#create-a-verification-definition\">documentation</a> on how to create new verification definition.</i>",
@@ -839,7 +842,8 @@
                             "$ref": "#/definitions/VerificationDefinitionContract"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/webhooks": {
@@ -1213,7 +1217,8 @@
                     "200": {
                         "description": "Success"
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/verifications/{verificationId}/verify": {
@@ -1245,7 +1250,8 @@
                             "$ref": "#/definitions/VerificationResult"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/verificationPolicies": {
