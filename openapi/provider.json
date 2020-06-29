@@ -11,7 +11,7 @@
         },
         "version": "v1"
     },
-    "host": "api.trinsic.id",
+    "host": "api.streetcred.id",
     "basePath": "/provider/v1",
     "schemes": [
         "https"

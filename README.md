@@ -28,6 +28,6 @@ Coming soon...
 
 ## Samples
 
-Check the [samples repository](https://github.com/trinsic-id/samples) for client setup and usage
+Check the [samples repository](https://github.com/streetcred-id/samples) for client setup and usage
 
 Please open an issue in this repo for any questions or issues running these packages.

@@ -11,7 +11,7 @@
         },
         "version": "v1"
     },
-    "host": "api.trinsic.id",
+    "host": "api.streetcred.id",
     "basePath": "/wallet/v1",
     "schemes": [
         "https"
@@ -25,7 +25,7 @@
         },
         "subscriptionKey": {
             "type": "apiKey",
-            "name": "X-Trinsic-Subscription-Key",
+            "name": "X-Streetcred-Subscription-Key",
             "in": "header"
         }
     },
