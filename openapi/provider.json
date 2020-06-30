@@ -1,0 +1,447 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Trinsic Provider API",
+    "description": "An API to manage organizations, cloud wallets and networks",
+    "termsOfService": "https://trinsic.id/terms/",
+    "contact": {
+      "name": "Trinsic Engineering Team",
+      "url": "https://trinsic.id/contact-us",
+      "email": "support@trinsic.id"
+    },
+    "version": "v1"
+  },
+  "host": "api.streetcred.id",
+  "basePath": "/provider/v1",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "X-Trinsic-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {},
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "paths": {
+    "/assets": {
+      "post": {
+        "description": "Upload a new asset to be used as an image for a tenant tile.",
+        "operationId": "AddAsset",
+        "summary": "Upload a new asset",
+        "tags": [
+          "Assets"
+        ],
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "query",
+            "description": "Filename to be uploaded",
+            "type": "string"
+          },
+          {
+            "name": "contentType",
+            "in": "query",
+            "description": "Content type of files to be uploaded",
+            "type": "string"
+          },
+          {
+            "name": "uploadedFiles",
+            "in": "formData",
+            "type": "file"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AssetContract"
+            }
+          }
+        }
+      }
+    },
+    "/tenants": {
+      "get": {
+        "description": "Get a collection of available tenants for the current authorization context.",
+        "operationId": "ListTenants",
+        "summary": "List all available tenants",
+        "tags": [
+          "Tenants"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContractArray"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create new tenant and setup a unique agency endpoint.\r\nThe agency will be set as an issuer.",
+        "operationId": "CreateTenant",
+        "summary": "Create a new tenant",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TenantParameters"
+            },
+            "description": "Configuration options for creating new tenant."
+          }
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContract"
+            }
+          }
+        }
+      }
+    },
+    "/tenants/{tenantId}": {
+      "get": {
+        "description": "Returns the tenant associate with the provided tenantId.",
+        "operationId": "GetTenant",
+        "summary": "Get the specified tenant",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantContract"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Updates the tenant with the specified new configuration.",
+        "operationId": "UpdateTenant",
+        "summary": "Updates the tenant",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant identifier.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tenantUpdateParameters",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TenantUpdateParameters"
+            },
+            "description": "The tenant parameters."
+          }
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\nAll definitions, connections and credentials issued will be deleted.\r\nThis action cannot be reverted.",
+        "operationId": "DeleteTenant",
+        "summary": "Delete a tenant",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/tenants/{tenantId}/keys": {
+      "get": {
+        "description": "Get the authorization keys for a tenant in the current authorization context",
+        "operationId": "GetTenantKeys",
+        "summary": "Get tenant keys",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantKeysContract"
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "Update the authorization keys for a tenant in the current authorization context",
+        "operationId": "ChangeTenantKeys",
+        "summary": "Update tenant keys",
+        "tags": [
+          "Tenants"
+        ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TenantKeysContract"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AssetContract": {
+      "type": "object",
+      "properties": {
+        "publicUri": {
+          "type": "string"
+        }
+      }
+    },
+    "NetworkContract": {
+      "type": "object",
+      "properties": {
+        "networkId": {
+          "type": "string"
+        },
+        "networkName": {
+          "type": "string"
+        },
+        "genesisTransactions": {
+          "type": "string"
+        },
+        "poolProtocolVersion": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "EndorserType": {
+      "description": "Endorser type",
+      "enum": [
+        "Shared",
+        "Dedicated",
+        "Delegated"
+      ],
+      "type": "string"
+    },
+    "TenantExtendedInformationContract": {
+      "description": "Extended tenant information",
+      "type": "object",
+      "properties": {
+        "issuerDid": {
+          "description": "Issuer DID",
+          "type": "string"
+        },
+        "issuerKey": {
+          "description": "Issuer Public Key",
+          "type": "string"
+        },
+        "issuerKeyGenerationSeed": {
+          "description": "Isuser key generation seed used for deterministic key creation (32 characters)",
+          "type": "string"
+        },
+        "agentDid": {
+          "description": "Agent DID",
+          "type": "string"
+        },
+        "agentKey": {
+          "description": "Agent Public Key",
+          "type": "string"
+        },
+        "agentKeyGenerationSeed": {
+          "description": "Agent key generation seed used for deterministic key creation (32 characters)",
+          "type": "string"
+        },
+        "agentServiceEndpoint": {
+          "description": "Agent service endpoint URL",
+          "type": "string"
+        },
+        "transactionEndorsement": {
+          "$ref": "#/definitions/EndorserType"
+        }
+      }
+    },
+    "TenantContract": {
+      "description": "The Tenant",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Gets or sets the name of the Tenant.",
+          "type": "string",
+          "readOnly": true
+        },
+        "imageUrl": {
+          "description": "Gets or sets the image URL.",
+          "type": "string"
+        },
+        "network": {
+          "$ref": "#/definitions/NetworkContract"
+        },
+        "tenantId": {
+          "description": "Gets or sets the tenant identifier.",
+          "type": "string",
+          "readOnly": true
+        },
+        "extendedInformation": {
+          "$ref": "#/definitions/TenantExtendedInformationContract"
+        }
+      }
+    },
+    "TenantParameters": {
+      "description": "Configuration options for creating new tenant",
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "description": "(Optional) Unique tenant identifier. If not provided, a ranom one will be generated",
+          "type": "string"
+        },
+        "issuerSeed": {
+          "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
+          "type": "string"
+        },
+        "networkId": {
+          "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
+          "type": "string"
+        },
+        "endorserType": {
+          "$ref": "#/definitions/EndorserType"
+        },
+        "name": {
+          "description": "(Required) The name of the tenant.",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "(Optional) Location of image URL used as profile for this tenant",
+          "type": "string"
+        }
+      }
+    },
+    "TenantUpdateParameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "(Required) The name of the tenant.",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "(Optional) Location of image URL used as profile for this tenant",
+          "type": "string"
+        }
+      }
+    },
+    "TenantKeysContract": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "description": "JWT Access Token that authorizes API calls for the organization",
+          "type": "string"
+        },
+        "subscriptionKey": {
+          "description": "Identifies and authenticates your subscription. This is the same across all Trinsic's organizations and APIs",
+          "type": "string"
+        }
+      }
+    },
+    "TenantContractArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TenantContract"
+      }
+    }
+  },
+  "tags": []
+}
