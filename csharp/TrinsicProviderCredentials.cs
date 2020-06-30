@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <inheritdoc />
         public override Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            request.Headers.Add("Authorization", $"Bearer {Options.AccountSecret}");
+            request.Headers.Add("Authorization", $"Bearer {Options.ProviderKey}");
             return base.ProcessHttpRequestAsync(request, cancellationToken);
         }
     }

@@ -20,29 +20,26 @@ export class TrinsicProviderClientOptions implements ProviderServiceClientOption
 
 export class TrinsicClientCredentials implements ServiceClientCredentials {
     accessToken: string
-    subscriptionKey: string;
 
     constructor(accessToken: string, subscriptionKey: string) {
         this.accessToken = accessToken;
-        this.subscriptionKey = subscriptionKey;
     }
 
     signRequest(webResource: WebResource): Promise<WebResource> {
         webResource.headers.set("Authorization", `Bearer ${this.accessToken}`);
-        webResource.headers.set("X-Trinsic-Subscription-Key", this.subscriptionKey);
         return Promise.resolve(webResource);
     }
 }
 
 export class TrinsicProviderCredentials implements ServiceClientCredentials {
-    accountSecret: string
+    providerKey: string
 
-    constructor(accountSecret: string) {
-        this.accountSecret = accountSecret;
+    constructor(providerKey: string) {
+        this.providerKey = providerKey;
     }
 
     signRequest(webResource: WebResource): Promise<WebResource> {
-        webResource.headers.set("Authorization", `Bearer ${this.accountSecret}`);
+        webResource.headers.set("Authorization", `Bearer ${this.providerKey}`);
         return Promise.resolve(webResource);
     }
 }

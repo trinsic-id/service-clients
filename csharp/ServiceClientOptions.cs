@@ -14,20 +14,12 @@
         public string AccessToken { get; set; }
 
         /// <summary>
-        /// Gets or sets the account secret
+        /// Gets or sets the provider key
         /// </summary>
         /// <value>
         /// The access token.
         /// </value>
-        public string AccountSecret { get; set; }
-
-        /// <summary>
-        /// Gets or sets the subscription key.
-        /// </summary>
-        /// <value>
-        /// The subscription key.
-        /// </value>
-        public string SubscriptionKey { get; set; }
+        public string ProviderKey { get; set; }
 
         /// <summary>
         /// Gets or sets the credentials base URI.
