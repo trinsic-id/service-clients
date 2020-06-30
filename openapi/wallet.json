@@ -1,15 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Trinsic Wallet API",
-        "description": "A powerful API to manage self-sovereign identity for users",
-        "termsOfService": "https://trinsic.id/terms/",
-        "contact": {
-            "name": "Trinsic Engineering Team",
-            "url": "https://trinsic.id/contact-us",
-            "email": "support@trinsic.id"
-        },
-        "version": "v1"
+        "title": "Wallet",
+        "version": "v1",
+        "description": "A powerful API to manage self-sovereign identity for users"
     },
     "host": "api.streetcred.id",
     "basePath": "/wallet/v1",
@@ -17,24 +11,24 @@
         "https"
     ],
     "securityDefinitions": {
-        "accessToken": {
-            "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
+        "apiKeyHeader": {
             "type": "apiKey",
-            "name": "Authorization",
+            "name": "X-Trinsic-Subscription-Key",
             "in": "header"
         },
-        "subscriptionKey": {
+        "apiKeyQuery": {
             "type": "apiKey",
-            "name": "X-Streetcred-Subscription-Key",
-            "in": "header"
+            "name": "subscription-key",
+            "in": "query"
         }
     },
     "security": [
+        {},
         {
-            "accessToken": []
+            "apiKeyHeader": []
         },
         {
-            "subscriptionKey": []
+            "apiKeyQuery": []
         }
     ],
     "paths": {
@@ -57,7 +51,6 @@
                     {
                         "name": "invitation",
                         "in": "formData",
-                        "required": true,
                         "type": "string"
                     }
                 ],
@@ -414,9 +407,9 @@
         },
         "/api/wallets": {
             "get": {
-                "description": "Lists all custodian wallets",
+                "description": "Lists all wallets",
                 "operationId": "ListWallets",
-                "summary": "Lists all custodian wallets",
+                "summary": "Lists all wallets",
                 "tags": [
                     "Wallet"
                 ],
@@ -484,7 +477,7 @@
             "delete": {
                 "description": "This will delete all connections, credentials and verification records for this user wallet.",
                 "operationId": "DeleteWallet",
-                "summary": "Deletes the custodian wallet permanently.",
+                "summary": "Deletes the wallet permanently.",
                 "tags": [
                     "Wallet"
                 ],
@@ -739,7 +732,6 @@
                     {
                         "name": "credentialData",
                         "in": "formData",
-                        "required": true,
                         "type": "string"
                     }
                 ],
@@ -756,6 +748,63 @@
                         "description": "Success",
                         "schema": {
                             "$ref": "#/definitions/CredentialContract"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/{walletId}/verifications/propose/{connectionId}": {
+            "put": {
+                "description": "Creates proposal from policy",
+                "operationId": "ProposeVerification",
+                "summary": "Creates proposal from policy",
+                "tags": [
+                    "Verification"
+                ],
+                "parameters": [
+                    {
+                        "name": "walletId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "connectionId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "verificationPolicyParameters",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationPolicyParameters"
+                        }
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/VerificationContract"
                         }
                     },
                     "401": {
@@ -786,7 +835,6 @@
                     {
                         "name": "verificationData",
                         "in": "formData",
-                        "required": true,
                         "type": "string"
                     }
                 ],
@@ -933,6 +981,7 @@
         },
         "ProofState": {
             "enum": [
+                "Proposed",
                 "Requested",
                 "Accepted",
                 "Rejected"
@@ -1095,6 +1144,79 @@
                 }
             }
         },
+        "ProposedAttribute": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "mimeType": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "referent": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProposedPredicate": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "credentialDefinitionId": {
+                    "type": "string"
+                },
+                "issuerDid": {
+                    "type": "string"
+                },
+                "schemaId": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "threshold": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "referent": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProofProposal": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "proposedAttributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProposedAttribute"
+                    }
+                },
+                "proposedPredicates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProposedPredicate"
+                    }
+                }
+            }
+        },
         "VerificationContract": {
             "type": "object",
             "properties": {
@@ -1133,6 +1255,9 @@
                 },
                 "policy": {
                     "$ref": "#/definitions/VerificationPolicyParameters"
+                },
+                "proposal": {
+                    "$ref": "#/definitions/ProofProposal"
                 },
                 "verificationRequestData": {
                     "type": "string"

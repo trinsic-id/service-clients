@@ -29,7 +29,7 @@ export class TrinsicClientCredentials implements ServiceClientCredentials {
 
     signRequest(webResource: WebResource): Promise<WebResource> {
         webResource.headers.set("Authorization", `Bearer ${this.accessToken}`);
-        webResource.headers.set("X-Streetcred-Subscription-Key", this.subscriptionKey);
+        webResource.headers.set("X-Trinsic-Subscription-Key", this.subscriptionKey);
         return Promise.resolve(webResource);
     }
 }
