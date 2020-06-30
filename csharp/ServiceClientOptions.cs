@@ -30,36 +30,36 @@
         public string SubscriptionKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the credentials base URI.
+        /// Gets or sets the agency base URI.
         /// <remarks>
         /// Use this field to override the default base URI, otherwise leave <c>null</c>.
         /// </remarks>
         /// </summary>
         /// <value>
-        /// The credentials base URI.
+        /// The agency base URI.
         /// </value>
-        public string CredentialsBaseUri { get; set; }
+        public string AgencyBaseUri { get; set; }
 
         /// <summary>
-        /// Gets or sets the wallet base URI.
+        /// Gets or sets the custodian base URI.
         /// </summary>
         /// <remarks>
         /// Use this field to override the default base URI, otherwise leave <c>null</c>.
         /// </remarks>
         /// <value>
-        /// The wallet base URI.
+        /// The custodian base URI.
         /// </value>
-        public string WalletBaseUri { get; set; }
+        public string CustodianBaseUri { get; set; }
 
         /// <summary>
-        /// Gets or sets the provider base URI.
+        /// Gets or sets the management base URI.
         /// </summary>
         /// <remarks>
         /// Use this field to override the default base URI, otherwise leave <c>null</c>.
         /// </remarks>
         /// <value>
-        /// The provider base URI.
+        /// The custodian base URI.
         /// </value>
-        public string ProviderBaseUri { get; set; }
+        public string ManagementBaseUri { get; set; }
     }
 }

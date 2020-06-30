@@ -1,8 +1,8 @@
 #! /bin/bash
 
-autorest --input-file=../openapi/wallet.json --csharp --output-folder=Generated --namespace=Trinsic.ServiceClients --add-credentials --override-client-name=WalletServiceClient
-autorest --input-file=../openapi/credentials.json --csharp --output-folder=Generated --namespace=Trinsic.ServiceClients --add-credentials --override-client-name=CredentialsServiceClient
-autorest --input-file=../openapi/provider.json --csharp --output-folder=Generated --namespace=Trinsic.ServiceClients --add-credentials --override-client-name=ProviderServiceClient
+autorest --input-file=../openapi/custodian.json --csharp --output-folder=Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=CustodianServiceClient
+autorest --input-file=../openapi/agency.json --csharp --output-folder=Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient
+autorest --input-file=../openapi/management.json --csharp --output-folder=Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=ManagementServiceClient
 
 dotnet pack
 

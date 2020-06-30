@@ -1,17 +1,17 @@
-# Service Clients repository for Trinsic SSI platform
+# Service Clients repository for Streetcred SSI platform
 
-These service clients can be used in your web application with the Trinsic ID API.
+These service clients can be used in your web application with the Streetcred ID API.
 
-For more information and API Documentation, go to the [Trinsic ID Documentation](https://docs.trinsic.id/).
+For more information and API Documentation, go to the [Streetcred ID API Documentation](https://docs.streetcred.id/docs/getting-started).
 
 ## Available Packages
 
 ### Nuget
 
-The [package](https://www.nuget.org/packages/Trinsic.ServiceClients/) is available for `.netstandard2.0` and up.
+The [package](https://www.nuget.org/packages/Streetcred.ServiceClients/) is available for `.netstandard2.0` and up.
 
 ```cmd
-dotnet add package Trinsic.ServiceClients
+dotnet add package Streetcred.ServiceClients
 ```
 
 ### NPM
@@ -19,7 +19,7 @@ dotnet add package Trinsic.ServiceClients
 The package contains type definitions for typescript.
 
 ```cmd
-npm install @trinsic/service-clients
+npm install @streetcred.id/service-clients
 ```
 
 ### Pip

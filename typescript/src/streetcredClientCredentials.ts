@@ -1,24 +1,24 @@
 import { ServiceClientCredentials, WebResource, ServiceClientOptions } from "@azure/ms-rest-js";
-import { CredentialsServiceClientOptions } from "./credentials/models"
-import { WalletServiceClientOptions } from "./wallet/models"
-import { ProviderServiceClientOptions } from "./provider/models"
+import { AgencyServiceClientOptions } from "./agency/models"
+import { CustodianServiceClientOptions } from "./custodian/models"
+import { ManagementServiceClientOptions } from "./management/models"
 
-export class TrinsicCredentialsClientOptions implements CredentialsServiceClientOptions {
+export class StreetcredAgencyClientOptions implements AgencyServiceClientOptions {
     noRetryPolicy?: boolean;
     baseUri?: string;
 }
 
-export class TrinsicWalletClientOptions implements WalletServiceClientOptions {
+export class StreetcredCustodianClientOptions implements CustodianServiceClientOptions {
     noRetryPolicy?: boolean
     baseUri?: string;
 }
 
-export class TrinsicProviderClientOptions implements ProviderServiceClientOptions {
+export class StreetcredManagementClientOptions implements ManagementServiceClientOptions {
     noRetryPolicy?: boolean
     baseUri?: string;
 }
 
-export class TrinsicClientCredentials implements ServiceClientCredentials {
+export class StreetcredClientCredentials implements ServiceClientCredentials {
     accessToken: string
     subscriptionKey: string;
 
@@ -29,12 +29,12 @@ export class TrinsicClientCredentials implements ServiceClientCredentials {
 
     signRequest(webResource: WebResource): Promise<WebResource> {
         webResource.headers.set("Authorization", `Bearer ${this.accessToken}`);
-        webResource.headers.set("X-Trinsic-Subscription-Key", this.subscriptionKey);
+        webResource.headers.set("X-Streetcred-Subscription-Key", this.subscriptionKey);
         return Promise.resolve(webResource);
     }
 }
 
-export class TrinsicProviderCredentials implements ServiceClientCredentials {
+export class StreetcredManagementCredentials implements ServiceClientCredentials {
     accountSecret: string
 
     constructor(accountSecret: string) {

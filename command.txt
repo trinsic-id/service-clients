@@ -1,5 +1,5 @@
-autorest --input-file=http://localhost:5009/swagger/v1/swagger.json --csharp --output-folder=src/Trinsic.Cloud.Client --namespace=Trinsic.Cloud.Client --add-credentials --override-client-name=CloudServiceClient
+autorest --input-file=http://localhost:5009/swagger/v1/swagger.json --csharp --output-folder=src/Streetcred.Cloud.Client --namespace=Streetcred.Cloud.Client --add-credentials --override-client-name=CloudServiceClient
 
-autorest --input-file=http://localhost:5000/swagger/v1/swagger.json --csharp --output-folder=src/Trinsic.Portal.Client --namespace=Trinsic.Portal.Client --add-credentials --override-client-name=PortalServiceClient
+autorest --input-file=http://localhost:5000/swagger/v1/swagger.json --csharp --output-folder=src/Streetcred.Portal.Client --namespace=Streetcred.Portal.Client --add-credentials --override-client-name=PortalServiceClient
 
-autorest --input-file=swagger.json --csharp --output-folder=csharp/Generated --namespace=Trinsic.ServiceClients --add-credentials --override-client-name=CredentialsServiceClient
+autorest --input-file=swagger.json --csharp --output-folder=csharp/Generated --namespace=Streetcred.ServiceClients --add-credentials --override-client-name=AgencyServiceClient

@@ -1,5 +1,5 @@
 {
-  "name": "@trinsic/service-clients",
+  "name": "@streetcred.id/service-clients",
   "version": "1.0.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,7 @@
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Trinsic ID Inc.",
+  "author": "Streetcred ID Inc.",
   "license": "Apache-2.0",
   "keywords": [],
   "description": "",

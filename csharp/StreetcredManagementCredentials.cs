@@ -7,7 +7,7 @@ using Microsoft.Rest;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public class TrinsicProviderCredentials : ServiceClientCredentials
+    public class StreetcredManagementCredentials : ServiceClientCredentials
     {
         /// <summary>
         /// Gets the options.
@@ -18,10 +18,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public ServiceClientOptions Options { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TrinsicClientCredentials"/> class.
+        /// Initializes a new instance of the <see cref="StreetcredClientCredentials"/> class.
         /// </summary>
         /// <param name="options">The options.</param>
-        public TrinsicProviderCredentials(IOptions<ServiceClientOptions> options)
+        public StreetcredManagementCredentials(IOptions<ServiceClientOptions> options)
         {
             Options = options.Value;
         }
