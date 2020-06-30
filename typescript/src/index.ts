@@ -1,20 +1,21 @@
-import { AgencyServiceClient, AgencyServiceModels, AgencyServiceMappers } from "./agency/agencyServiceClient"
-import { CustodianServiceClient, CustodianServiceModels, CustodianServiceMappers } from "./custodian/custodianServiceClient"
-import { ManagementServiceClient, ManagementServiceModels, ManagementServiceMappers } from "./management/managementServiceClient"
-import { StreetcredClientCredentials, StreetcredAgencyClientOptions, StreetcredCustodianClientOptions, StreetcredManagementClientOptions } from "./streetcredClientCredentials"
+import { CredentialsServiceClient, CredentialsServiceModels, CredentialsServiceMappers } from "./credentials/credentialsServiceClient"
+import { WalletServiceClient, WalletServiceModels, WalletServiceMappers } from "./wallet/walletServiceClient"
+import { ProviderServiceClient, ProviderServiceModels, ProviderServiceMappers } from "./provider/providerServiceClient"
+import { TrinsicClientCredentials, TrinsicProviderCredentials, TrinsicCredentialsClientOptions, TrinsicWalletClientOptions, TrinsicProviderClientOptions } from "./trinsicClientCredentials"
 
 export {
-    AgencyServiceClient,
-    CustodianServiceClient,
-    ManagementServiceClient,
-    AgencyServiceModels as AgencyModels,
-    CustodianServiceModels as CustodianModels,
-    ManagementServiceModels as ManagementModels,
-    AgencyServiceMappers as AgencyMappers,
-    CustodianServiceMappers as CustodianMappers,
-    ManagementServiceMappers as ManagementMappers,
-    StreetcredClientCredentials as Credentials,
-    StreetcredAgencyClientOptions as AgencyOptions,
-    StreetcredCustodianClientOptions as CustodianOptions,
-    StreetcredManagementClientOptions as ManagementOptions
+    CredentialsServiceClient,
+    WalletServiceClient,
+    ProviderServiceClient,
+    CredentialsServiceModels as CredentialsModels,
+    WalletServiceModels as WalletModels,
+    ProviderServiceModels as ProviderModels,
+    CredentialsServiceMappers as CredentialsMappers,
+    WalletServiceMappers as WalletMappers,
+    ProviderServiceMappers as ProviderMappers,
+    TrinsicClientCredentials as Credentials,
+    TrinsicProviderCredentials as ProviderCredentials,
+    TrinsicCredentialsClientOptions as CredentialsOptions,
+    TrinsicWalletClientOptions as WalletOptions,
+    TrinsicProviderClientOptions as ProviderOptions
 };
