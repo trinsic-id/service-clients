@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Initializes a new instance of the <see cref="TrinsicClientCredentials"/> class.
         /// </summary>
-        /// <param name="options">The options.</param>
+        /// <param name="options">The options</param>
         public TrinsicClientCredentials(IOptions<ServiceClientOptions> options)
         {
             Options = options.Value;

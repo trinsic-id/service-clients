@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Trinsic Provider API",
-    "description": "An API to manage organizations, cloud wallets and networks",
-    "termsOfService": "https://trinsic.id/terms/",
+    "title": "Provider API",
+    "description": "An API to manage Self-Sovereign Identity issuers and verifiers",
+    "termsOfService": "https://trinsic.id/terms-of-service/",
     "contact": {
       "name": "Trinsic Engineering Team",
       "url": "https://trinsic.id/contact-us",
@@ -11,57 +11,41 @@
     },
     "version": "v1"
   },
-  "host": "api.streetcred.id",
-  "basePath": "/provider/v1",
-  "schemes": [
-    "https"
-  ],
-  "securityDefinitions": {
-    "providerKey": {
-      "description": "Standard Authorization header using the Bearer scheme. Example \"Bearer {token}\"",
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header"
-    }
-  },
-  "security": [
-    {
-      "providerKey": []
-    }
-  ],
   "paths": {
     "/assets": {
       "post": {
-        "description": "Upload a new asset to be used as an image for a tenant tile.",
-        "operationId": "AddAsset",
-        "summary": "Upload a new asset",
         "tags": [
           "Assets"
         ],
-        "parameters": [
-          {
-            "name": "filename",
-            "in": "query",
-            "description": "Filename to be uploaded",
-            "type": "string"
-          },
-          {
-            "name": "contentType",
-            "in": "query",
-            "description": "Content type of files to be uploaded",
-            "type": "string"
-          },
-          {
-            "name": "uploadedFiles",
-            "in": "formData",
-            "type": "file"
-          }
-        ],
+        "summary": "Upload asset",
+        "description": "Upload a new asset to be used as an image for a tenant tile.",
+        "operationId": "AddAsset",
         "consumes": [
           "multipart/form-data"
         ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filename",
+            "description": "Filename to be uploaded",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "contentType",
+            "description": "Content type of files to be uploaded",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "uploadedFiles",
+            "description": "Asset files to be uploaded",
+            "required": true,
+            "type": "file"
+          }
         ],
         "responses": {
           "200": {
@@ -75,12 +59,12 @@
     },
     "/tenants": {
       "get": {
-        "description": "Get a collection of available tenants for the current authorization context.",
-        "operationId": "ListTenants",
-        "summary": "List all available tenants",
         "tags": [
           "Tenants"
         ],
+        "summary": "List all tenants",
+        "description": "List all available tenants for the current authorization context.",
+        "operationId": "ListTenants",
         "produces": [
           "application/json"
         ],
@@ -88,28 +72,21 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/TenantContractArray"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TenantContract"
+              }
             }
           }
         }
       },
       "post": {
-        "description": "Create new tenant and setup a unique agency endpoint.\r\nThe agency will be set as an issuer.",
-        "operationId": "CreateTenant",
-        "summary": "Create a new tenant",
         "tags": [
           "Tenants"
         ],
-        "parameters": [
-          {
-            "name": "tenantParameters",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/TenantParameters"
-            },
-            "description": "Configuration options for creating new tenant."
-          }
-        ],
+        "summary": "Create tenant",
+        "description": "Create a tenant and setup a unique agency endpoint.\r\nThe agency will be set as an issuer.",
+        "operationId": "CreateTenant",
         "consumes": [
           "application/json",
           "text/json",
@@ -117,6 +94,16 @@
         ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Configuration options for creating new tenant",
+            "schema": {
+              "$ref": "#/definitions/TenantParameters"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -130,22 +117,23 @@
     },
     "/tenants/{tenantId}": {
       "get": {
-        "description": "Returns the tenant associate with the provided tenantId.",
-        "operationId": "GetTenant",
-        "summary": "Get the specified tenant",
         "tags": [
           "Tenants"
         ],
+        "summary": "Get tenant",
+        "description": "Get the specified tenant.",
+        "operationId": "GetTenant",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "tenantId",
             "in": "path",
+            "name": "tenantId",
+            "description": "The tenant identifier",
             "required": true,
             "type": "string"
           }
-        ],
-        "produces": [
-          "application/json"
         ],
         "responses": {
           "200": {
@@ -157,33 +145,33 @@
         }
       },
       "put": {
-        "description": "Updates the tenant with the specified new configuration.",
-        "operationId": "UpdateTenant",
-        "summary": "Updates the tenant",
         "tags": [
           "Tenants"
         ],
-        "parameters": [
-          {
-            "name": "tenantId",
-            "in": "path",
-            "description": "The tenant identifier.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "tenantUpdateParameters",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/TenantUpdateParameters"
-            },
-            "description": "The tenant parameters."
-          }
-        ],
+        "summary": "Update tenant",
+        "description": "Update the specified tenant with the specified new configuration.",
+        "operationId": "UpdateTenant",
         "consumes": [
           "application/json",
           "text/json",
           "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "description": "The tenant identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The tenant parameters",
+            "schema": {
+              "$ref": "#/definitions/TenantUpdateParameters"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -192,16 +180,16 @@
         }
       },
       "delete": {
-        "description": "Permanently remove a tenant, including their wallet, endpoint registrations and all data.\r\nAll definitions, connections and credentials issued will be deleted.\r\nThis action cannot be reverted.",
-        "operationId": "DeleteTenant",
-        "summary": "Delete a tenant",
         "tags": [
           "Tenants"
         ],
+        "summary": "Delete tenant",
+        "description": "Permanently delete a tenant, including their wallet, endpoint registrations and all data.\r\nAll definitions, connections and credentials issued will be deleted.\r\nThis action cannot be reverted.",
+        "operationId": "DeleteTenant",
         "parameters": [
           {
-            "name": "tenantId",
             "in": "path",
+            "name": "tenantId",
             "required": true,
             "type": "string"
           }
@@ -215,24 +203,25 @@
     },
     "/tenants/{tenantId}/keys": {
       "get": {
-        "description": "Get the authorization keys for a tenant in the current authorization context",
-        "operationId": "GetTenantKeys",
-        "summary": "Get tenant keys",
         "tags": [
           "Tenants"
         ],
-        "parameters": [
-          {
-            "name": "tenantId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "summary": "Get tenant keys",
+        "description": "Get the authorization keys for a tenant in the current authorization context.",
+        "operationId": "GetTenantKeys",
         "produces": [
           "text/plain",
           "application/json",
           "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "description": "The tenant identifier",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -244,24 +233,25 @@
         }
       },
       "patch": {
-        "description": "Update the authorization keys for a tenant in the current authorization context",
-        "operationId": "ChangeTenantKeys",
-        "summary": "Update tenant keys",
         "tags": [
           "Tenants"
         ],
-        "parameters": [
-          {
-            "name": "tenantId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "summary": "Update tenant keys",
+        "description": "Update the authorization keys for a tenant in the current authorization context.",
+        "operationId": "ChangeTenantKeys",
         "produces": [
           "text/plain",
           "application/json",
           "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "description": "The tenant identifier",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -375,9 +365,6 @@
     },
     "TenantParameters": {
       "description": "Configuration options for creating new tenant",
-      "required": [
-        "name"
-      ],
       "type": "object",
       "properties": {
         "tenantId": {
@@ -419,6 +406,7 @@
       }
     },
     "TenantKeysContract": {
+      "description": "Tenant keys",
       "type": "object",
       "properties": {
         "accessToken": {
@@ -430,13 +418,19 @@
           "type": "string"
         }
       }
-    },
-    "TenantContractArray": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/TenantContract"
-      }
     }
   },
-  "tags": []
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\""
+    }
+  },
+  "security": [
+    {
+      "oauth2": [ ]
+    }
+  ]
 }

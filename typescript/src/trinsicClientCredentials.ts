@@ -21,7 +21,7 @@ export class TrinsicProviderClientOptions implements ProviderServiceClientOption
 export class TrinsicClientCredentials implements ServiceClientCredentials {
     accessToken: string
 
-    constructor(accessToken: string, subscriptionKey: string) {
+    constructor(accessToken: string) {
         this.accessToken = accessToken;
     }
 
