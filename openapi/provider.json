@@ -11,6 +11,11 @@
     },
     "version": "v1"
   },
+  "host": "api.streetcred.id",
+  "basePath": "/provider/v1",
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/assets": {
       "post": {
@@ -425,7 +430,7 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
-      "description": "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\""
+      "description": "Standard Authorization header using the Bearer scheme and a Provider Key. Example: \"Bearer {Provider Key}\""
     }
   },
   "security": [
