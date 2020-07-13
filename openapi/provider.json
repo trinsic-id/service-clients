@@ -372,6 +372,9 @@
     },
     "TenantParameters": {
       "description": "Configuration options for creating new tenant",
+      "required": [
+        "name"
+      ],
       "type": "object",
       "properties": {
         "tenantId": {
@@ -401,6 +404,9 @@
     },
     "TenantUpdateParameters": {
       "description": "Tenant update parameters",
+      "required": [
+        "name"
+      ],
       "type": "object",
       "properties": {
         "name": {
