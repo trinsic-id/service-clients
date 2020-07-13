@@ -103,7 +103,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "tenantParameters",
+            "name": "body",
             "description": "Configuration options for creating new tenant",
             "schema": {
               "$ref": "#/definitions/TenantParameters"
@@ -171,7 +171,7 @@
           },
           {
             "in": "body",
-            "name": "tenantParameters",
+            "name": "body",
             "description": "The tenant parameters",
             "schema": {
               "$ref": "#/definitions/TenantUpdateParameters"
@@ -271,9 +271,11 @@
   },
   "definitions": {
     "AssetContract": {
+      "description": "Asset contract",
       "type": "object",
       "properties": {
         "publicUri": {
+          "description": "Public URI",
           "type": "string"
         }
       }
@@ -318,7 +320,7 @@
           "type": "string"
         },
         "issuerKeyGenerationSeed": {
-          "description": "Issuer key generation seed used for deterministic key creation (32 characters)",
+          "description": "Random key generation seed used for deterministic key creation (32 characters)",
           "type": "string"
         },
         "agentDid": {
@@ -398,6 +400,7 @@
       }
     },
     "TenantUpdateParameters": {
+      "description": "Tenant update parameters",
       "type": "object",
       "properties": {
         "name": {
