@@ -126,7 +126,7 @@
         ],
         "summary": "List all connections",
         "description": "List all connections in the specified wallet.",
-        "operationId": "GetConnections",
+        "operationId": "ListConnections",
         "produces": [
           "text/plain",
           "application/json",
@@ -172,7 +172,7 @@
         ],
         "summary": "List connection invitations",
         "description": "List all connection invitations in the specified wallet.",
-        "operationId": "GetInvitations",
+        "operationId": "ListInvitations",
         "produces": [
           "text/plain",
           "application/json",
@@ -945,14 +945,50 @@
         "tags": [
           "Wallet"
         ],
-        "summary": "Delete wallet",
-        "description": "Permanently delete all connections, credentials and verification records for the specified wallet.",
-        "operationId": "DeleteWallet",
+        "summary": "[Deprecated] Delete wallet by query",
+        "description": "Please use the DELETE /wallets/{walletId} endpoint insead.\r\nPermanently delete all connections, credentials and verification records for the specified wallet.",
+        "operationId": "DeleteWalletByQuery",
         "parameters": [
           {
             "in": "query",
             "name": "walletId",
             "description": "The wallet identifier",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/wallets/{walletId}": {
+      "delete": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Delete wallet",
+        "description": "Permanently delete all connections, credentials and verification records for the specified wallet.",
+        "operationId": "DeleteWallet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
             "type": "string"
           }
         ],
@@ -1225,7 +1261,7 @@
         }
       }
     },
-    "VerificationPolicyRevocationRequirement": {
+    "VerificationPolicyRevocationReqirement": {
       "type": "object",
       "properties": {
         "validAt": {
@@ -1260,7 +1296,7 @@
           }
         },
         "revocationRequirement": {
-          "$ref": "#/definitions/VerificationPolicyRevocationRequirement"
+          "$ref": "#/definitions/VerificationPolicyRevocationReqirement"
         }
       }
     },
@@ -1426,11 +1462,11 @@
       "type": "object",
       "properties": {
         "walletId": {
-          "description": "Gets or sets the identifier.",
+          "description": "The wallet identifier",
           "type": "string"
         },
         "name": {
-          "description": "Gets or sets the name.",
+          "description": "The wallet name",
           "type": "string"
         }
       }
@@ -1440,11 +1476,11 @@
       "type": "object",
       "properties": {
         "walletId": {
-          "description": "Gets or sets the wallet identifier.\r\n<remarks>\r\nThis property can be null. If not set, a unique identifier will be generated\r\n</remarks>",
+          "description": "The wallet identifier\r\n<remarks>\r\nThis property can be null. If not set, a unique identifier will be generated\r\n</remarks>",
           "type": "string"
         },
         "ownerName": {
-          "description": "Gets or sets the name of the owner.",
+          "description": "The owner name",
           "type": "string"
         }
       }

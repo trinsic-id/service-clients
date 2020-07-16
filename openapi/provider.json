@@ -320,7 +320,7 @@
           "type": "string"
         },
         "issuerKeyGenerationSeed": {
-          "description": "Random key generation seed used for deterministic key creation (32 characters)",
+          "description": "Issuer key generation seed used for deterministic key creation (32 characters)",
           "type": "string"
         },
         "agentDid": {
@@ -345,23 +345,23 @@
       }
     },
     "TenantContract": {
-      "description": "The Tenant",
+      "description": "Tenant info",
       "type": "object",
       "properties": {
         "name": {
-          "description": "Gets or sets the name of the Tenant.",
+          "description": "The tenant name",
           "type": "string",
           "readOnly": true
         },
         "imageUrl": {
-          "description": "Gets or sets the image URL.",
+          "description": "The image URL",
           "type": "string"
         },
         "network": {
           "$ref": "#/definitions/NetworkContract"
         },
         "tenantId": {
-          "description": "Gets or sets the tenant identifier.",
+          "description": "The tenant identifier",
           "type": "string",
           "readOnly": true
         },
@@ -373,32 +373,33 @@
     "TenantParameters": {
       "description": "Configuration options for creating new tenant",
       "required": [
+        "endorserType",
         "name"
       ],
       "type": "object",
       "properties": {
         "tenantId": {
-          "description": "(Optional) Unique tenant identifier. If not provided, a random one will be generated",
+          "description": "The tenant identifier",
           "type": "string"
         },
         "issuerSeed": {
-          "description": "(Optional) Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated",
+          "description": "Issuer seed used for deterministic DID generation.\r\nIf omitted, a random DID/Key is generated.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The tenant name",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "URL of tenant profile image",
           "type": "string"
         },
         "networkId": {
-          "description": "(Optional) Ledger network identifier. Default is Sovrin Staging (sovrin-staging)",
+          "description": "Ledger network identifier.\r\nDefault is Sovrin Staging (sovrin-staging).",
           "type": "string"
         },
         "endorserType": {
           "$ref": "#/definitions/EndorserType"
-        },
-        "name": {
-          "description": "(Required) The name of the tenant.",
-          "type": "string"
-        },
-        "imageUrl": {
-          "description": "(Optional) Location of image URL used as profile for this tenant",
-          "type": "string"
         }
       }
     },
@@ -410,11 +411,11 @@
       "type": "object",
       "properties": {
         "name": {
-          "description": "(Required) The name of the tenant.",
+          "description": "The tenant name",
           "type": "string"
         },
         "imageUrl": {
-          "description": "(Optional) Location of image URL used as profile for this tenant",
+          "description": "URL of tenant image",
           "type": "string"
         }
       }
@@ -428,7 +429,7 @@
           "type": "string"
         },
         "subscriptionKey": {
-          "description": "Identifies and authenticates your subscription. This is the same across all Trinsic's organizations and APIs",
+          "description": "Identifies and authenticates your subscription",
           "type": "string"
         }
       }
