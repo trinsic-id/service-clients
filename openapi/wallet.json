@@ -125,7 +125,7 @@
           "Connection"
         ],
         "summary": "List all connections",
-        "description": "List all connections in the specified wallet.",
+        "description": "List all connections in the specified wallet in the \"Connected\" state.",
         "operationId": "ListConnections",
         "produces": [
           "text/plain",
@@ -630,6 +630,7 @@
             "in": "body",
             "name": "body",
             "description": "The verification policy parameters",
+            "required": true,
             "schema": {
               "type": "array",
               "items": {
@@ -693,6 +694,7 @@
             "in": "body",
             "name": "body",
             "description": "The proposal policy",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/VerificationPolicyParameters"
             }
@@ -916,6 +918,7 @@
             "in": "body",
             "name": "body",
             "description": "The wallet parameters",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/WalletParameters"
             }
@@ -953,6 +956,7 @@
             "in": "query",
             "name": "walletId",
             "description": "The wallet identifier",
+            "required": true,
             "type": "string"
           }
         ],
