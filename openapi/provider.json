@@ -62,6 +62,30 @@
         }
       }
     },
+    "/networks": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "summary": "List all ledger networks",
+        "description": "List all available ledger networks.\r\nSome networks are not available based on your subscription.",
+        "operationId": "ListNetworks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NetworkContract"
+              }
+            }
+          }
+        }
+      }
+    },
     "/tenants": {
       "get": {
         "tags": [

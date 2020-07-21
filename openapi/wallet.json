@@ -727,7 +727,7 @@
           "Verification"
         ],
         "summary": "Submit verification with automatic credential selection",
-        "description": "Submit the verification with a credential that matches the requested information.\r\nIf a credential is not available for a certain policy, that policy will not be include in the submitted verification.",
+        "description": "Submit the verification with a credential that matches the requested information.\r\nIf a credential is not available for a certain policy, that policy will not be included in the submitted verification.",
         "operationId": "SubmitVerificationAutoSelect",
         "parameters": [
           {
@@ -949,7 +949,7 @@
           "Wallet"
         ],
         "summary": "[Deprecated] Delete wallet by query",
-        "description": "Please use the DELETE /wallets/{walletId} endpoint insead.\r\nPermanently delete all connections, credentials and verification records for the specified wallet.",
+        "description": "Please use the DELETE /wallets/{walletId} endpoint instead.\r\nPermanently delete all connections, credentials and verification records for the specified wallet.",
         "operationId": "DeleteWalletByQuery",
         "parameters": [
           {
