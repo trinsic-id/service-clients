@@ -1,0 +1,1470 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Wallet API",
+    "description": "A powerful API to manage self-sovereign identity for users",
+    "termsOfService": "https://trinsic.id/terms",
+    "contact": {
+      "name": "Trinsic Engineering Team",
+      "url": "https://trinsic.id/contact-us",
+      "email": "support@trinsic.id"
+    },
+    "version": "v1"
+  },
+  "host": "api.trinsic.id",
+  "basePath": "/wallet/v1",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/{walletId}/connections/invitation": {
+      "post": {
+        "tags": [
+          "Connection"
+        ],
+        "summary": "Accept connection invitation",
+        "description": "Accept a connection invitation in the specified wallet.\r\nThe invitation can be in a form of URL or invitation JSON encoded as base64 data.",
+        "operationId": "AcceptInvitation",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "invitation",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConnectionContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/connections/{connectionId}": {
+      "get": {
+        "tags": [
+          "Connection"
+        ],
+        "summary": "Get connection",
+        "description": "Get the specified connection in the specified wallet.",
+        "operationId": "GetConnection",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "connectionId",
+            "description": "The connection identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConnectionContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/connections": {
+      "get": {
+        "tags": [
+          "Connection"
+        ],
+        "summary": "List all connections",
+        "description": "List all connections in the specified wallet in the \"Connected\" state.",
+        "operationId": "ListConnections",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ConnectionContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/connections/invitations": {
+      "get": {
+        "tags": [
+          "Connection"
+        ],
+        "summary": "List connection invitations",
+        "description": "List all connection invitations in the specified wallet.",
+        "operationId": "ListInvitations",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ConnectionContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/credentials/connection/{connectionId}": {
+      "get": {
+        "tags": [
+          "Credentials"
+        ],
+        "summary": "List all credentials for connection",
+        "description": "List all credentials in the specified wallet associated with the specified connection.",
+        "operationId": "ListCredentialsForConnectionId",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "connectionId",
+            "description": "The connection identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CredentialContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/credentials": {
+      "get": {
+        "tags": [
+          "Credentials"
+        ],
+        "summary": "List all credentials",
+        "description": "List all credentials in the specified wallet",
+        "operationId": "ListCredentials",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CredentialContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/credentials/{credentialId}": {
+      "get": {
+        "tags": [
+          "Credentials"
+        ],
+        "summary": "Get credential",
+        "description": "Get the specified credential in the specified wallet.",
+        "operationId": "GetCredential",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "credentialId",
+            "description": "The credential identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Credentials"
+        ],
+        "summary": "Accept credential offer",
+        "description": "Accept the specified credential offer in the specified wallet.",
+        "operationId": "AcceptCredentialOffer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "credentialId",
+            "description": "The credential identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/credentials/fromData": {
+      "put": {
+        "tags": [
+          "Credentials"
+        ],
+        "summary": "Accept credential offer from URL or data",
+        "description": "Accept a credential offer using the provided URL or data.\r\nThe credential field can be in the form of a URL or JSON encoded as base64 data.\r\nThis endpoint is used to accept connectionless credential issuance.",
+        "operationId": "AcceptCredential",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "credentialData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CredentialContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications/connection/{connectionId}": {
+      "get": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "List all verifications for connection",
+        "description": "List all available verifications in the specified wallet for the specified connection.",
+        "operationId": "ListVerificationsForConnection",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "connectionId",
+            "description": "The connection identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VerificationContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications": {
+      "get": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "List all verifications",
+        "description": "List all available verifications in the specified wallet.",
+        "operationId": "ListVerifications",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VerificationContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications/{verificationId}": {
+      "get": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "Get verification",
+        "description": "Get the specified verification in the specified wallet.",
+        "operationId": "GetVerification",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "verificationId",
+            "description": "The verification identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerificationContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "Submit verification using policy parameters",
+        "description": "Submit the verification using the provided policy parameters.",
+        "operationId": "SubmitVerification",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "verificationId",
+            "description": "The verification identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The verification policy parameters",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VerificationPolicyCredentialParameters"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications/propose/{connectionId}": {
+      "put": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "Create verification proposal",
+        "description": "Create a verification proposal from the specified policy",
+        "operationId": "ProposeVerification",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "connectionId",
+            "description": "The connection identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The proposal policy",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerificationPolicyParameters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerificationContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications/{verificationId}/autoSelect": {
+      "put": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "Submit verification with automatic credential selection",
+        "description": "Submit the verification with a credential that matches the requested information.\r\nIf a credential is not available for a certain policy, that policy will not be included in the submitted verification.",
+        "operationId": "SubmitVerificationAutoSelect",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "verificationId",
+            "description": "The verification identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications/{verificationId}/availableCredentials": {
+      "get": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "List all credentials for verification",
+        "description": "List all available credentials that satisfy the verification request.",
+        "operationId": "GetAvailableCredentialsForVerification",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "verificationId",
+            "description": "The verification identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VerificationPolicyCredentialContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/{walletId}/verifications/fromData/autoSelect": {
+      "put": {
+        "tags": [
+          "Verifications (connectionless)"
+        ],
+        "summary": "Submit verification with automatic credential selection from data",
+        "description": "Submit the verification from data with automatic credential selection.\r\nVerification data can be in the form of a URL or base64 data.",
+        "operationId": "SubmitVerificationFromDataAutoSelect",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "verificationData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/wallets": {
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "List all wallets",
+        "description": "List all custodian wallets for the current authorization context.",
+        "operationId": "ListWallets",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustodianWalletContract"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Create wallet",
+        "description": "Create a new custodian wallet.",
+        "operationId": "CreateWallet",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The wallet parameters",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WalletParameters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustodianWalletContract"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Delete wallet by query",
+        "description": "Permanently delete all connections, credentials and verification records for the specified wallet.",
+        "operationId": "DeleteWalletByQuery",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "walletId",
+            "description": "The wallet identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ConnectionState": {
+      "enum": [
+        "Invited",
+        "Negotiating",
+        "Connected"
+      ],
+      "type": "string"
+    },
+    "AgentEndpoint": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string",
+          "readOnly": true
+        },
+        "verkey": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "uri": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "ConnectionContract": {
+      "type": "object",
+      "properties": {
+        "connectionId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "myDid": {
+          "type": "string"
+        },
+        "theirDid": {
+          "type": "string"
+        },
+        "myKey": {
+          "type": "string"
+        },
+        "theirKey": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/definitions/ConnectionState"
+        },
+        "invitation": {
+          "type": "string"
+        },
+        "invitationUrl": {
+          "type": "string"
+        },
+        "endpoint": {
+          "$ref": "#/definitions/AgentEndpoint"
+        },
+        "createdAtUtc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "multiParty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CredentialState": {
+      "enum": [
+        "Offered",
+        "Requested",
+        "Issued",
+        "Rejected",
+        "Revoked"
+      ],
+      "type": "string"
+    },
+    "CredentialContract": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/definitions/CredentialState"
+        },
+        "connectionId": {
+          "type": "string"
+        },
+        "definitionId": {
+          "type": "string"
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "offerData": {
+          "type": "string"
+        },
+        "offerUrl": {
+          "type": "string"
+        },
+        "issuedAtUtc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "acceptedAtUtc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "values": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ProofState": {
+      "enum": [
+        "Proposed",
+        "Requested",
+        "Accepted",
+        "Rejected"
+      ],
+      "type": "string"
+    },
+    "ProofAttributeContract": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "revealed": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "selfAttested": {
+          "type": "boolean"
+        },
+        "conditional": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VerificationPolicyRestrictionAttribute": {
+      "type": "object",
+      "properties": {
+        "attributeName": {
+          "type": "string"
+        },
+        "attributeValue": {
+          "type": "string"
+        }
+      }
+    },
+    "VerificationPolicyRestriction": {
+      "type": "object",
+      "properties": {
+        "schemaId": {
+          "type": "string"
+        },
+        "schemaIssuerDid": {
+          "type": "string"
+        },
+        "schemaName": {
+          "type": "string"
+        },
+        "schemaVersion": {
+          "type": "string"
+        },
+        "issuerDid": {
+          "type": "string"
+        },
+        "credentialDefinitionId": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/VerificationPolicyRestrictionAttribute"
+        }
+      }
+    },
+    "VerificationPolicyAttributeContract": {
+      "required": [
+        "policyName"
+      ],
+      "type": "object",
+      "properties": {
+        "policyName": {
+          "type": "string"
+        },
+        "attributeNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "restrictions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VerificationPolicyRestriction"
+          }
+        }
+      }
+    },
+    "VerificationPolicyPredicateContract": {
+      "required": [
+        "attributeName",
+        "policyName",
+        "predicateType",
+        "predicateValue"
+      ],
+      "type": "object",
+      "properties": {
+        "policyName": {
+          "type": "string"
+        },
+        "attributeName": {
+          "type": "string"
+        },
+        "predicateType": {
+          "type": "string"
+        },
+        "predicateValue": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "restrictions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VerificationPolicyRestriction"
+          }
+        }
+      }
+    },
+    "VerificationPolicyRevocationReqirement": {
+      "type": "object",
+      "properties": {
+        "validAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "VerificationPolicyParameters": {
+      "required": [
+        "name",
+        "version"
+      ],
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VerificationPolicyAttributeContract"
+          }
+        },
+        "predicates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VerificationPolicyPredicateContract"
+          }
+        },
+        "revocationRequirement": {
+          "$ref": "#/definitions/VerificationPolicyRevocationReqirement"
+        }
+      }
+    },
+    "ProposedAttribute": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "credentialDefinitionId": {
+          "type": "string"
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "issuerDid": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "referent": {
+          "type": "string"
+        }
+      }
+    },
+    "ProposedPredicate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "credentialDefinitionId": {
+          "type": "string"
+        },
+        "issuerDid": {
+          "type": "string"
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "predicate": {
+          "type": "string"
+        },
+        "threshold": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "referent": {
+          "type": "string"
+        }
+      }
+    },
+    "ProofProposal": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "proposedAttributes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProposedAttribute"
+          }
+        },
+        "proposedPredicates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProposedPredicate"
+          }
+        }
+      }
+    },
+    "VerificationContract": {
+      "type": "object",
+      "properties": {
+        "connectionId": {
+          "type": "string"
+        },
+        "verificationId": {
+          "type": "string"
+        },
+        "definitionId": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/definitions/ProofState"
+        },
+        "createdAtUtc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updatedAtUtc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "verifiedAtUtc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "proof": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ProofAttributeContract"
+          }
+        },
+        "policy": {
+          "$ref": "#/definitions/VerificationPolicyParameters"
+        },
+        "proposal": {
+          "$ref": "#/definitions/ProofProposal"
+        },
+        "verificationRequestData": {
+          "type": "string"
+        },
+        "verificationRequestUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "VerificationPolicyCredentialParameters": {
+      "type": "object",
+      "properties": {
+        "policyName": {
+          "type": "string"
+        },
+        "credentialId": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VerificationPolicyCredentialContract": {
+      "type": "object",
+      "properties": {
+        "policyName": {
+          "type": "string"
+        },
+        "attributeNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "availableCredentials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CredentialContract"
+          }
+        }
+      }
+    },
+    "CustodianWalletContract": {
+      "description": "Wallet information",
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "description": "The wallet identifier",
+          "type": "string"
+        },
+        "name": {
+          "description": "The wallet name",
+          "type": "string"
+        }
+      }
+    },
+    "WalletParameters": {
+      "description": "Wallet parameters",
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "description": "The wallet identifier\r\n<remarks>\r\nThis property can be null. If not set, a unique identifier will be generated\r\n</remarks>",
+          "type": "string"
+        },
+        "ownerName": {
+          "description": "The owner name",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Standard Authorization header using the Bearer scheme and an Access Token. Example: \"Bearer {Access Token}\""
+    }
+  },
+  "security": [
+    {
+      "oauth2": [ ]
+    }
+  ]
+}

@@ -7,7 +7,7 @@ using Microsoft.Rest;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public class StreetcredManagementCredentials : ServiceClientCredentials
+    public class TrinsicClientCredentials : ServiceClientCredentials
     {
         /// <summary>
         /// Gets the options.
@@ -18,10 +18,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public ServiceClientOptions Options { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StreetcredClientCredentials"/> class.
+        /// Initializes a new instance of the <see cref="TrinsicClientCredentials"/> class.
         /// </summary>
-        /// <param name="options">The options.</param>
-        public StreetcredManagementCredentials(IOptions<ServiceClientOptions> options)
+        /// <param name="options">The options</param>
+        public TrinsicClientCredentials(IOptions<ServiceClientOptions> options)
         {
             Options = options.Value;
         }
@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <inheritdoc />
         public override Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            request.Headers.Add("Authorization", $"Bearer {Options.AccountSecret}");
+            request.Headers.Add("Authorization", $"Bearer {Options.AccessToken}");
             return base.ProcessHttpRequestAsync(request, cancellationToken);
         }
     }
