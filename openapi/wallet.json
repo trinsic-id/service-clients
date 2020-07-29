@@ -11,7 +11,7 @@
     },
     "version": "v1"
   },
-  "host": "api.streetcred.id",
+  "host": "api.trinsic.id",
   "basePath": "/wallet/v1",
   "schemes": [
     "https"

@@ -11,12 +11,90 @@
     },
     "version": "v1"
   },
-  "host": "api.streetcred.id",
+  "host": "api.trinsic.id",
   "basePath": "/provider/v1",
   "schemes": [
     "https"
   ],
   "paths": {
+    "/analytics/cloudWallets": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Get a count of total cloud wallets created on this account",
+        "operationId": "GetCloudWalletCount",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CloudWalletAnalyticsContract"
+            }
+          }
+        }
+      }
+    },
+    "/analytics/usage/current": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Get the usage for the currently active period",
+        "operationId": "GetCurrentUsage",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UsageContract"
+            }
+          }
+        }
+      }
+    },
+    "/analytics/usage": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Experimental endpoint using OData",
+        "operationId": "SearchUsage",
+        "produces": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/xml",
+          "application/prs.mock-odata",
+          "text/plain",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UsageContract"
+              }
+            }
+          }
+        }
+      }
+    },
     "/assets": {
       "post": {
         "tags": [
@@ -117,7 +195,20 @@
         "description": "Create a tenant and setup a unique agency endpoint.\r\nThe agency will be set as an issuer.",
         "operationId": "CreateTenant",
         "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
           "application/json",
+          "application/xml",
+          "application/prs.mock-odata",
           "text/json",
           "application/*+json"
         ],
@@ -182,7 +273,20 @@
         "description": "Update the specified tenant with the specified new configuration.",
         "operationId": "UpdateTenant",
         "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
           "application/json",
+          "application/xml",
+          "application/prs.mock-odata",
           "text/json",
           "application/*+json"
         ],
@@ -241,8 +345,21 @@
         "description": "Get the authorization keys for a tenant in the current authorization context.",
         "operationId": "GetTenantKeys",
         "produces": [
-          "text/plain",
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
           "application/json",
+          "application/xml",
+          "application/prs.mock-odata",
+          "text/plain",
           "text/json"
         ],
         "parameters": [
@@ -271,8 +388,21 @@
         "description": "Update the authorization keys for a tenant in the current authorization context.",
         "operationId": "ChangeTenantKeys",
         "produces": [
-          "text/plain",
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
           "application/json",
+          "application/xml",
+          "application/prs.mock-odata",
+          "text/plain",
           "text/json"
         ],
         "parameters": [
@@ -296,6 +426,47 @@
     }
   },
   "definitions": {
+    "CloudWalletAnalyticsContract": {
+      "description": "Cloud Wallet Analytics Contract",
+      "type": "object",
+      "properties": {
+        "total": {
+          "format": "int32",
+          "description": "Total number of cloud wallets for this account.",
+          "type": "integer"
+        }
+      }
+    },
+    "UsageContract": {
+      "description": "Usage Contract",
+      "type": "object",
+      "properties": {
+        "periodStart": {
+          "format": "date-time",
+          "description": "Period start date",
+          "type": "string"
+        },
+        "periodEnd": {
+          "format": "date-time",
+          "description": "Period end date",
+          "type": "string"
+        },
+        "credentialCount": {
+          "format": "int32",
+          "description": "Total credentials issued for the given period",
+          "type": "integer"
+        },
+        "verificationCount": {
+          "format": "int32",
+          "description": "Total verifications processed for the given period",
+          "type": "integer"
+        },
+        "invoiceId": {
+          "description": "The invoice identifier",
+          "type": "string"
+        }
+      }
+    },
     "AssetContract": {
       "description": "Asset contract",
       "type": "object",
@@ -399,7 +570,6 @@
     "TenantParameters": {
       "description": "Configuration options for creating new tenant",
       "required": [
-        "endorserType",
         "name"
       ],
       "type": "object",
