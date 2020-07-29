@@ -17,84 +17,6 @@
     "https"
   ],
   "paths": {
-    "/analytics/cloudWallets": {
-      "get": {
-        "tags": [
-          "Analytics"
-        ],
-        "summary": "Get a count of total cloud wallets created on this account",
-        "operationId": "GetCloudWalletCount",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/CloudWalletAnalyticsContract"
-            }
-          }
-        }
-      }
-    },
-    "/analytics/usage/current": {
-      "get": {
-        "tags": [
-          "Analytics"
-        ],
-        "summary": "Get the usage for the currently active period",
-        "operationId": "GetCurrentUsage",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/UsageContract"
-            }
-          }
-        }
-      }
-    },
-    "/analytics/usage": {
-      "get": {
-        "tags": [
-          "Analytics"
-        ],
-        "summary": "Experimental endpoint using OData",
-        "operationId": "SearchUsage",
-        "produces": [
-          "application/json;odata.metadata=minimal;odata.streaming=true",
-          "application/json;odata.metadata=minimal;odata.streaming=false",
-          "application/json;odata.metadata=minimal",
-          "application/json;odata.metadata=full;odata.streaming=true",
-          "application/json;odata.metadata=full;odata.streaming=false",
-          "application/json;odata.metadata=full",
-          "application/json;odata.metadata=none;odata.streaming=true",
-          "application/json;odata.metadata=none;odata.streaming=false",
-          "application/json;odata.metadata=none",
-          "application/json;odata.streaming=true",
-          "application/json;odata.streaming=false",
-          "application/json",
-          "application/xml",
-          "application/prs.mock-odata",
-          "text/plain",
-          "text/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/UsageContract"
-              }
-            }
-          }
-        }
-      }
-    },
     "/assets": {
       "post": {
         "tags": [
@@ -135,30 +57,6 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/AssetContract"
-            }
-          }
-        }
-      }
-    },
-    "/networks": {
-      "get": {
-        "tags": [
-          "Networks"
-        ],
-        "summary": "List all ledger networks",
-        "description": "List all available ledger networks.\r\nSome networks are not available based on your subscription.",
-        "operationId": "ListNetworks",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/NetworkContract"
-              }
             }
           }
         }
