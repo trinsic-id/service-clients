@@ -376,6 +376,9 @@
         "TenantParameters": {
             "description": "Configuration options for creating new tenant",
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
                 "tenantId": {
                     "description": "(Optional) Unique tenant identifier. If not provided, a ranom one will be generated",
