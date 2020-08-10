@@ -85,15 +85,15 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/credentials.json --typescript --output-folder=typescript --add-credentials --override-client-name=CredentialsServiceClient --source-code-folder-path=src/credentials --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/credentials.json --typescript --output-folder=typescript --add-credentials --override-client-name=CredentialsServiceClient --source-code-folder-path=src/credentials'
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/wallet.json --typescript --output-folder=typescript --add-credentials --override-client-name=WalletServiceClient --source-code-folder-path=src/wallet --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/wallet.json --typescript --output-folder=typescript --add-credentials --override-client-name=WalletServiceClient --source-code-folder-path=src/wallet'
      
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/provider.json --typescript --output-folder=typescript --add-credentials --override-client-name=ProviderServiceClient --source-code-folder-path=src/provider --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/provider.json --typescript --output-folder=typescript --add-credentials --override-client-name=ProviderServiceClient --source-code-folder-path=src/provider'
   
   - task: Npm@1
     inputs:
