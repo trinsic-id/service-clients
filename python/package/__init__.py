@@ -1,7 +1,6 @@
-from msrest.authentication import BasicTokenAuthentication
-
 from .credentials import CredentialsClient
 from .wallet import WalletClient
 from .provider import ProviderClient
+from .service_client_credentials import ServiceClientCredentials
 
-__all__ = ['CredentialsClient', 'WalletClient', 'ProviderClient', 'BasicTokenAuthentication']
+__all__ = ['CredentialsClient', 'WalletClient', 'ProviderClient', 'ServiceClientCredentials']

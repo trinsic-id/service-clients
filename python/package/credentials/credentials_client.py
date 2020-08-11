@@ -18,17 +18,17 @@ class CredentialsClientConfiguration(Configuration):
     Note that all parameters used to create this instance are saved as instance
     attributes.
 
-    :param credentials_property: Subscription credentials which uniquely
+    :param credentials: Subscription credentials which uniquely
      identify client subscription.
-    :type credentials_property: None
+    :type credentials: None
     :param str base_url: Service URL
     """
 
     def __init__(
-            self, credentials_property, base_url=None):
+            self, credentials, base_url=None):
 
-        if credentials_property is None:
-            raise ValueError("Parameter 'credentials_property' must not be None.")
+        if credentials is None:
+            raise ValueError("Parameter 'credentials' must not be None.")
         if not base_url:
             base_url = 'https://api.trinsic.id/credentials/v1'
 
@@ -36,7 +36,7 @@ class CredentialsClientConfiguration(Configuration):
 
         self.add_user_agent('credentialsclient/{}'.format(VERSION))
 
-        self.credentials_property = credentials_property
+        self.credentials = credentials
 
 
 class CredentialsClient(SDKClient):
@@ -45,16 +45,16 @@ class CredentialsClient(SDKClient):
     :ivar config: Configuration for client.
     :vartype config: CredentialsClientConfiguration
 
-    :param credentials_property: Subscription credentials which uniquely
+    :param credentials: Subscription credentials which uniquely
      identify client subscription.
-    :type credentials_property: None
+    :type credentials: None
     :param str base_url: Service URL
     """
 
     def __init__(
-            self, credentials_property, base_url=None):
+            self, credentials, base_url=None):
 
-        self.config = CredentialsClientConfiguration(credentials_property, base_url)
+        self.config = CredentialsClientConfiguration(credentials, base_url)
         super(CredentialsClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
@@ -1700,7 +1700,7 @@ class CredentialsClient(SDKClient):
 
     def get_tenant(
             self, tenant_id, custom_headers=None, raw=False, **operation_config):
-        """[Deprectaed] Get tenant.
+        """[Deprecated] Get tenant.
 
         Please use the Provider API instead.
         Get the configuration for the specified tenant.
