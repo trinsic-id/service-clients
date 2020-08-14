@@ -158,7 +158,7 @@ jobs:
         script: 'sed -i "s/credentials_property/credentials/g" python/package/credentials/credentials_client.py'
 
     - script: |
-        cd python/package && python setup.py sdist && ../..
+        cd python/package && python setup.py sdist && cd ../..
       displayName: 'Artifact creation'
     
     - task: CopyFiles@2
