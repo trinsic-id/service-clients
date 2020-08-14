@@ -160,12 +160,10 @@ jobs:
     - script: |
         python python/package/setup.py sdist
       displayName: 'Artifact creation'
-
+    
     - task: CopyFiles@2
       inputs:
-        SourceFolder: 'python/package'
-        Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        targetFolder: $(Build.ArtifactStagingDirectory)
 
     - task: PublishBuildArtifacts@1
       inputs:
