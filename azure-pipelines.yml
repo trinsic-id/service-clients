@@ -163,8 +163,8 @@ jobs:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: 'python/package/dist'
-        Contents: '*.tar.gz'
+        SourceFolder: 'python/package'
+        Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
     - task: PublishBuildArtifacts@1
