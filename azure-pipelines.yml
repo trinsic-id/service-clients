@@ -158,11 +158,13 @@ jobs:
         script: 'sed -i "s/credentials_property/credentials/g" python/package/credentials/credentials_client.py'
 
     - script: |
-        python python/package/setup.py sdist
+        cd python/package && python setup.py sdist && ../..
       displayName: 'Artifact creation'
     
     - task: CopyFiles@2
       inputs:
+        SourceFolder: 'python/package/dist'
+        Contents: '**'
         targetFolder: $(Build.ArtifactStagingDirectory)
 
     - task: PublishBuildArtifacts@1
