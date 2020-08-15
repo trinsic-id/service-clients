@@ -156,6 +156,10 @@ jobs:
     - task: CmdLine@2
       inputs:
         script: 'sed -i "s/credentials_property/credentials/g" python/package/credentials/credentials_client.py'
+    
+    - task: CmdLine@2
+      inputs:
+        script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/version.py'
 
     - script: |
         cd python/package && python setup.py sdist && cd ../..
