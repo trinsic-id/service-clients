@@ -1,0 +1,1 @@
+VERSION = 'version_number'
