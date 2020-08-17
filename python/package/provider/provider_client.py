@@ -34,7 +34,7 @@ class ProviderClientConfiguration(Configuration):
 
         super(ProviderClientConfiguration, self).__init__(base_url)
 
-        self.add_user_agent('trinsic.serviceclients.providerclient/{}'.format(VERSION))
+        self.add_user_agent('trinsic.service_clients.provider/{}'.format(VERSION))
 
         self.credentials = credentials
 

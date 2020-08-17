@@ -143,15 +143,15 @@ jobs:
 
     - task: CmdLine@2
       inputs:
-        script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package --override-client-name=CredentialsClient --package-name=trinsic.serviceclients --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+        script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
       inputs:
-        script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package --override-client-name=WalletClient --package-name=trinsic.serviceclients --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+        script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
       inputs:
-        script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package --override-client-name=ProviderClient --package-name=trinsic.serviceclients --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+        script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
       inputs:

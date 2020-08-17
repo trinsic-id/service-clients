@@ -34,7 +34,7 @@ class WalletClientConfiguration(Configuration):
 
         super(WalletClientConfiguration, self).__init__(base_url)
 
-        self.add_user_agent('trinsic.serviceclients.walletclient/{}'.format(VERSION))
+        self.add_user_agent('trinsic.service_clients.wallet/{}'.format(VERSION))
 
         self.credentials = credentials
 

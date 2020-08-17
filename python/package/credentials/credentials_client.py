@@ -34,7 +34,7 @@ class CredentialsClientConfiguration(Configuration):
 
         super(CredentialsClientConfiguration, self).__init__(base_url)
 
-        self.add_user_agent('trinsic.serviceclients.credentialsclient/{}'.format(VERSION))
+        self.add_user_agent('trinsic.service_clients.credentials/{}'.format(VERSION))
 
         self.credentials = credentials
 

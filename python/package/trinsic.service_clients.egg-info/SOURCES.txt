@@ -111,11 +111,11 @@ provider/models/tenant_update_parameters.py
 provider/models/tenant_update_parameters_py3.py
 provider/models/usage_contract.py
 provider/models/usage_contract_py3.py
-trinsic_service_clients.egg-info/PKG-INFO
-trinsic_service_clients.egg-info/SOURCES.txt
-trinsic_service_clients.egg-info/dependency_links.txt
-trinsic_service_clients.egg-info/requires.txt
-trinsic_service_clients.egg-info/top_level.txt
+trinsic.service_clients.egg-info/PKG-INFO
+trinsic.service_clients.egg-info/SOURCES.txt
+trinsic.service_clients.egg-info/dependency_links.txt
+trinsic.service_clients.egg-info/requires.txt
+trinsic.service_clients.egg-info/top_level.txt
 wallet/__init__.py
 wallet/version.py
 wallet/wallet_client.py
