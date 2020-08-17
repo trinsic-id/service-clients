@@ -159,7 +159,7 @@ jobs:
     
     - task: CmdLine@2
       inputs:
-        script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/version.py'
+        script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/setup.py'
 
     - script: |
         cd python/package && python setup.py sdist && cd ../..

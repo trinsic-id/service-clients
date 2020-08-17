@@ -7,9 +7,9 @@
 # coding: utf-8
 
 from setuptools import setup, find_packages
-from .version import VERSION
 
 NAME = "trinsic.service_clients"
+VERSION = "version_number"
 
 # To install the library, run the following
 #
