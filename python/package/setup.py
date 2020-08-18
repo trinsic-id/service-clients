@@ -8,7 +8,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = "trinsic.service_clients"
+NAME = "trinsic"
 VERSION = "version_number"
 
 # To install the library, run the following

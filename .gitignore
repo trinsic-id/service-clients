@@ -334,3 +334,5 @@ ASALocalRun/
 python/package/credentials
 python/package/provider
 python/package/wallet
+python/package/dist
+python/package/*.egg-info
