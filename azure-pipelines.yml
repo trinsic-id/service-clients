@@ -85,15 +85,15 @@ jobs:
   
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/credentials.json --typescript --output-folder=typescript --add-credentials --override-client-name=CredentialsServiceClient --source-code-folder-path=src/credentials --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/credentials.json --typescript --output-folder=typescript --add-credentials --override-client-name=CredentialsServiceClient --source-code-folder-path=src/credentials'
 
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/wallet.json --typescript --output-folder=typescript --add-credentials --override-client-name=WalletServiceClient --source-code-folder-path=src/wallet --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/wallet.json --typescript --output-folder=typescript --add-credentials --override-client-name=WalletServiceClient --source-code-folder-path=src/wallet'
      
   - task: CmdLine@2
     inputs:
-      script: 'autorest --input-file=openapi/provider.json --typescript --output-folder=typescript --add-credentials --override-client-name=ProviderServiceClient --source-code-folder-path=src/provider --custom-service-client-options=[baseUri=''https://api.streetcred.id/'']'
+      script: 'autorest --input-file=openapi/provider.json --typescript --output-folder=typescript --add-credentials --override-client-name=ProviderServiceClient --source-code-folder-path=src/provider'
   
   - task: Npm@1
     inputs:
@@ -117,3 +117,62 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'npm'
       publishLocation: 'Container'
+
+- job: Python
+  pool:
+    vmImage: 'windows-latest'
+  strategy:
+    matrix:
+      Python36:
+        python.version: '3.6'
+
+  steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'
+
+    - script: |
+        python -m pip install --upgrade pip
+      displayName: 'Install dependencies'
+
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'install -g autorest@2.0.4413'
+
+    - task: CmdLine@2
+      inputs:
+        script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+
+    - task: CmdLine@2
+      inputs:
+        script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+
+    - task: CmdLine@2
+      inputs:
+        script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+
+    - task: CmdLine@2
+      inputs:
+        script: 'sed -i "s/credentials_property/credentials/g" python/package/credentials/credentials_client.py'
+    
+    - task: CmdLine@2
+      inputs:
+        script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/setup.py'
+
+    - script: |
+        cd python/package && python setup.py sdist && cd ../..
+      displayName: 'Artifact creation'
+    
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'python/package/dist'
+        Contents: '**'
+        targetFolder: $(Build.ArtifactStagingDirectory)
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'python'
+        publishLocation: 'Container'
