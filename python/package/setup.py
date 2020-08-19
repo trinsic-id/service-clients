@@ -9,7 +9,7 @@
 from setuptools import setup, find_packages
 
 NAME = "trinsic"
-VERSION = "1.1.4000"
+VERSION = "version_number"
 
 # To install the library, run the following
 #
