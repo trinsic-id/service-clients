@@ -133,7 +133,7 @@ jobs:
       displayName: 'Use Python $(python.version)'
 
     - script: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip && pip install wheel
       displayName: 'Install dependencies'
 
     - task: Npm@1
@@ -143,26 +143,26 @@ jobs:
 
     - task: CmdLine@2
       inputs:
-        script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+        script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package/trinsic/service_clients --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
       inputs:
-        script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+        script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package/trinsic/service_clients --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
       inputs:
-        script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+        script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package/trinsic/service_clients --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
       inputs:
-        script: 'sed -i "s/credentials_property/credentials/g" python/package/credentials/credentials_client.py'
+        script: 'sed -i "s/credentials_property/credentials/g" python/package/trinsic/service_clients/credentials/credentials_client.py'
     
     - task: CmdLine@2
       inputs:
         script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/setup.py'
 
     - script: |
-        cd python/package && python setup.py sdist && cd ../..
+        cd python/package && python setup.py sdist bdist_wheel && cd ../..
       displayName: 'Artifact creation'
     
     - task: CopyFiles@2

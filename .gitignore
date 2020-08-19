@@ -331,8 +331,9 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-python/package/credentials
-python/package/provider
-python/package/wallet
+python/package/trinsic/service_clients/credentials
+python/package/trinsic/service_clients/provider
+python/package/trinsic/service_clients/wallet
 python/package/dist
-python/package/*.egg-info
+python/package/build
+python/package/**.egg-info

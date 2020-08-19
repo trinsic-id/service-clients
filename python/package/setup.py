@@ -9,7 +9,7 @@
 from setuptools import setup, find_packages
 
 NAME = "trinsic"
-VERSION = "version_number"
+VERSION = "1.1.4000"
 
 # To install the library, run the following
 #
@@ -26,7 +26,7 @@ setup(
     description="Service Clients to access Trinsic APIs",
     author_email="support@trinsic.id",
     url="https://github.com/streetcred-id/service-clients/tree/master/python/package",
-    keywords=["Swagger", "Trinsic"],
+    keywords=["Trinsic"],
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
