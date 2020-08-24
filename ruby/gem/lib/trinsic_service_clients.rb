@@ -1,12 +1,13 @@
-require 'trinsic_service_clients/credentials'
-require 'trinsic_service_clients/wallet'
-require 'trinsic_service_clients/provider'
+require 'generated/credentials'
+require 'generated/wallet'
+require 'generated/provider'
+require 'ms_rest'
 
 module TrinsicServiceClients
-  autoload :Credentials,                                        'trinsic_service_clients/credentials'
-  autoload :Wallet,                                             'trinsic_service_clients/wallet'
-  autoload :Provider,                                           'trinsic_service_clients/provider'
-  autoload :CredentialsClient,                                  'trinsic_service_clients/credentials/credentials_client'
-  autoload :WalletClient,                                       'trinsic_service_clients/wallet/wallet_client'
-  autoload :ProviderClient,                                     'trinsic_service_clients/provider/provider_client'
+  include Credentials
+  include Wallet
+  include Provider
+  include MsRest
+
+  NoRetryPolicy = { middlewares: [[MsRest::RetryPolicyMiddleware, times: 0, retry: 0], [:cookie_jar]] }
 end
