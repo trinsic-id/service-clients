@@ -177,7 +177,7 @@ jobs:
         ArtifactName: 'python'
         publishLocation: 'Container'
 
-- job: Ruby on Rails
+- job: Ruby
   pool:
     vmImage: 'windows-latest'
 
