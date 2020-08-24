@@ -202,7 +202,7 @@ jobs:
     
     - task: CmdLine@2
       inputs:
-        script: 'sed -i "s/0\.0\.0/$(majorMinorPackageVersion).$(Build.BuildId)/g" gem/trinsic_service_clients.gemspec'
+        script: 'sed -i "s/0\.0\.0/$(majorMinorPackageVersion).$(Build.BuildId)/g" ruby/gem/trinsic_service_clients.gemspec'
 
     - script: |
         cd ruby/gem && gem build trinsic_service_clients.gemspec cd ../..
