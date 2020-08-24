@@ -176,3 +176,50 @@ jobs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'python'
         publishLocation: 'Container'
+
+- job: Ruby
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'install -g autorest@2.0.4413'
+      displayName: 'Install autorest'
+
+    - task: CmdLine@2
+      displayName: 'Generate CredentialsClient'
+      inputs:
+        script: 'autorest --ruby --add-credentials=true --input-file=openapi/credentials.json --output-folder=ruby/gem/lib/ --override-client-name=CredentialsClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+
+    - task: CmdLine@2
+      displayName: 'Generate WalletClient'
+      inputs:
+        script: 'autorest --ruby --add-credentials=true --input-file=openapi/wallet.json --output-folder=ruby/gem/lib/ --override-client-name=WalletClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+
+    - task: CmdLine@2
+      displayName: 'Generate ProviderClient'
+      inputs:
+        script: 'autorest --ruby --add-credentials=true --input-file=openapi/provider.json --output-folder=ruby/gem/lib/ --override-client-name=ProviderClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    
+    - task: CmdLine@2
+      displayName: 'Increment package version number'
+      inputs:
+        script: 'sed -i "s/0\.0\.0/$(majorMinorPackageVersion).$(Build.BuildId)/g" ruby/gem/trinsic_service_clients.gemspec'
+
+    - script: |
+        cd ruby/gem && gem build trinsic_service_clients.gemspec cd ../..
+      displayName: 'Build gem'
+    
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'ruby/gem'
+        Contents: 'trinsic_service_clients-$(majorMinorPackageVersion).$(Build.BuildId).gem'
+        targetFolder: $(Build.ArtifactStagingDirectory)
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'ruby'
+        publishLocation: 'Container'

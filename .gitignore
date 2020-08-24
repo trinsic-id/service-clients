@@ -337,3 +337,6 @@ python/package/trinsic/service_clients/wallet
 python/package/dist
 python/package/build
 python/package/**.egg-info
+
+ruby/gem/lib/generated
+ruby/gem/*.gem
