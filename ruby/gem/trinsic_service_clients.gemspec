@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'trinsic_service_clients'
-  s.version       = '1.1.4000'
+  s.version       = '0.0.0'
   s.date          = '2020-08-20'
   s.summary       = "Trinsic Service Clients"
   s.description   = "A gem to access Trinsic's APIs"
