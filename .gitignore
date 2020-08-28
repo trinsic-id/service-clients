@@ -340,3 +340,9 @@ python/package/**.egg-info
 
 ruby/gem/lib/generated
 ruby/gem/*.gem
+
+java/out
+java/target
+java/.idea
+java/src/main/*
+java/settings.xml
