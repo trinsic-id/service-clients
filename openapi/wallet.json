@@ -1100,6 +1100,9 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
