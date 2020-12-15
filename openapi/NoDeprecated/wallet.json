@@ -1161,40 +1161,6 @@
             "oauth2": [ ]
           }
         ]
-      },
-      "delete": {
-        "tags": [
-          "Wallet"
-        ],
-        "summary": "[Deprecated] Delete wallet by query",
-        "description": "Please use the DELETE /wallets/{walletId} endpoint instead.\r\nPermanently delete all connections, credentials and verification records for the specified wallet.",
-        "operationId": "DeleteWalletByQuery",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "walletId",
-            "description": "The wallet identifier",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "deprecated": true,
-        "security": [
-          {
-            "oauth2": [ ]
-          }
-        ]
       }
     },
     "/api/wallets/{walletId}": {
