@@ -118,116 +118,116 @@ jobs:
       ArtifactName: 'npm'
       publishLocation: 'Container'
 
-# - job: Python
-#   pool:
-#     vmImage: 'windows-latest'
-#   strategy:
-#     matrix:
-#       Python36:
-#         python.version: '3.6'
+- job: Python
+  pool:
+    vmImage: 'windows-latest'
+  strategy:
+    matrix:
+      Python36:
+        python.version: '3.6'
 
-#   steps:
-#     - task: UsePythonVersion@0
-#       inputs:
-#         versionSpec: '$(python.version)'
-#       displayName: 'Use Python $(python.version)'
+  steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'
 
-#     - script: |
-#         python -m pip install --upgrade pip && pip install wheel
-#       displayName: 'Install dependencies'
+    - script: |
+        python -m pip install --upgrade pip && pip install wheel
+      displayName: 'Install dependencies'
 
-#     - task: Npm@1
-#       inputs:
-#         command: 'custom'
-#         customCommand: 'install -g autorest@latest'
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'install -g autorest@latest'
 
-#     - task: CmdLine@2
-#       inputs:
-#         script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package/trinsic/service_clients --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    - task: CmdLine@2
+      inputs:
+        script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package/trinsic/service_clients --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
-#     - task: CmdLine@2
-#       inputs:
-#         script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package/trinsic/service_clients --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    - task: CmdLine@2
+      inputs:
+        script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package/trinsic/service_clients --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
-#     - task: CmdLine@2
-#       inputs:
-#         script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package/trinsic/service_clients --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    - task: CmdLine@2
+      inputs:
+        script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package/trinsic/service_clients --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
-#     - task: CmdLine@2
-#       inputs:
-#         script: 'sed -i "s/credentials_property/credentials/g" python/package/trinsic/service_clients/credentials/credentials_client.py'
+    - task: CmdLine@2
+      inputs:
+        script: 'sed -i "s/credentials_property/credentials/g" python/package/trinsic/service_clients/credentials/credentials_client.py'
     
-#     - task: CmdLine@2
-#       inputs:
-#         script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/setup.py'
+    - task: CmdLine@2
+      inputs:
+        script: 'sed -i "s/version_number/$(majorMinorPackageVersion).$(Build.BuildId)/g" python/package/setup.py'
 
-#     - script: |
-#         cd python/package && python setup.py sdist bdist_wheel && cd ../..
-#       displayName: 'Artifact creation'
+    - script: |
+        cd python/package && python setup.py sdist bdist_wheel && cd ../..
+      displayName: 'Artifact creation'
     
-#     - task: CopyFiles@2
-#       inputs:
-#         SourceFolder: 'python/package/dist'
-#         Contents: '**'
-#         targetFolder: $(Build.ArtifactStagingDirectory)
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'python/package/dist'
+        Contents: '**'
+        targetFolder: $(Build.ArtifactStagingDirectory)
 
-#     - task: PublishBuildArtifacts@1
-#       inputs:
-#         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#         ArtifactName: 'python'
-#         publishLocation: 'Container'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'python'
+        publishLocation: 'Container'
 
-# - job: Ruby
-#   pool:
-#     vmImage: 'windows-latest'
+- job: Ruby
+  pool:
+    vmImage: 'windows-latest'
 
-#   steps:
-#     - task: Npm@1
-#       inputs:
-#         command: 'custom'
-#         customCommand: 'install -g autorest@latest'
-#       displayName: 'Install autorest'
+  steps:
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'install -g autorest@latest'
+      displayName: 'Install autorest'
 
-#     - task: CmdLine@2
-#       displayName: 'Generate CredentialsClient'
-#       inputs:
-#         script: 'autorest --ruby --add-credentials=true --input-file=openapi/credentials.json --output-folder=ruby/gem/lib/ --override-client-name=CredentialsClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    - task: CmdLine@2
+      displayName: 'Generate CredentialsClient'
+      inputs:
+        script: 'autorest --ruby --add-credentials=true --input-file=openapi/credentials.json --output-folder=ruby/gem/lib/ --override-client-name=CredentialsClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
-#     - task: CmdLine@2
-#       displayName: 'Generate WalletClient'
-#       inputs:
-#         script: 'autorest --ruby --add-credentials=true --input-file=openapi/wallet.json --output-folder=ruby/gem/lib/ --override-client-name=WalletClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    - task: CmdLine@2
+      displayName: 'Generate WalletClient'
+      inputs:
+        script: 'autorest --ruby --add-credentials=true --input-file=openapi/wallet.json --output-folder=ruby/gem/lib/ --override-client-name=WalletClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
-#     - task: CmdLine@2
-#       displayName: 'Generate ProviderClient'
-#       inputs:
-#         script: 'autorest --ruby --add-credentials=true --input-file=openapi/provider.json --output-folder=ruby/gem/lib/ --override-client-name=ProviderClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
+    - task: CmdLine@2
+      displayName: 'Generate ProviderClient'
+      inputs:
+        script: 'autorest --ruby --add-credentials=true --input-file=openapi/provider.json --output-folder=ruby/gem/lib/ --override-client-name=ProviderClient --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
     
-#     - task: CmdLine@2
-#       displayName: 'Increment package version number'
-#       inputs:
-#         script: 'sed -i "s/0\.0\.0/$(majorMinorPackageVersion).$(Build.BuildId)/g" ruby/gem/trinsic_service_clients.gemspec'
+    - task: CmdLine@2
+      displayName: 'Increment package version number'
+      inputs:
+        script: 'sed -i "s/0\.0\.0/$(majorMinorPackageVersion).$(Build.BuildId)/g" ruby/gem/trinsic_service_clients.gemspec'
 
-#     - script: |
-#         cd ruby/gem && ls
-#       displayName: Navigate to Gem Directory
+    - script: |
+        cd ruby/gem && ls
+      displayName: Navigate to Gem Directory
 
-#     - script: |
-#         gem build trinsic_service_clients.gemspec
-#       displayName: 'Build gem'
+    - script: |
+        gem build trinsic_service_clients.gemspec
+      displayName: 'Build gem'
       
-#     - script: |
-#         cd ../..
-#       displayName: Navigate back to Root
+    - script: |
+        cd ../..
+      displayName: Navigate back to Root
     
-#     - task: CopyFiles@2
-#       inputs:
-#         SourceFolder: 'ruby/gem'
-#         Contents: 'trinsic_service_clients-$(majorMinorPackageVersion).$(Build.BuildId).gem'
-#         targetFolder: $(Build.ArtifactStagingDirectory)
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'ruby/gem'
+        Contents: 'trinsic_service_clients-$(majorMinorPackageVersion).$(Build.BuildId).gem'
+        targetFolder: $(Build.ArtifactStagingDirectory)
 
-#     - task: PublishBuildArtifacts@1
-#       inputs:
-#         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#         ArtifactName: 'ruby'
-#         publishLocation: 'Container'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'ruby'
+        publishLocation: 'Container'
