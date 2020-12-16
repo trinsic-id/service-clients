@@ -607,7 +607,6 @@
     "TenantParameters": {
       "description": "Configuration options for creating new tenant",
       "required": [
-        "endorserType",
         "name"
       ],
       "type": "object",
