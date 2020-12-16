@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Provider API",
-    "description": "An API to manage Self-Sovereign Identity issuers and verifiers",
+    "description": "An API to manage organizations, cloud wallets and networks",
     "termsOfService": "https://trinsic.id/terms-of-service/",
     "contact": {
       "name": "Trinsic Engineering Team",
