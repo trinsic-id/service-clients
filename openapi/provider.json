@@ -11,6 +11,11 @@
     },
     "version": "v1"
   },
+  "host": "api.trinsic.id",
+  "basePath": "/provider/v1",
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/analytics/cloudWallets": {
       "get": {
