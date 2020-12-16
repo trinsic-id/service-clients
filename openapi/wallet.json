@@ -11,6 +11,11 @@
     },
     "version": "v1"
   },
+  "host": "api.trinsic.id",
+  "basePath": "/wallet/v1",
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/api/{walletId}/connections/invitation": {
       "post": {
