@@ -121,10 +121,10 @@ jobs:
 - job: Python
   pool:
     vmImage: 'windows-latest'
-  strategy:
-    matrix:
-      Python36:
-        python.version: '3.6'
+  # strategy:
+  #   matrix:
+  #     Python36:
+  #       python.version: '3.6'
 
   steps:
     - task: UsePythonVersion@0
@@ -139,7 +139,7 @@ jobs:
     - task: Npm@1
       inputs:
         command: 'custom'
-        customCommand: 'install -g autorest@2.0.4413'
+        customCommand: 'install -g autorest@latest'
 
     - task: PowerShell@2
       inputs:
