@@ -121,16 +121,17 @@ jobs:
 - job: Python
   pool:
     vmImage: 'windows-latest'
-  # strategy:
-  #   matrix:
-  #     Python36:
-  #       python.version: '3.6'
+  strategy:
+    matrix:
+      Python36:
+        python.version: '3.6'
 
   steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '3.9.1'
-      displayName: 'Use Python 3.9.1'
+      
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'
 
     - script: |
         python -m pip install --upgrade pip && pip install wheel
@@ -141,19 +142,16 @@ jobs:
         command: 'custom'
         customCommand: 'install -g autorest@2.0.4413'
 
-    - task: PowerShell@2
+    - task: CmdLine@2
       inputs:
-        targetType: 'inline'
         script: 'autorest --python --add-credentials=true --input-file=openapi/credentials.json --output-folder=python/package/trinsic/service_clients --override-client-name=CredentialsClient --package-name=trinsic.service_clients.credentials --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
     
-    - task: PowerShell@2
+    - task: CmdLine@2
       inputs:
-        targetType: 'inline'
         script: 'autorest --python --add-credentials=true --input-file=openapi/wallet.json --output-folder=python/package/trinsic/service_clients --override-client-name=WalletClient --package-name=trinsic.service_clients.wallet --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
-    - task: PowerShell@2
+    - task: CmdLine@2
       inputs:
-        targetType: 'inline'
         script: 'autorest --python --add-credentials=true --input-file=openapi/provider.json --output-folder=python/package/trinsic/service_clients --override-client-name=ProviderClient --package-name=trinsic.service_clients.provider --package-version=$(majorMinorPackageVersion).$(Build.BuildId)'
 
     - task: CmdLine@2
