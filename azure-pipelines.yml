@@ -210,12 +210,8 @@ jobs:
         script: 'sed -i "s/0\.0\.0/$(majorMinorPackageVersion).$(Build.BuildId)/g" ruby/gem/trinsic_service_clients.gemspec'
 
     - script: |
-        cd ruby/gem && ls
-      displayName: Navigate to Gem Directory
-
-    - script: |
-        gem build trinsic_service_clients.gemspec
-      displayName: 'Build gem'
+        cd ruby/gem && ls && gem build trinsic_service_clients.gemspec && cd ../..
+      displayName: Navigate to Gem Directory and Build Gem File
       
     - script: |
         cd ../..
