@@ -338,5 +338,5 @@ python/package/dist
 python/package/build
 python/package/**.egg-info
 
-ruby/gem/lib/generated
+# ruby/gem/lib/generated
 ruby/gem/*.gem
