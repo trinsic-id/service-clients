@@ -18,4 +18,4 @@ else
 fi
 
 # Build gem
-cd gem && gem build trinsic_service_clients.gemspec cd ..
+cd gem && gem build trinsic_service_clients.gemspec && cd ..

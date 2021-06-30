@@ -1,3 +1,13 @@
 source "https://rubygems.org"
 
+gem "timeliness", "~> 0.3.10"
+
+gem "faraday", "~> 1.4"
+
+gem "faraday-cookie_jar", "~> 0.0.7"
+
+gem 'concurrent-ruby', '~> 1.0', '>= 1.0.5'
+
+gem 'ms_rest', '~> 0.7.4'
+
 gemspec
